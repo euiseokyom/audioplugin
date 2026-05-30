@@ -1,0 +1,108 @@
+import type { Retailer } from "@/types";
+
+export const RETAILERS: Retailer[] = [
+  {
+    slug: "plugin-boutique",
+    name: "Plugin Boutique",
+    baseUrl: "https://www.pluginboutique.com",
+    logoUrl: "/logos/plugin-boutique.svg",
+  },
+  {
+    slug: "sweetwater",
+    name: "Sweetwater",
+    baseUrl: "https://www.sweetwater.com",
+    logoUrl: "/logos/sweetwater.svg",
+  },
+  {
+    slug: "plugin-alliance",
+    name: "Plugin Alliance",
+    baseUrl: "https://www.plugin-alliance.com",
+    logoUrl: "/logos/plugin-alliance.svg",
+  },
+  {
+    slug: "adsr",
+    name: "ADSR Sounds",
+    baseUrl: "https://www.adsrsounds.com",
+    logoUrl: "/logos/adsr.svg",
+  },
+  {
+    slug: "audio-plugin-deals",
+    name: "Audio Plugin Deals",
+    baseUrl: "https://www.audioplugindeals.com",
+    logoUrl: "/logos/audio-plugin-deals.svg",
+  },
+  {
+    slug: "pluginfox",
+    name: "PluginFox",
+    baseUrl: "https://www.pluginfox.com",
+    logoUrl: "/logos/pluginfox.svg",
+  },
+  {
+    slug: "thomann",
+    name: "Thomann",
+    baseUrl: "https://www.thomann.de",
+    logoUrl: "/logos/thomann.svg",
+  },
+  {
+    slug: "waves",
+    name: "Waves",
+    baseUrl: "https://www.waves.com",
+    logoUrl: "/logos/waves.svg",
+    isManufacturerDirect: true,
+  },
+  {
+    slug: "native-instruments",
+    name: "Native Instruments",
+    baseUrl: "https://www.native-instruments.com",
+    logoUrl: "/logos/native-instruments.svg",
+    isManufacturerDirect: true,
+  },
+  {
+    slug: "krotos",
+    name: "Krotos",
+    baseUrl: "https://www.krotosaudio.com",
+    logoUrl: "/logos/krotos.svg",
+    isManufacturerDirect: true,
+  },
+  {
+    slug: "toneboosters",
+    name: "Toneboosters",
+    baseUrl: "https://www.toneboosters.com",
+    logoUrl: "/logos/toneboosters.svg",
+    isManufacturerDirect: true,
+  },
+  {
+    slug: "gear4music",
+    name: "Gear4music",
+    baseUrl: "https://www.gear4music.com",
+    logoUrl: "/logos/gear4music.svg",
+  },
+  {
+    slug: "zzounds",
+    name: "zZounds",
+    baseUrl: "https://www.zzounds.com",
+    logoUrl: "/logos/zzounds.svg",
+  },
+  {
+    slug: "guitar-center",
+    name: "Guitar Center",
+    baseUrl: "https://www.guitarcenter.com",
+    logoUrl: "/logos/guitar-center.svg",
+  },
+  {
+    slug: "audio-deluxe",
+    name: "Audio Deluxe",
+    baseUrl: "https://www.audiodeluxe.com",
+    logoUrl: "/logos/audio-deluxe.svg",
+  },
+  {
+    slug: "best-service",
+    name: "Best Service",
+    baseUrl: "https://www.bestservice.com",
+    logoUrl: "/logos/best-service.svg",
+  },
+];
+
+export const RETAILER_MAP = Object.fromEntries(
+  RETAILERS.map((r) => [r.slug, r])
+) as Record<string, Retailer>;
