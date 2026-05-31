@@ -1,4 +1,5 @@
-import NextAuth from "next-auth";
+import type { NextAuthOptions } from "next-auth";
+import { getServerSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import { MongoClient } from "mongodb";
@@ -8,7 +9,7 @@ const clientPromise = client.connect();
 
 const adminEmails = (process.env.ADMIN_EMAILS ?? "").split(",").map((e) => e.trim());
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+export const authOptions: NextAuthOptions = {
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
@@ -28,4 +29,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     signIn: "/",
   },
-});
+};
+
+export async function auth() {
+  return getServerSession(authOptions);
+}
