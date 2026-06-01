@@ -304,19 +304,24 @@ function generatePriceHistory(
   basePrice: number,
   retailerSlug: string,
   productId: mongoose.Types.ObjectId,
-  days = 30
+  days = 30,
+  options?: { isHotDeal?: boolean }
 ) {
   const entries = [];
   const now = new Date();
 
-  // Each retailer has a small price offset (-10% to +5%)
-  const retailerOffset = (Math.sin(retailerSlug.charCodeAt(0) * 137) * 0.075);
+  const retailerOffset = Math.sin(retailerSlug.charCodeAt(0) * 137) * 0.075;
   const baseRetailPrice = Math.round(basePrice * (1 + retailerOffset) * 100) / 100;
 
-  // Sale period: random 5-8 day window within the 30 days
-  const saleStart = Math.floor(Math.random() * 18) + 5;
-  const saleEnd = saleStart + Math.floor(Math.random() * 4) + 4;
-  const saleDiscount = 0.2 + Math.random() * 0.35; // 20–55% off
+  const saleStart = options?.isHotDeal
+    ? 22
+    : Math.floor(Math.random() * 18) + 5;
+  const saleEnd = options?.isHotDeal
+    ? days - 1
+    : saleStart + Math.floor(Math.random() * 4) + 4;
+  const saleDiscount = options?.isHotDeal
+    ? 0.55 + Math.random() * 0.15
+    : 0.2 + Math.random() * 0.35;
 
   for (let i = days - 1; i >= 0; i--) {
     const date = new Date(now);
@@ -324,15 +329,17 @@ function generatePriceHistory(
 
     const dayFromEnd = days - 1 - i;
     const isOnSale = dayFromEnd >= saleStart && dayFromEnd <= saleEnd;
+    const isToday = i === 0;
 
     let price = baseRetailPrice;
     if (isOnSale) {
       price = Math.round(baseRetailPrice * (1 - saleDiscount) * 100) / 100;
     }
 
-    // Add small daily noise ±2%
-    const noise = 1 + (Math.random() - 0.5) * 0.04;
-    price = Math.round(price * noise * 100) / 100;
+    if (!(options?.isHotDeal && isToday && isOnSale)) {
+      const noise = 1 + (Math.random() - 0.5) * 0.04;
+      price = Math.round(price * noise * 100) / 100;
+    }
     price = Math.max(price, 0.99);
 
     entries.push({
@@ -348,6 +355,36 @@ function generatePriceHistory(
   return entries;
 }
 
+const HOT_DEAL_SLUGS = new Set([
+  "serum-xfer-records",
+  "omnisphere-2-spectrasonics",
+  "ozone-11-advanced-izotope",
+  "valhalla-room-valhalla",
+  "soundtoys-5-bundle",
+  "decapitator-soundtoys",
+  "v-collection-x-arturia",
+  "all-access-pass-slate-digital",
+]);
+
+// Products that will have dealEndsAt set within the next 48 hours (hours from now)
+const ENDS_SOON_HOURS = [6, 12, 18, 24, 36, 42];
+const ENDS_SOON_SLUGS = [
+  "serum-xfer-records",
+  "ozone-11-advanced-izotope",
+  "valhalla-room-valhalla",
+  "ssl-g-master-buss-compressor-waves",
+  "soundtoys-5-bundle",
+  "pro-l-2-fabfilter",
+];
+
+function getDealEndsAt(slug: string): Date | undefined {
+  const idx = ENDS_SOON_SLUGS.indexOf(slug);
+  if (idx === -1) return undefined;
+  const date = new Date();
+  date.setHours(date.getHours() + ENDS_SOON_HOURS[idx]);
+  return date;
+}
+
 async function seed() {
   await mongoose.connect(MONGODB_URI);
   console.log("Connected to MongoDB");
@@ -359,7 +396,8 @@ async function seed() {
   const priceEntriesToInsert: object[] = [];
 
   for (const p of PRODUCTS) {
-    const product = await Product.create(p);
+    const dealEndsAt = getDealEndsAt(p.slug);
+    const product = await Product.create({ ...p, ...(dealEndsAt && { dealEndsAt }) });
     console.log(`Created product: ${product.name}`);
 
     const retailers = (RETAILER_ASSIGNMENTS[p.canonicalId] ?? []).map(
@@ -367,7 +405,13 @@ async function seed() {
     );
 
     for (const retailerSlug of retailers) {
-      const entries = generatePriceHistory(p.registeredPrice, retailerSlug, product._id);
+      const entries = generatePriceHistory(
+        p.registeredPrice,
+        retailerSlug,
+        product._id,
+        30,
+        { isHotDeal: HOT_DEAL_SLUGS.has(p.slug) }
+      );
       priceEntriesToInsert.push(...entries);
     }
   }

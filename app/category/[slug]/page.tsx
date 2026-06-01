@@ -13,7 +13,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const name = decodeURIComponent(slug);
   return {
-    title: `${name} Plugins — Deals & Prices | PluginDeals`,
+    title: `${name} Plugins — Deals & Prices | PluginBargains`,
     description: `Browse the best deals on ${name} audio plugins. Compare prices across 16 retailers.`,
   };
 }

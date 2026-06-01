@@ -11,6 +11,7 @@ export interface ProductDocument extends Document {
   salesCount: number;
   tags: string[];
   canonicalId: string;
+  dealEndsAt?: Date;
 }
 
 const ProductSchema = new Schema<ProductDocument>(
@@ -25,6 +26,7 @@ const ProductSchema = new Schema<ProductDocument>(
     salesCount: { type: Number, default: 0, index: true },
     tags: [{ type: String }],
     canonicalId: { type: String, required: true, unique: true, index: true },
+    dealEndsAt: { type: Date, index: true },
   },
   { timestamps: true }
 );

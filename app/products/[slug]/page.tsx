@@ -17,7 +17,7 @@ export async function generateMetadata({
   const product = await getProductBySlug(slug);
   if (!product) return {};
   return {
-    title: `${product.name} — Best Price | PluginDeals`,
+    title: `${product.name} — Best Price | PluginBargains`,
     description: `Compare prices for ${product.name} by ${product.manufacturer} across 16 retailers. Currently from $${product.lowestPrice.toFixed(2)}.`,
   };
 }

@@ -18,6 +18,7 @@ export interface IProduct {
   salesCount: number;
   tags: string[];
   canonicalId: string;
+  dealEndsAt?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -68,6 +69,7 @@ export interface ProductWithPrices extends IProduct {
   currentPrices: IPriceEntry[];
   lowestPrice: number;
   discountPercent: number;
+  isAllTimeLow?: boolean;
 }
 
 export interface PaginatedResponse<T> {

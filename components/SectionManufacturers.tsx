@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SectionHeader from "@/components/SectionHeader";
 
 const MANUFACTURER_COLORS: Record<string, string> = {
   "Xfer Records": "from-violet-500/20 to-purple-500/20 border-violet-500/30",
@@ -23,13 +24,7 @@ interface Props {
 export default function SectionManufacturers({ manufacturers }: Props) {
   return (
     <section id="manufacturers" className="space-y-5">
-      <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2">
-          <span className="text-xl">🏢</span>
-          <h2 className="text-xl font-bold">Browse by Manufacturer</h2>
-        </div>
-        <div className="h-px flex-1 bg-base-300" />
-      </div>
+      <SectionHeader title="Browse by Manufacturer" />
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
         {manufacturers.map((mfr) => {
