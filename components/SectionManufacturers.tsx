@@ -2,19 +2,19 @@ import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 
 const MANUFACTURER_COLORS: Record<string, string> = {
-  "Xfer Records": "from-violet-500/20 to-purple-500/20 border-violet-500/30",
-  Spectrasonics: "from-blue-500/20 to-cyan-500/20 border-blue-500/30",
-  iZotope: "from-emerald-500/20 to-teal-500/20 border-emerald-500/30",
-  FabFilter: "from-orange-500/20 to-amber-500/20 border-orange-500/30",
-  "Valhalla DSP": "from-pink-500/20 to-rose-500/20 border-pink-500/30",
-  Arturia: "from-red-500/20 to-orange-500/20 border-red-500/30",
-  "Native Instruments": "from-yellow-500/20 to-amber-500/20 border-yellow-500/30",
-  Waves: "from-sky-500/20 to-blue-500/20 border-sky-500/30",
-  Soundtoys: "from-indigo-500/20 to-violet-500/20 border-indigo-500/30",
-  "Slate Digital": "from-gray-500/20 to-slate-500/20 border-gray-500/30",
-  "Reveal Sound": "from-green-500/20 to-emerald-500/20 border-green-500/30",
-  Krotos: "from-fuchsia-500/20 to-purple-500/20 border-fuchsia-500/30",
-  "Slate + Ash": "from-teal-500/20 to-cyan-500/20 border-teal-500/30",
+  "Xfer Records": "bg-[#3b0764] hover:bg-[#4c0d8a]",
+  Spectrasonics: "bg-[#1e3a5f] hover:bg-[#254875]",
+  iZotope: "bg-[#064e3b] hover:bg-[#065f46]",
+  FabFilter: "bg-[#7c2d12] hover:bg-[#9a3412]",
+  "Valhalla DSP": "bg-[#831843] hover:bg-[#9d174d]",
+  Arturia: "bg-[#7f1d1d] hover:bg-[#991b1b]",
+  "Native Instruments": "bg-[#78350f] hover:bg-[#92400e]",
+  Waves: "bg-[#1e3a8a] hover:bg-[#1d4ed8]",
+  Soundtoys: "bg-[#312e81] hover:bg-[#3730a3]",
+  "Slate Digital": "bg-[#27272a] hover:bg-[#3f3f46]",
+  "Reveal Sound": "bg-[#14532d] hover:bg-[#166534]",
+  Krotos: "bg-[#701a75] hover:bg-[#86198f]",
+  "Slate + Ash": "bg-[#134e4a] hover:bg-[#115e59]",
 };
 
 interface Props {
@@ -22,25 +22,27 @@ interface Props {
 }
 
 export default function SectionManufacturers({ manufacturers }: Props) {
+  const sorted = [...manufacturers].sort((a, b) =>
+    a.name.localeCompare(b.name),
+  );
+
   return (
     <section id="manufacturers" className="space-y-5">
-      <SectionHeader title="Browse by Manufacturer" />
+      <SectionHeader title="Browse by Manufacturer" pullUp plain />
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-        {manufacturers.map((mfr) => {
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-5">
+        {sorted.map((mfr) => {
           const colorClass =
-            MANUFACTURER_COLORS[mfr.name] ??
-            "from-base-300/50 to-base-200/50 border-base-300";
+            MANUFACTURER_COLORS[mfr.name] ?? "bg-[#27272a] hover:bg-[#3f3f46]";
           return (
             <Link
               key={mfr.name}
               href={`/manufacturer/${encodeURIComponent(mfr.name.toLowerCase())}`}
-              className={`group flex flex-col items-center justify-center gap-1.5 p-4 rounded-xl bg-gradient-to-br border hover:scale-[1.02] transition-all ${colorClass}`}
+              className={`block aspect-square rounded-xl transition-colors ${colorClass}`}
             >
-              <span className="text-sm font-semibold text-center leading-tight group-hover:text-primary transition-colors">
+              <span className="flex h-full w-full items-center justify-center p-5 text-center text-lg sm:text-xl font-bold text-base-100 leading-tight">
                 {mfr.name}
               </span>
-              <span className="text-xs text-base-content/40">{mfr.count} plugins</span>
             </Link>
           );
         })}

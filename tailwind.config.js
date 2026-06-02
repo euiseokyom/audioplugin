@@ -4,11 +4,34 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./lib/**/*.{js,ts}",
   ],
   theme: {
     extend: {
       fontFamily: {
         inter: ["var(--font-inter)", "system-ui", "sans-serif"],
+      },
+      colors: {
+        "base-100":
+          "color-mix(in oklch, var(--color-base-100) calc(<alpha-value> * 100%), transparent)",
+        "base-200":
+          "color-mix(in oklch, var(--color-base-200) calc(<alpha-value> * 100%), transparent)",
+        "base-300":
+          "color-mix(in oklch, var(--color-base-300) calc(<alpha-value> * 100%), transparent)",
+        "base-content":
+          "color-mix(in oklch, var(--color-base-content) calc(<alpha-value> * 100%), transparent)",
+        primary:
+          "color-mix(in oklch, var(--color-primary) calc(<alpha-value> * 100%), transparent)",
+        "primary-content":
+          "color-mix(in oklch, var(--color-primary-content) calc(<alpha-value> * 100%), transparent)",
+        secondary:
+          "color-mix(in oklch, var(--color-secondary) calc(<alpha-value> * 100%), transparent)",
+        "secondary-content":
+          "color-mix(in oklch, var(--color-secondary-content) calc(<alpha-value> * 100%), transparent)",
+        accent:
+          "color-mix(in oklch, var(--color-accent) calc(<alpha-value> * 100%), transparent)",
+        "accent-content":
+          "color-mix(in oklch, var(--color-accent-content) calc(<alpha-value> * 100%), transparent)",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -21,12 +44,12 @@ module.exports = {
       },
       keyframes: {
         "bell-swing": {
-          "0%":   { transform: "rotate(0deg)" },
-          "15%":  { transform: "rotate(22deg)" },
-          "35%":  { transform: "rotate(-18deg)" },
-          "55%":  { transform: "rotate(12deg)" },
-          "70%":  { transform: "rotate(-7deg)" },
-          "85%":  { transform: "rotate(3deg)" },
+          "0%": { transform: "rotate(0deg)" },
+          "15%": { transform: "rotate(22deg)" },
+          "35%": { transform: "rotate(-18deg)" },
+          "55%": { transform: "rotate(12deg)" },
+          "70%": { transform: "rotate(-7deg)" },
+          "85%": { transform: "rotate(3deg)" },
           "100%": { transform: "rotate(0deg)" },
         },
       },
@@ -35,5 +58,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require("daisyui").default({
+      themes: ["nord --default"],
+    }),
+  ],
 };

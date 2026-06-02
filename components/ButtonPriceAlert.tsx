@@ -24,6 +24,7 @@ export default function ButtonPriceAlert({
   const [isLoading, setIsLoading] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const [error, setError] = useState("");
+  const [isFavorited, setIsFavorited] = useState(false);
 
   async function handleSetAlert() {
     if (!session) {
@@ -53,20 +54,41 @@ export default function ButtonPriceAlert({
 
   return (
     <>
-      <button
-        onClick={() => (session ? setIsOpen(true) : signIn("google"))}
-        className="btn btn-outline btn-sm gap-2"
-      >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
+      <div className="flex items-center justify-end gap-3">
+        <button
+          onClick={() => (session ? setIsOpen(true) : signIn("google"))}
+          aria-label="Set price alert"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-base-content/30 bg-base-200 text-base-content hover:bg-base-300 transition-colors"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+            />
+          </svg>
+        </button>
+
+        <button
+          onClick={() => setIsFavorited((prev) => !prev)}
+          aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-base-content/30 bg-base-200 text-base-content hover:bg-base-300 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill={isFavorited ? "currentColor" : "none"}
+            stroke="currentColor"
+            strokeWidth={2}
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth={2}
-            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-          />
-        </svg>
-        Set Price Alert
-      </button>
+            className={`w-6 h-6 transition-colors ${isFavorited ? "text-red-500" : "text-base-content"}`}
+          >
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+        </button>
+      </div>
 
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">

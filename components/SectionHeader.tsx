@@ -1,21 +1,45 @@
 interface Props {
   title: string;
   subtitle?: string;
+  pullUp?: boolean;
+  plain?: boolean;
 }
 
-export default function SectionHeader({ title, subtitle }: Props) {
+export default function SectionHeader({
+  title,
+  subtitle,
+  pullUp,
+  plain,
+}: Props) {
+  if (plain)
+    return (
+      <div className={`pt-10 pb-6 text-center${pullUp ? " -mt-5" : ""}`}>
+        <hr className="border-t-2 border-base-content/35 mb-10" />
+        <h2 className="antialiased font-inter text-4xl sm:text-4xl font-bold tracking-normal text-base-content">
+          {title}
+        </h2>
+        {subtitle && (
+          <p className="text-sm sm:text-base text-base-content/50 mt-1.5">
+            {subtitle}
+          </p>
+        )}
+      </div>
+    );
+
   return (
-    <div className="w-screen relative left-1/2 -translate-x-1/2 text-white py-12 sm:py-12 text-center bg-[#080808] overflow-hidden">
+    <div
+      className={`w-screen relative left-1/2 -translate-x-1/2 text-white py-10 sm:py-10 text-center bg-[#080808] overflow-hidden${pullUp ? " -mt-5" : ""}`}
+    >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_110%_150%_at_100%_0%,rgba(105,44,22,0.62)_0%,rgba(75,32,16,0.52)_30%,rgba(35,14,6,0.22)_55%,transparent_85%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_125%_155%_at_100%_0%,rgba(58,22,8,0.88)_0%,rgba(42,16,6,0.74)_32%,rgba(22,8,3,0.48)_60%,rgba(10,3,1,0.24)_85%,transparent_95%)]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_110%_150%_at_0%_0%,rgba(10,42,58,0.8)_0%,rgba(8,30,45,0.5)_30%,rgba(4,18,28,0.22)_55%,transparent_85%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_125%_155%_at_0%_0%,rgba(10,42,58,0.8)_0%,rgba(8,30,45,0.5)_32%,rgba(4,18,28,0.22)_60%,transparent_90%)]"
       />
       <div className="relative">
-        <h2 className="font-inter text-5xl sm:text-5xl font-semibold tracking-normal">
+        <h2 className="antialiased font-inter text-4xl sm:text-4xl font-bold tracking-normal">
           {title}
         </h2>
         {subtitle && (

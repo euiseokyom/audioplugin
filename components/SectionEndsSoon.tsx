@@ -10,11 +10,16 @@ interface Props {
 export default function SectionEndsSoon({ products }: Props) {
   return (
     <section id="ends-soon" className="space-y-5">
-      <SectionHeader title="Ends Soon" />
+      <SectionHeader title="Ends Soon" pullUp plain />
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-start gap-3 sm:gap-4 pt-5">
         {products.map((product) => (
-          <CardProduct key={product._id} product={product} />
+          <CardProduct
+            key={product._id}
+            product={product}
+            plain
+            compactContent
+          />
         ))}
       </div>
 

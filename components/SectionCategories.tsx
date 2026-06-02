@@ -1,42 +1,27 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 
-const CATEGORY_ICONS: Record<string, string> = {
-  Synthesizer: "🎹",
-  EQ: "🎚️",
-  Compressor: "🎛️",
-  Reverb: "🌊",
-  Delay: "🔁",
-  Mastering: "💿",
-  Limiter: "📊",
-  Saturation: "🔥",
-  Sampler: "🥁",
-  Bundle: "📦",
-  Modular: "⚡",
-  "Audio Repair": "🔧",
-  "Sound Design": "🎨",
-  "Sample Library": "🎵",
-};
-
 interface Props {
   categories: { name: string; count: number }[];
 }
 
 export default function SectionCategories({ categories }: Props) {
+  const sorted = [...categories].sort((a, b) => a.name.localeCompare(b.name));
+
   return (
     <section id="categories" className="space-y-5">
-      <SectionHeader title="Browse by Category" />
+      <SectionHeader title="Browse by Category" pullUp plain />
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
-        {categories.map((cat) => (
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 pt-5">
+        {sorted.map((cat) => (
           <Link
             key={cat.name}
             href={`/category/${encodeURIComponent(cat.name.toLowerCase())}`}
-            className="group flex flex-col items-center gap-2 p-4 rounded-xl bg-base-200 border border-base-300 hover:border-primary/50 hover:bg-base-300 transition-all text-center"
+            className="block aspect-square rounded-xl bg-[#404040] hover:bg-[#525252] transition-colors"
           >
-            <span className="text-2xl">{CATEGORY_ICONS[cat.name] ?? "🎧"}</span>
-            <span className="text-sm font-medium leading-tight">{cat.name}</span>
-            <span className="text-xs text-base-content/40">{cat.count}</span>
+            <span className="flex h-full w-full items-center justify-center p-4 text-center text-lg sm:text-xl font-bold text-base-100 leading-tight">
+              {cat.name}
+            </span>
           </Link>
         ))}
       </div>

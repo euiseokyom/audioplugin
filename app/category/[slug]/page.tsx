@@ -58,7 +58,7 @@ export default async function CategoryPage({
           No plugins found in this category.
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {result.data.map((product) => (
             <CardProduct key={product._id} product={product} />
           ))}

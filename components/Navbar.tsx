@@ -5,6 +5,7 @@ import { useSession, signOut } from "next-auth/react";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { PAGE_CONTAINER } from "@/lib/layout";
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -13,8 +14,19 @@ export default function Navbar() {
     { name: string; slug: string; image: string; manufacturer: string }[]
   >([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > 0);
+    }
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     if (!query.trim()) {
@@ -48,11 +60,17 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-base-100/90 backdrop-blur-md border-b border-base-300">
-      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+    <header
+      className={`sticky top-0 z-50 bg-base-100/90 backdrop-blur-md transition-[border-color] ${
+        isScrolled ? "border-b border-base-300" : "border-b-0"
+      }`}
+    >
+      <div
+        className={`${PAGE_CONTAINER} h-16 flex items-center justify-between gap-4`}
+      >
         <Link
           href="/"
-          className="font-inter font-bold text-lg tracking-tight shrink-0"
+          className="antialiased font-inter font-bold text-lg tracking-tight shrink-0"
         >
           PluginBargains
         </Link>
@@ -65,7 +83,7 @@ export default function Navbar() {
             <form onSubmit={handleSearch}>
               <div className="relative">
                 <svg
-                  className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-base-content/40"
+                  className="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 w-4 h-4 text-base-content/60"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -80,7 +98,7 @@ export default function Navbar() {
                 <input
                   type="text"
                   placeholder="Search plugins"
-                  className="input input-sm w-full pl-9 bg-base-200 border-base-300 focus:border-primary focus:outline-none rounded-lg"
+                  className="input input-sm w-full pl-9 bg-base-200 border-base-300 focus:border-primary focus:outline-none rounded-lg placeholder:text-sm placeholder:text-base-content/40"
                   value={query}
                   onChange={(e) => {
                     setQuery(e.target.value);

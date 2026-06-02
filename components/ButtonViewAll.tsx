@@ -4,12 +4,12 @@ interface Props {
 
 export default function ButtonViewAll({ href }: Props) {
   return (
-    <div className="flex justify-center pt-1">
+    <div className="flex justify-center pt-4">
       <a
         href={href}
-        className="inline-flex items-center justify-center gap-2.5 px-12 py-5 bg-black text-white font-bold text-lg sm:text-xl hover:bg-neutral-900 transition-colors"
+        className="inline-flex items-center justify-center gap-2 px-24 py-3.5 bg-neutral text-base-100 font-bold text-base sm:text-lg tracking-wide  transition-colors duration-150 hover:bg-base-content"
       >
-        View all
+        VIEW MORE
         <svg
           className="h-[0.65em] w-[0.45em] shrink-0"
           viewBox="0 0 10 14"
