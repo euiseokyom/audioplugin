@@ -3,6 +3,8 @@ interface Props {
   subtitle?: string;
   pullUp?: boolean;
   plain?: boolean;
+  compact?: boolean;
+  divider?: boolean;
 }
 
 export default function SectionHeader({
@@ -10,11 +12,17 @@ export default function SectionHeader({
   subtitle,
   pullUp,
   plain,
+  compact,
+  divider = false,
 }: Props) {
   if (plain)
     return (
-      <div className={`pt-10 pb-6 text-center${pullUp ? " -mt-5" : ""}`}>
-        <hr className="border-t-2 border-base-content/35 mb-10" />
+      <div
+        className={`text-center${compact ? " pt-14 pb-3" : " pt-16 pb-5"}${pullUp ? " -mt-5" : ""}`}
+      >
+        {divider && (
+          <hr className="border-t-2 border-base-content/35 mb-10" />
+        )}
         <h2 className="antialiased font-inter text-4xl sm:text-4xl font-bold tracking-normal text-base-content">
           {title}
         </h2>
@@ -28,7 +36,7 @@ export default function SectionHeader({
 
   return (
     <div
-      className={`w-screen relative left-1/2 -translate-x-1/2 text-white py-10 sm:py-10 text-center bg-[#080808] overflow-hidden${pullUp ? " -mt-5" : ""}`}
+      className={`w-screen relative left-1/2 -translate-x-1/2 text-white pt-16 pb-9 sm:pt-16 sm:pb-9 text-center bg-[#080808] overflow-hidden${pullUp ? " -mt-5" : ""}`}
     >
       <div
         aria-hidden

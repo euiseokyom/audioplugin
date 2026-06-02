@@ -60,7 +60,7 @@ module.exports = {
   },
   plugins: [
     require("daisyui").default({
-      themes: ["nord --default"],
+      themes: ["silk --default"],
     }),
   ],
 };

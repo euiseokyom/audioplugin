@@ -2,57 +2,85 @@ import { Suspense } from "react";
 import {
   getProducts,
   getHotDeals,
-  getEndsSoonDeals,
+  type ProductFilter,
+  type ProductSort,
 } from "@/services/products";
 import CardProduct from "@/components/CardProduct";
+import SearchFiltersBar from "@/components/SearchFiltersBar";
 import SectionHeader from "@/components/SectionHeader";
 import { PAGE_CONTAINER } from "@/lib/layout";
+import { parseProductFilters } from "@/lib/search-filters";
 import type { ProductWithPrices } from "@/types";
 
 export const revalidate = 60;
 
-const FILTER_TITLES: Record<string, string> = {
-  hot: "Hot Deals",
+const FILTER_TITLES: Record<ProductFilter, string> = {
   "ends-soon": "Ends Soon",
+  "lowest-ever": "Lowest Ever",
+  "recently-added": "Recently Added",
 };
 
+const VALID_SORTS: ProductSort[] = [
+  "price-asc",
+  "price-desc",
+  "newest",
+  "ending-soon",
+];
+
 const PRODUCT_GRID_CLASS =
-  "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-start gap-3 sm:gap-4 pt-5";
+  "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-start gap-3 sm:gap-4";
 
 async function getFilteredResults(
-  filter: string | undefined,
+  isHotFilter: boolean,
   q: string,
-  sort: "deals" | "bestseller" | "newest",
+  sort: ProductSort,
+  productFilters: ProductFilter[],
 ): Promise<{ data: ProductWithPrices[]; total: number }> {
-  if (filter === "hot") {
+  if (isHotFilter) {
     const result = await getHotDeals(40);
     return { data: result.data, total: result.total };
   }
-  if (filter === "ends-soon") {
-    const result = await getEndsSoonDeals(40);
-    return { data: result.data, total: result.total };
-  }
-  const result = await getProducts({ q, sort, pageSize: 40 });
+
+  const result = await getProducts({
+    q,
+    sort,
+    filters: productFilters,
+    pageSize: 40,
+  });
   return { data: result.data, total: result.total };
+}
+
+function getPageTitle(
+  isHotFilter: boolean,
+  productFilters: ProductFilter[],
+  q: string,
+): string {
+  if (isHotFilter) return "Hot Deals";
+  if (productFilters.length === 1) return FILTER_TITLES[productFilters[0]];
+  if (productFilters.length > 1) return "Filtered Results";
+  if (q) return `Results for "${q}"`;
+  return "All Plugins";
 }
 
 async function SearchResults({
   q,
   sort,
-  filter,
+  isHotFilter,
+  productFilters,
 }: {
   q: string;
-  sort: "deals" | "bestseller" | "newest";
-  filter?: string;
+  sort: ProductSort;
+  isHotFilter: boolean;
+  productFilters: ProductFilter[];
 }) {
-  const result = await getFilteredResults(filter, q, sort);
+  const result = await getFilteredResults(isHotFilter, q, sort, productFilters);
 
   if (result.data.length === 0) {
     return (
       <div className="text-center py-20">
         <p className="text-4xl mb-4">🔍</p>
         <p className="text-base-content/60">
-          {filter
+          {isHotFilter || productFilters.length > 0
             ? "No plugins match this filter right now."
             : `No plugins found for "${q}"`}
         </p>
@@ -64,89 +92,69 @@ async function SearchResults({
   }
 
   return (
-    <>
-      {!filter && q && (
-        <p className="text-sm text-base-content/50">
-          {result.total} result{result.total !== 1 ? "s" : ""} for &ldquo;{q}
-          &rdquo;
-        </p>
-      )}
-      <div className={PRODUCT_GRID_CLASS}>
-        {result.data.map((product) => (
-          <CardProduct
-            key={product._id}
-            product={product}
-            plain
-            compactContent
-          />
-        ))}
-      </div>
-    </>
+    <div className={PRODUCT_GRID_CLASS}>
+      {result.data.map((product) => (
+        <CardProduct key={product._id} product={product} />
+      ))}
+    </div>
   );
 }
 
 export default async function SearchPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; sort?: string; filter?: string }>;
+  searchParams: Promise<{
+    q?: string;
+    sort?: string;
+    filter?: string | string[];
+  }>;
 }) {
-  const { q = "", sort = "deals", filter } = await searchParams;
-  const validFilter =
-    filter === "hot" || filter === "ends-soon" ? filter : undefined;
-  const validSort = (["deals", "bestseller", "newest"] as const).includes(
-    sort as "deals" | "bestseller" | "newest",
-  )
-    ? (sort as "deals" | "bestseller" | "newest")
-    : "deals";
+  const { q = "", sort = "price-asc", filter } = await searchParams;
+  const isHotFilter = filter === "hot";
+  const productFilters = isHotFilter ? [] : parseProductFilters(filter);
+  const validSort = VALID_SORTS.includes(sort as ProductSort)
+    ? (sort as ProductSort)
+    : "price-asc";
 
-  const pageTitle = validFilter
-    ? FILTER_TITLES[validFilter]
-    : q
-      ? `Results for "${q}"`
-      : "All Plugins";
+  const pageTitle = getPageTitle(isHotFilter, productFilters, q);
 
   return (
-    <div className={`${PAGE_CONTAINER} py-10`}>
-      <section className="space-y-5">
+    <div className={`${PAGE_CONTAINER} pt-8 pb-10`}>
+      <section>
         <SectionHeader
           title={pageTitle}
           plain
-          pullUp={validFilter === "ends-soon"}
+          compact
+          pullUp={productFilters.includes("ends-soon")}
         />
 
-        {!validFilter && (
-          <div className="flex justify-end">
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-base-content/50">Sort by:</span>
-              <div className="flex gap-1">
-                {(["deals", "newest"] as const).map((s) => (
-                  <a
-                    key={s}
-                    href={`/search?q=${encodeURIComponent(q)}&sort=${s}`}
-                    className={`btn btn-xs ${validSort === s ? "btn-primary" : "btn-ghost"}`}
-                  >
-                    {s === "deals" ? "Best Deals" : "Newest"}
-                  </a>
-                ))}
-              </div>
-            </div>
+        {!isHotFilter && (
+          <div className="mt-8">
+            <SearchFiltersBar q={q} sort={validSort} filters={productFilters} />
           </div>
         )}
 
-        <Suspense
-          fallback={
-            <div className={PRODUCT_GRID_CLASS}>
-              {[...Array(8)].map((_, i) => (
-                <div
-                  key={i}
-                  className="rounded-lg bg-base-300 aspect-square animate-pulse"
-                />
-              ))}
-            </div>
-          }
-        >
-          <SearchResults q={q} sort={validSort} filter={validFilter} />
-        </Suspense>
+        <div className="mt-6">
+          <Suspense
+            fallback={
+              <div className={PRODUCT_GRID_CLASS}>
+                {[...Array(8)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="rounded-lg bg-base-300 aspect-square animate-pulse"
+                  />
+                ))}
+              </div>
+            }
+          >
+            <SearchResults
+              q={q}
+              sort={validSort}
+              isHotFilter={isHotFilter}
+              productFilters={productFilters}
+            />
+          </Suspense>
+        </div>
       </section>
     </div>
   );

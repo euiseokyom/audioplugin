@@ -12,7 +12,7 @@ export default function SectionCategories({ categories }: Props) {
     <section id="categories" className="space-y-5">
       <SectionHeader title="Browse by Category" pullUp plain />
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 pt-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 pt-4">
         {sorted.map((cat) => (
           <Link
             key={cat.name}

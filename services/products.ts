@@ -1,9 +1,53 @@
 import { connectDB } from "@/lib/db";
 import Product from "@/models/Product";
 import PriceEntry from "@/models/PriceEntry";
+import { ENDS_SOON_SLUGS, getEndsSoonDealEndDate } from "@/lib/ends-soon";
 import { RETAILER_MAP } from "@/lib/retailers";
 import type { ProductWithPrices, IPriceEntry, IProduct } from "@/types";
 import mongoose from "mongoose";
+
+export type ProductSort =
+  | "deals"
+  | "bestseller"
+  | "newest"
+  | "price-asc"
+  | "price-desc"
+  | "ending-soon";
+
+export type ProductFilter = "ends-soon" | "lowest-ever" | "recently-added";
+
+const RECENTLY_ADDED_DAYS = 30;
+
+function sortEnrichedProducts(
+  data: ProductWithPrices[],
+  sort: ProductSort,
+): ProductWithPrices[] {
+  const sorted = [...data];
+
+  switch (sort) {
+    case "price-asc":
+      return sorted.sort((a, b) => a.lowestPrice - b.lowestPrice);
+    case "price-desc":
+      return sorted.sort((a, b) => b.lowestPrice - a.lowestPrice);
+    case "newest":
+      return sorted.sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      );
+    case "ending-soon":
+      return sorted.sort((a, b) => {
+        if (!a.dealEndsAt && !b.dealEndsAt) return 0;
+        if (!a.dealEndsAt) return 1;
+        if (!b.dealEndsAt) return -1;
+        return new Date(a.dealEndsAt).getTime() - new Date(b.dealEndsAt).getTime();
+      });
+    case "deals":
+      return sorted.sort((a, b) => b.discountPercent - a.discountPercent);
+    case "bestseller":
+      return sorted.sort((a, b) => b.salesCount - a.salesCount);
+    default:
+      return sorted;
+  }
+}
 
 async function enrichProductsWithPrices(products: unknown[]): Promise<ProductWithPrices[]> {
   if (products.length === 0) return [];
@@ -75,27 +119,97 @@ async function getHistoricalMinPrices(
   );
 }
 
+function applyAllTimeLow(
+  withPrices: ProductWithPrices[],
+  minPrices: Map<string, number>
+): ProductWithPrices[] {
+  return withPrices.map((p) => {
+    const historicalMin = minPrices.get(p._id);
+    const isAllTimeLow =
+      historicalMin !== undefined && p.lowestPrice <= historicalMin + 0.01;
+    return { ...p, isAllTimeLow };
+  });
+}
+
 export async function getProducts({
   category,
   manufacturer,
   q,
   sort = "deals",
+  filter: productFilter,
+  filters: productFilters,
   page = 1,
   pageSize = 20,
 }: {
   category?: string;
   manufacturer?: string;
   q?: string;
-  sort?: "deals" | "bestseller" | "newest";
+  sort?: ProductSort;
+  filter?: ProductFilter;
+  filters?: ProductFilter[];
   page?: number;
   pageSize?: number;
 } = {}) {
   await connectDB();
 
+  const activeFilters =
+    productFilters ??
+    (productFilter !== undefined ? [productFilter] : []);
+
   const filter: Record<string, unknown> = {};
   if (category) filter.category = category;
   if (manufacturer) filter.manufacturer = manufacturer;
-  if (q) filter.$text = { $search: q };
+  if (q) {
+    filter.$or = [
+      { name: { $regex: q, $options: "i" } },
+      { manufacturer: { $regex: q, $options: "i" } },
+    ];
+  }
+
+  if (activeFilters.includes("ends-soon")) {
+    const now = new Date();
+    const in48h = new Date(now.getTime() + 48 * 60 * 60 * 1000);
+    await refreshStaleEndsSoonDeals(now);
+    filter.dealEndsAt = { $gte: now, $lte: in48h };
+  }
+
+  if (activeFilters.includes("recently-added")) {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - RECENTLY_ADDED_DAYS);
+    filter.createdAt = { $gte: cutoff };
+  }
+
+  const needsPostProcess =
+    sort === "price-asc" ||
+    sort === "price-desc" ||
+    sort === "ending-soon" ||
+    sort === "deals" ||
+    activeFilters.includes("lowest-ever");
+
+  if (needsPostProcess) {
+    const products = await Product.find(filter).lean();
+    const withPrices = await enrichProductsWithPrices(products);
+    const minPrices = await getHistoricalMinPrices(
+      products.map((p) => p._id as mongoose.Types.ObjectId),
+    );
+    let data = applyAllTimeLow(withPrices, minPrices);
+
+    if (activeFilters.includes("lowest-ever")) {
+      data = data.filter((p) => p.isAllTimeLow);
+    }
+
+    const sorted = sortEnrichedProducts(data, sort);
+    const total = sorted.length;
+    const offset = (page - 1) * pageSize;
+
+    return {
+      data: sorted.slice(offset, offset + pageSize),
+      total,
+      page,
+      pageSize,
+      hasMore: offset + pageSize < total,
+    };
+  }
 
   const sortOption: Record<string, 1 | -1> =
     sort === "bestseller"
@@ -114,13 +228,13 @@ export async function getProducts({
   ]);
 
   const withPrices = await enrichProductsWithPrices(products);
-
-  if (sort === "deals") {
-    withPrices.sort((a, b) => b.discountPercent - a.discountPercent);
-  }
+  const minPrices = await getHistoricalMinPrices(
+    products.map((p) => p._id as mongoose.Types.ObjectId),
+  );
+  const data = applyAllTimeLow(withPrices, minPrices);
 
   return {
-    data: withPrices,
+    data,
     total,
     page,
     pageSize,
@@ -196,13 +310,7 @@ export async function getHotDeals(limit = 8) {
   const withPrices = await enrichProductsWithPrices(products);
   const minPrices = await getHistoricalMinPrices(products.map((p) => p._id));
 
-  const hot = withPrices
-    .map((p) => {
-      const historicalMin = minPrices.get(p._id);
-      const isAllTimeLow =
-        historicalMin !== undefined && p.lowestPrice <= historicalMin + 0.01;
-      return { ...p, isAllTimeLow };
-    })
+  const hot = applyAllTimeLow(withPrices, minPrices)
     .filter((p) => p.discountPercent > 50 || p.isAllTimeLow)
     .sort((a, b) => b.discountPercent - a.discountPercent);
 
@@ -215,11 +323,28 @@ export async function getHotDeals(limit = 8) {
   };
 }
 
+async function refreshStaleEndsSoonDeals(now: Date) {
+  const stale = await Product.find({
+    slug: { $in: [...ENDS_SOON_SLUGS] },
+    $or: [{ dealEndsAt: { $exists: false } }, { dealEndsAt: { $lte: now } }],
+  }).lean();
+
+  await Promise.all(
+    stale.map((p) => {
+      const dealEndsAt = getEndsSoonDealEndDate(p.slug, now);
+      if (!dealEndsAt) return Promise.resolve();
+      return Product.updateOne({ _id: p._id }, { $set: { dealEndsAt } });
+    }),
+  );
+}
+
 export async function getEndsSoonDeals(limit = 8) {
   await connectDB();
 
   const now = new Date();
   const in48h = new Date(now.getTime() + 48 * 60 * 60 * 1000);
+
+  await refreshStaleEndsSoonDeals(now);
 
   const products = await Product.find({
     dealEndsAt: { $gte: now, $lte: in48h },
@@ -230,12 +355,7 @@ export async function getEndsSoonDeals(limit = 8) {
   const withPrices = await enrichProductsWithPrices(products);
   const minPrices = await getHistoricalMinPrices(products.map((p) => p._id));
 
-  const mapped = withPrices.map((p) => {
-    const historicalMin = minPrices.get(p._id);
-    const isAllTimeLow =
-      historicalMin !== undefined && p.lowestPrice <= historicalMin + 0.01;
-    return { ...p, isAllTimeLow };
-  });
+  const mapped = applyAllTimeLow(withPrices, minPrices);
 
   mapped.sort((a, b) => {
     if (!a.dealEndsAt || !b.dealEndsAt) return 0;

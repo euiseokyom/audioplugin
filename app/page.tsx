@@ -6,6 +6,7 @@ import SectionEndsSoon from "@/components/SectionEndsSoon";
 import SectionCategories from "@/components/SectionCategories";
 import SectionManufacturers from "@/components/SectionManufacturers";
 import SectionSignIn from "@/components/SectionSignIn";
+import SearchBox from "@/components/SearchBox";
 import { PAGE_CONTAINER } from "@/lib/layout";
 
 export const revalidate = 3600;
@@ -26,12 +27,14 @@ export default async function HomePage() {
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
             Save Money on Plugins
             <br className="hidden sm:block" />
-            Stop Wasting Time Comparing
+            Save Time Comparing Prices
           </h1>
           <p className="text-base-content/60 max-w-xl mx-auto text-2xl font-medium">
             Best audio plugin deals in one place.
           </p>
         </div>
+
+        <SearchBox className="mx-auto w-full max-w-xl" inputClassName="input-md" />
 
         <SectionHotDeals products={hotDeals.data} />
 

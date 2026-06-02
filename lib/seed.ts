@@ -6,6 +6,7 @@
 import mongoose from "mongoose";
 import Product from "@/models/Product";
 import PriceEntry from "@/models/PriceEntry";
+import { getEndsSoonDealEndDate } from "@/lib/ends-soon";
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/audioplugin";
 
@@ -366,24 +367,6 @@ const HOT_DEAL_SLUGS = new Set([
   "all-access-pass-slate-digital",
 ]);
 
-// Products that will have dealEndsAt set within the next 48 hours (hours from now)
-const ENDS_SOON_HOURS = [6, 12, 18, 24, 36, 42];
-const ENDS_SOON_SLUGS = [
-  "serum-xfer-records",
-  "ozone-11-advanced-izotope",
-  "valhalla-room-valhalla",
-  "ssl-g-master-buss-compressor-waves",
-  "soundtoys-5-bundle",
-  "pro-l-2-fabfilter",
-];
-
-function getDealEndsAt(slug: string): Date | undefined {
-  const idx = ENDS_SOON_SLUGS.indexOf(slug);
-  if (idx === -1) return undefined;
-  const date = new Date();
-  date.setHours(date.getHours() + ENDS_SOON_HOURS[idx]);
-  return date;
-}
 
 async function seed() {
   await mongoose.connect(MONGODB_URI);
@@ -396,7 +379,7 @@ async function seed() {
   const priceEntriesToInsert: object[] = [];
 
   for (const p of PRODUCTS) {
-    const dealEndsAt = getDealEndsAt(p.slug);
+    const dealEndsAt = getEndsSoonDealEndDate(p.slug);
     const product = await Product.create({ ...p, ...(dealEndsAt && { dealEndsAt }) });
     console.log(`Created product: ${product.name}`);
 

@@ -30,7 +30,7 @@ export default function SectionManufacturers({ manufacturers }: Props) {
     <section id="manufacturers" className="space-y-5">
       <SectionHeader title="Browse by Manufacturer" pullUp plain />
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-5">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
         {sorted.map((mfr) => {
           const colorClass =
             MANUFACTURER_COLORS[mfr.name] ?? "bg-[#27272a] hover:bg-[#3f3f46]";
