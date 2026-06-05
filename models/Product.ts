@@ -12,6 +12,8 @@ export interface ProductDocument extends Document {
   tags: string[];
   canonicalId: string;
   dealEndsAt?: Date;
+  /** Per-retailer product page URLs (e.g. plugin-boutique PDP). */
+  retailerUrls?: Map<string, string>;
 }
 
 const ProductSchema = new Schema<ProductDocument>(
@@ -27,6 +29,11 @@ const ProductSchema = new Schema<ProductDocument>(
     tags: [{ type: String }],
     canonicalId: { type: String, required: true, unique: true, index: true },
     dealEndsAt: { type: Date, index: true },
+    retailerUrls: {
+      type: Map,
+      of: String,
+      default: undefined,
+    },
   },
   { timestamps: true }
 );

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getProducts } from "@/services/products";
 import { getManufacturers } from "@/services/manufacturers";
-import CardProduct from "@/components/CardProduct";
+import ProductGridWithLoadMore from "@/components/ProductGridWithLoadMore";
 
 export const revalidate = 3600;
 
@@ -26,18 +26,18 @@ export default async function ManufacturerPage({
   const { slug } = await params;
   const manufacturerName = decodeURIComponent(slug);
 
-  const [result, allManufacturers] = await Promise.all([
-    getProducts({ manufacturer: manufacturerName, pageSize: 40 }),
-    getManufacturers(),
-  ]);
-
+  const allManufacturers = await getManufacturers();
   const matched = allManufacturers.find(
     (m) => m.name.toLowerCase() === manufacturerName.toLowerCase()
   );
+  const displayName = matched?.name ?? manufacturerName;
+
+  const result = await getProducts({
+    manufacturer: displayName,
+    pageSize: 40,
+  });
 
   if (!matched && result.data.length === 0) notFound();
-
-  const displayName = matched?.name ?? manufacturerName;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10 space-y-8">
@@ -58,11 +58,12 @@ export default async function ManufacturerPage({
           No plugins found for this manufacturer.
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-start gap-3 sm:gap-4">
-          {result.data.map((product) => (
-            <CardProduct key={product._id} product={product} />
-          ))}
-        </div>
+        <ProductGridWithLoadMore
+          initialProducts={result.data}
+          total={result.total}
+          pageSize={40}
+          fetchParams={{ manufacturer: displayName, sort: "deals" }}
+        />
       )}
     </div>
   );

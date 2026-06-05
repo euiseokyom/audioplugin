@@ -98,6 +98,7 @@ export default function SearchBox({ className = "", inputClassName = "" }: Props
                 alt={r.name}
                 width={36}
                 height={36}
+                unoptimized
                 className="rounded object-cover"
               />
               <div>

@@ -1,3 +1,4 @@
+import { resolveProductImageSrc } from "@/lib/catalog/product-image-path";
 import { connectDB } from "@/lib/db";
 import Product from "@/models/Product";
 import PriceEntry from "@/models/PriceEntry";
@@ -17,6 +18,18 @@ export type ProductSort =
 export type ProductFilter = "ends-soon" | "lowest-ever" | "recently-added";
 
 const RECENTLY_ADDED_DAYS = 30;
+
+function withResolvedImage<T extends {
+  image: string;
+  slug: string;
+  canonicalId?: string;
+  manufacturer?: string;
+}>(product: T): T {
+  return {
+    ...product,
+    image: resolveProductImageSrc(product),
+  };
+}
 
 function sortEnrichedProducts(
   data: ProductWithPrices[],
@@ -94,13 +107,13 @@ async function enrichProductsWithPrices(products: unknown[]): Promise<ProductWit
     const discountPercent = Math.round(
       ((p.registeredPrice - lowestPrice) / p.registeredPrice) * 100
     );
-    return {
+    return withResolvedImage({
       ...p,
       _id: id,
       currentPrices: prices,
       lowestPrice,
       discountPercent,
-    };
+    });
   });
 }
 
@@ -284,23 +297,33 @@ export async function getProductBySlug(slug: string): Promise<ProductWithPrices 
     ((product.registeredPrice - lowestPrice) / product.registeredPrice) * 100
   );
 
-  return {
+  return withResolvedImage({
     ...(product as unknown as IProduct),
     _id: id,
     currentPrices,
     lowestPrice,
     discountPercent,
-  };
+  });
 }
 
 export async function searchProducts(q: string, limit = 10) {
   await connectDB();
-  return Product.find(
+  const results = await Product.find(
     { $or: [{ name: { $regex: q, $options: "i" } }, { manufacturer: { $regex: q, $options: "i" } }] },
-    { name: 1, slug: 1, image: 1, manufacturer: 1 }
+    { name: 1, slug: 1, image: 1, manufacturer: 1, canonicalId: 1 }
   )
     .limit(limit)
     .lean();
+
+  return results.map((r) =>
+    withResolvedImage({
+      name: r.name,
+      slug: r.slug,
+      image: r.image,
+      manufacturer: r.manufacturer,
+      canonicalId: r.canonicalId,
+    }),
+  );
 }
 
 export async function getHotDeals(limit = 8) {

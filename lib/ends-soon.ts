@@ -1,22 +1,30 @@
 /** Products featured in the Ends Soon section (seed + homepage). */
-export const ENDS_SOON_HOURS = [6, 12, 18, 24, 36, 42] as const;
+export const ENDS_SOON_SLUGS = new Set([
+  "platinum",
+  "bx_console-amek-9099",
+  "soundtoys-5",
+  "decapitator",
+  "echoboy",
+  "superplate",
+  "radiator",
+]);
 
-export const ENDS_SOON_SLUGS = [
-  "serum-xfer-records",
-  "ozone-11-advanced-izotope",
-  "valhalla-room-valhalla",
-  "ssl-g-master-buss-compressor-waves",
-  "soundtoys-5-bundle",
-  "pro-l-2-fabfilter",
-] as const;
-
+/**
+ * Returns a deal end date (within ~48 hours) if the slug is in ENDS_SOON_SLUGS.
+ * Otherwise returns undefined.
+ */
 export function getEndsSoonDealEndDate(
   slug: string,
   from: Date = new Date(),
 ): Date | undefined {
-  const idx = ENDS_SOON_SLUGS.indexOf(slug as (typeof ENDS_SOON_SLUGS)[number]);
-  if (idx === -1) return undefined;
-  const date = new Date(from);
-  date.setHours(date.getHours() + ENDS_SOON_HOURS[idx]);
-  return date;
+  if (!ENDS_SOON_SLUGS.has(slug)) {
+    return undefined;
+  }
+
+  const endDate = new Date(from);
+  const hoursToAdd = Math.floor(Math.random() * 36) + 6;
+  endDate.setHours(endDate.getHours() + hoursToAdd);
+  endDate.setMinutes(59, 59, 999);
+
+  return endDate;
 }

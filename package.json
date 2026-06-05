@@ -7,7 +7,27 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "npx tsx --env-file=.env.local lib/seed.ts"
+    "seed": "npx tsx --env-file=.env.local lib/seed.ts",
+    "build:waves-catalog": "tsx scripts/build-waves-catalog.ts",
+    "build:plugin-alliance-catalog": "tsx scripts/build-plugin-alliance-catalog.ts",
+    "build:uad-catalog": "tsx scripts/build-uad-catalog.ts",
+    "build:mcdsp-catalog": "tsx scripts/build-mcdsp-catalog.ts",
+    "build:fabfilter-catalog": "tsx scripts/build-fabfilter-catalog.ts",
+    "build:izotope-catalog": "tsx scripts/build-izotope-catalog.ts",
+    "build:sonnox-catalog": "tsx scripts/build-sonnox-catalog.ts",
+    "build:softube-catalog": "tsx scripts/build-softube-catalog.ts",
+    "build:ssl-catalog": "tsx scripts/build-ssl-catalog.ts",
+    "build:slate-catalog": "tsx scripts/build-slate-catalog.ts",
+    "build:eventide-catalog": "tsx scripts/build-eventide-catalog.ts",
+    "build:xln-catalog": "tsx scripts/build-xln-catalog.ts",
+    "build:relab-catalog": "tsx scripts/build-relab-catalog.ts",
+    "build:antares-catalog": "tsx scripts/build-antares-catalog.ts",
+    "build:output-catalog": "tsx scripts/build-output-catalog.ts",
+    "build:baby-audio-catalog": "tsx scripts/build-baby-audio-catalog.ts",
+    "build:catalogs": "npm run build:waves-catalog && npm run build:plugin-alliance-catalog && npm run build:uad-catalog && npm run build:mcdsp-catalog && npm run build:fabfilter-catalog && npm run build:izotope-catalog && npm run build:sonnox-catalog && npm run build:softube-catalog && npm run build:ssl-catalog && npm run build:slate-catalog && npm run build:eventide-catalog && npm run build:xln-catalog && npm run build:relab-catalog && npm run build:antares-catalog && npm run build:output-catalog && npm run build:baby-audio-catalog",
+    "fetch:manufacturer-images": "tsx scripts/fetch-manufacturer-images.ts",
+    "reprocess:catalog-images": "tsx scripts/reprocess-catalog-images.ts",
+    "sync:product-images": "npx tsx --env-file=.env.local scripts/sync-product-image-paths.ts"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.11.2",
@@ -24,9 +44,12 @@
     "daisyui": "^5.5.20",
     "eslint": "^8",
     "eslint-config-next": "14.2.0",
+    "playwright": "^1.52.0",
     "postcss": "^8",
     "recharts": "^3.8.1",
+    "sharp": "^0.34.5",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.20.3",
     "typescript": "^6.0.3"
   }
 }

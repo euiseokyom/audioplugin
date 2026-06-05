@@ -1,318 +1,282 @@
 /**
  * Run with: npx ts-node --project tsconfig.json lib/seed.ts
- * Or via: npm run seed (add "seed": "ts-node lib/seed.ts" to package.json scripts)
+ * Or via: npm run seed
  */
 
 import mongoose from "mongoose";
 import Product from "@/models/Product";
 import PriceEntry from "@/models/PriceEntry";
+import { FABFILTER_PRODUCTS } from "@/lib/catalog/fabfilter-products";
+import { IZOTOPE_PRODUCTS } from "@/lib/catalog/izotope-products";
+import { MCDSP_PRODUCTS } from "@/lib/catalog/mcdsp-products";
+import { SLATE_PRODUCTS } from "@/lib/catalog/slate-products";
+import { EVENTIDE_PRODUCTS } from "@/lib/catalog/eventide-products";
+import { XLN_PRODUCTS } from "@/lib/catalog/xln-products";
+import { RELAB_PRODUCTS } from "@/lib/catalog/relab-products";
+import { ANTARES_PRODUCTS } from "@/lib/catalog/antares-products";
+import { OUTPUT_PRODUCTS } from "@/lib/catalog/output-products";
+import { BABY_AUDIO_PRODUCTS } from "@/lib/catalog/baby-audio-products";
+import { SOFTUBE_PRODUCTS } from "@/lib/catalog/softube-products";
+import { SONNOX_PRODUCTS } from "@/lib/catalog/sonnox-products";
+import { SSL_PRODUCTS } from "@/lib/catalog/ssl-products";
+import { PLUGIN_ALLIANCE_PRODUCTS } from "@/lib/catalog/plugin-alliance-products";
+import { UAD_PRODUCTS } from "@/lib/catalog/uad-products";
+import { WAVES_PRODUCTS } from "@/lib/catalog/waves-products";
+import type { SeedProduct } from "@/lib/catalog/seed-product";
+import { resolveProductImageSrc } from "@/lib/catalog/product-image-path";
 import { getEndsSoonDealEndDate } from "@/lib/ends-soon";
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/audioplugin";
+const MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://localhost:27017/audioplugin";
 
-const PRODUCTS = [
+const BASE_PRODUCTS: SeedProduct[] = [
   {
-    name: "Serum",
-    slug: "serum-xfer-records",
-    canonicalId: "serum-xfer-records",
-    image: "https://picsum.photos/seed/serum/400/300",
-    description:
-      "Serum is a wavetable synthesizer plugin known for its high-quality sound and intuitive workflow. Used by producers worldwide to craft everything from bass to leads.",
-    category: "Synthesizer",
-    manufacturer: "Xfer Records",
-    registeredPrice: 189,
-    salesCount: 9200,
-    tags: ["wavetable", "synth", "bass", "leads"],
-  },
-  {
-    name: "Omnisphere 2",
-    slug: "omnisphere-2-spectrasonics",
-    canonicalId: "omnisphere-2-spectrasonics",
-    image: "https://picsum.photos/seed/omnisphere/400/300",
-    description:
-      "Omnisphere 2 is a flagship synthesizer from Spectrasonics featuring over 14,000 sounds, hardware synth integration, and a massive sound library.",
-    category: "Synthesizer",
-    manufacturer: "Spectrasonics",
-    registeredPrice: 499,
-    salesCount: 7500,
-    tags: ["synth", "orchestral", "cinematic", "professional"],
-  },
-  {
-    name: "Ozone 11 Advanced",
-    slug: "ozone-11-advanced-izotope",
-    canonicalId: "ozone-11-advanced-izotope",
-    image: "https://picsum.photos/seed/ozone11/400/300",
-    description:
-      "Ozone 11 is iZotope's flagship mastering suite. AI-assisted mastering tools, a full signal chain, and reference track matching.",
-    category: "Mastering",
-    manufacturer: "iZotope",
-    registeredPrice: 499,
-    salesCount: 6800,
-    tags: ["mastering", "AI", "limiter", "EQ"],
-  },
-  {
-    name: "FabFilter Pro-Q 3",
-    slug: "pro-q-3-fabfilter",
-    canonicalId: "pro-q-3-fabfilter",
-    image: "https://picsum.photos/seed/proq3/400/300",
-    description:
-      "Pro-Q 3 is the industry-standard EQ plugin with 24 EQ bands, dynamic EQ, mid/side processing, and zero-latency linear phase mode.",
-    category: "EQ",
-    manufacturer: "FabFilter",
-    registeredPrice: 179,
-    salesCount: 8100,
-    tags: ["EQ", "dynamic EQ", "linear phase", "mixing"],
-  },
-  {
-    name: "Valhalla Room",
-    slug: "valhalla-room-valhalla",
-    canonicalId: "valhalla-room-valhalla",
-    image: "https://picsum.photos/seed/valhallaroom/400/300",
-    description:
-      "Valhalla Room is a versatile algorithmic reverb plugin beloved for its lush, natural room sounds at an unbeatable price.",
-    category: "Reverb",
-    manufacturer: "Valhalla DSP",
-    registeredPrice: 50,
-    salesCount: 11000,
-    tags: ["reverb", "algorithmic", "room", "lush"],
-  },
-  {
-    name: "Pigments 5",
-    slug: "pigments-5-arturia",
-    canonicalId: "pigments-5-arturia",
-    image: "https://picsum.photos/seed/pigments5/400/300",
-    description:
-      "Pigments 5 by Arturia is a polychrome software synthesizer combining wavetable, virtual analog, harmonic, and sample engines.",
-    category: "Synthesizer",
-    manufacturer: "Arturia",
-    registeredPrice: 199,
-    salesCount: 5400,
-    tags: ["wavetable", "analog", "synth", "pads"],
-  },
-  {
-    name: "Kontakt 7",
-    slug: "kontakt-7-native-instruments",
-    canonicalId: "kontakt-7-native-instruments",
-    image: "https://picsum.photos/seed/kontakt7/400/300",
-    description:
-      "Kontakt 7 is Native Instruments' industry-standard sampler with deep scripting, a massive library ecosystem, and real-time performance tools.",
-    category: "Sampler",
-    manufacturer: "Native Instruments",
-    registeredPrice: 399,
-    salesCount: 7200,
-    tags: ["sampler", "orchestral", "sound design", "instruments"],
-  },
-  {
-    name: "Waves SSL G-Master Buss Compressor",
-    slug: "ssl-g-master-buss-compressor-waves",
-    canonicalId: "ssl-g-master-buss-compressor-waves",
-    image: "https://picsum.photos/seed/sslgcomp/400/300",
-    description:
-      "An emulation of the classic SSL G-Series console buss compressor — one of the most sought-after compressors in professional mixing.",
-    category: "Compressor",
-    manufacturer: "Waves",
-    registeredPrice: 249,
-    salesCount: 6500,
-    tags: ["compressor", "SSL", "bus", "glue"],
-  },
-  {
-    name: "FabFilter Pro-MB",
-    slug: "pro-mb-fabfilter",
-    canonicalId: "pro-mb-fabfilter",
-    image: "https://picsum.photos/seed/promb/400/300",
-    description:
-      "Pro-MB is a multiband dynamics processor that works like a combination of a compressor and expander with per-band control.",
-    category: "Compressor",
-    manufacturer: "FabFilter",
-    registeredPrice: 179,
-    salesCount: 4200,
-    tags: ["multiband", "compressor", "dynamics", "mixing"],
-  },
-  {
-    name: "iZotope RX 11 Advanced",
-    slug: "rx-11-advanced-izotope",
-    canonicalId: "rx-11-advanced-izotope",
-    image: "https://picsum.photos/seed/rx11/400/300",
-    description:
-      "RX 11 Advanced is the professional audio repair and restoration suite used in post-production, music, and broadcast industries.",
-    category: "Audio Repair",
-    manufacturer: "iZotope",
-    registeredPrice: 1199,
-    salesCount: 3100,
-    tags: ["repair", "restoration", "noise reduction", "post"],
-  },
-  {
-    name: "Massive X",
-    slug: "massive-x-native-instruments",
-    canonicalId: "massive-x-native-instruments",
-    image: "https://picsum.photos/seed/massivex/400/300",
-    description:
-      "Massive X is the next generation of Native Instruments' iconic synthesizer, featuring two oscillators with 170+ wavetables and flexible routing.",
-    category: "Synthesizer",
-    manufacturer: "Native Instruments",
-    registeredPrice: 199,
-    salesCount: 4800,
-    tags: ["wavetable", "synth", "bass", "EDM"],
-  },
-  {
-    name: "Arturia V Collection X",
-    slug: "v-collection-x-arturia",
-    canonicalId: "v-collection-x-arturia",
-    image: "https://picsum.photos/seed/vcollection/400/300",
-    description:
-      "V Collection X is Arturia's definitive bundle of 40+ vintage keyboard and synth emulations including the Minimoog, Prophet-5, and CS-80.",
-    category: "Bundle",
-    manufacturer: "Arturia",
-    registeredPrice: 599,
-    salesCount: 5900,
-    tags: ["vintage", "bundle", "piano", "synth"],
-  },
-  {
-    name: "Soundtoys 5 Bundle",
-    slug: "soundtoys-5-bundle",
-    canonicalId: "soundtoys-5-bundle",
-    image: "https://picsum.photos/seed/soundtoys5/400/300",
-    description:
-      "Soundtoys 5 is the complete bundle of legendary creative effects including EchoBoy, Decapitator, PrimalTap, and 14 more.",
+    name: "Soundtoys 5",
+    slug: "soundtoys-5",
+    canonicalId: "soundtoys-5-soundtoys",
+    image: "/images/products/soundtoys/soundtoys-5.webp",
     category: "Bundle",
     manufacturer: "Soundtoys",
-    registeredPrice: 499,
-    salesCount: 5200,
-    tags: ["effects", "saturation", "delay", "bundle"],
+    registeredPrice: 599,
+    tags: ["bundle", "effects", "saturation", "delay"],
+    retailers: ["plugin-boutique"],
   },
   {
     name: "Decapitator",
-    slug: "decapitator-soundtoys",
+    slug: "decapitator",
     canonicalId: "decapitator-soundtoys",
-    image: "https://picsum.photos/seed/decapitator/400/300",
-    description:
-      "Decapitator is Soundtoys' analog saturation plugin, modeled after 5 classic hardware saturation units with a punish switch.",
+    image: "/images/products/soundtoys/decapitator.webp",
     category: "Saturation",
     manufacturer: "Soundtoys",
     registeredPrice: 199,
-    salesCount: 6100,
-    tags: ["saturation", "distortion", "analog", "warmth"],
+    tags: ["saturation", "analog"],
+    retailers: ["plugin-boutique"],
   },
   {
-    name: "Reaktor 6",
-    slug: "reaktor-6-native-instruments",
-    canonicalId: "reaktor-6-native-instruments",
-    image: "https://picsum.photos/seed/reaktor6/400/300",
-    description:
-      "Reaktor 6 is a modular sound design environment from Native Instruments. Build your own instruments and effects or use the huge library of user-built Ensembles.",
-    category: "Modular",
-    manufacturer: "Native Instruments",
+    name: "EchoBoy",
+    slug: "echoboy",
+    canonicalId: "echoboy-soundtoys",
+    image: "/images/products/soundtoys/echoboy.webp",
+    category: "Delay",
+    manufacturer: "Soundtoys",
     registeredPrice: 199,
-    salesCount: 3800,
-    tags: ["modular", "synthesis", "sound design", "instruments"],
+    tags: ["delay", "analog"],
+    retailers: ["plugin-boutique"],
   },
   {
-    name: "Slate Digital All Access Pass",
-    slug: "all-access-pass-slate-digital",
-    canonicalId: "all-access-pass-slate-digital",
-    image: "https://picsum.photos/seed/slateallaccess/400/300",
-    description:
-      "The Slate Digital All Access Pass gives you unlimited access to the full Slate Digital plugin catalog including VCC, VMR, FG-X, and more.",
-    category: "Bundle",
-    manufacturer: "Slate Digital",
-    registeredPrice: 499,
-    salesCount: 4300,
-    tags: ["bundle", "subscription", "mixing", "mastering"],
+    name: "Sie-Q",
+    slug: "sie-q",
+    canonicalId: "sie-q-soundtoys",
+    image: "/images/products/soundtoys/sie-q.webp",
+    category: "Equalizer",
+    manufacturer: "Soundtoys",
+    registeredPrice: 99,
+    tags: ["equalizer", "analog"],
+    retailers: ["plugin-boutique"],
   },
   {
-    name: "FabFilter Pro-L 2",
-    slug: "pro-l-2-fabfilter",
-    canonicalId: "pro-l-2-fabfilter",
-    image: "https://picsum.photos/seed/prol2/400/300",
-    description:
-      "Pro-L 2 is FabFilter's True Peak limiter plugin for mastering. Eight limiting algorithms, loudness metering, and transparent sound.",
-    category: "Limiter",
-    manufacturer: "FabFilter",
-    registeredPrice: 179,
-    salesCount: 7300,
-    tags: ["limiter", "mastering", "true peak", "loudness"],
+    name: "Devil-Loc Deluxe",
+    slug: "devil-loc-deluxe",
+    canonicalId: "devil-loc-deluxe-soundtoys",
+    image: "/images/products/soundtoys/devil-loc-deluxe.webp",
+    category: "Saturation",
+    manufacturer: "Soundtoys",
+    registeredPrice: 99,
+    tags: ["saturation", "compressor"],
+    retailers: ["plugin-boutique"],
   },
   {
-    name: "Spire Studio",
-    slug: "spire-studio-reveal-sound",
-    canonicalId: "spire-studio-reveal-sound",
-    image: "https://picsum.photos/seed/spirestudio/400/300",
-    description:
-      "Spire is a polyphonic synthesizer combining flexibility and a character of its own with four synthesis types and a built-in effects section.",
-    category: "Synthesizer",
-    manufacturer: "Reveal Sound",
-    registeredPrice: 179,
-    salesCount: 3500,
-    tags: ["synth", "EDM", "leads", "bass"],
+    name: "MicroShift",
+    slug: "microshift",
+    canonicalId: "microshift-soundtoys",
+    image: "/images/products/soundtoys/microshift.webp",
+    category: "Modulation",
+    manufacturer: "Soundtoys",
+    registeredPrice: 99,
+    tags: ["pitch-shift", "chorus", "modulation"],
+    retailers: ["plugin-boutique"],
   },
   {
-    name: "Slate + Ash Cycles",
-    slug: "cycles-slate-ash",
-    canonicalId: "cycles-slate-ash",
-    image: "https://picsum.photos/seed/cycles/400/300",
-    description:
-      "Cycles is an innovative cinematic instrument library for Kontakt featuring evolving textures, rhythmic elements, and hybrid sounds.",
-    category: "Sample Library",
-    manufacturer: "Slate + Ash",
+    name: "Crystallizer",
+    slug: "crystallizer",
+    canonicalId: "crystallizer-soundtoys",
+    image: "/images/products/soundtoys/crystallizer.webp",
+    category: "Delay",
+    manufacturer: "Soundtoys",
     registeredPrice: 149,
-    salesCount: 2900,
-    tags: ["cinematic", "kontakt", "texture", "ambient"],
+    tags: ["pitch-shift", "experimental", "modulation"],
+    retailers: ["plugin-boutique"],
   },
   {
-    name: "Krotos Weaponiser",
-    slug: "weaponiser-krotos",
-    canonicalId: "weaponiser-krotos",
-    image: "https://picsum.photos/seed/weaponiser/400/300",
-    description:
-      "Weaponiser is a real-time weapon sound design plugin by Krotos. Layer and manipulate sounds to create unique weapon audio for film and games.",
-    category: "Sound Design",
-    manufacturer: "Krotos",
+    name: "PhaseMistress",
+    slug: "phasemistress",
+    canonicalId: "phasemistress-soundtoys",
+    image: "/images/products/soundtoys/phasemistress.webp",
+    category: "Modulation",
+    manufacturer: "Soundtoys",
+    registeredPrice: 99,
+    tags: ["phaser", "modulation"],
+    retailers: ["plugin-boutique"],
+  },
+  {
+    name: "Tremolator",
+    slug: "tremolator",
+    canonicalId: "tremolator-soundtoys",
+    image: "/images/products/soundtoys/tremolator.webp",
+    category: "Modulation",
+    manufacturer: "Soundtoys",
+    registeredPrice: 99,
+    tags: ["tremolo", "modulation"],
+    retailers: ["plugin-boutique"],
+  },
+  {
+    name: "FilterFreak",
+    slug: "filterfreak",
+    canonicalId: "filterfreak-soundtoys",
+    image: "/images/products/soundtoys/filterfreak.webp",
+    category: "Equalizer",
+    manufacturer: "Soundtoys",
+    registeredPrice: 149,
+    tags: ["filter", "analog"],
+    retailers: ["plugin-boutique"],
+  },
+  {
+    name: "PrimalTap",
+    slug: "primaltap",
+    canonicalId: "primaltap-soundtoys",
+    image: "/images/products/soundtoys/primaltap.webp",
+    category: "Delay",
+    manufacturer: "Soundtoys",
+    registeredPrice: 99,
+    tags: ["delay", "pitch", "analog"],
+    retailers: ["plugin-boutique"],
+  },
+  {
+    name: "Radiator",
+    slug: "radiator",
+    canonicalId: "radiator-soundtoys",
+    image: "/images/products/soundtoys/radiator.webp",
+    category: "Saturation",
+    manufacturer: "Soundtoys",
+    registeredPrice: 99,
+    tags: ["console", "tube", "saturation", "analog"],
+    retailers: ["plugin-boutique"],
+  },
+  {
+    name: "SuperPlate",
+    slug: "superplate",
+    canonicalId: "superplate-soundtoys",
+    image: "/images/products/soundtoys/superplate.webp",
+    category: "Reverb",
+    manufacturer: "Soundtoys",
+    registeredPrice: 149,
+    tags: ["reverb", "plate"],
+    retailers: ["plugin-boutique"],
+  },
+  {
+    name: "Little AlterBoy",
+    slug: "little-alterboy",
+    canonicalId: "little-alterboy-soundtoys",
+    image: "/images/products/soundtoys/little-alterboy.webp",
+    category: "Modulation",
+    manufacturer: "Soundtoys",
+    registeredPrice: 99,
+    tags: ["vocal", "pitch-shift", "experimental"],
+    retailers: ["plugin-boutique"],
+  },
+  {
+    name: "PanMan",
+    slug: "panman",
+    canonicalId: "panman-soundtoys",
+    image: "/images/products/soundtoys/panman.webp",
+    category: "Modulation",
+    manufacturer: "Soundtoys",
+    registeredPrice: 99,
+    tags: ["auto-pan", "modulation", "experimental"],
+    retailers: ["plugin-boutique"],
+  },
+  {
+    name: "Effect Rack",
+    slug: "effect-rack",
+    canonicalId: "effect-rack-soundtoys",
+    image: "/images/products/soundtoys/effect-rack.webp",
+    category: "Bundle",
+    manufacturer: "Soundtoys",
     registeredPrice: 299,
-    salesCount: 2100,
-    tags: ["sound design", "weapons", "game audio", "film"],
+    tags: ["bundle", "effects", "multi-effects"],
+    retailers: ["plugin-boutique"],
+  },
+  {
+    name: "SpaceBlender",
+    slug: "spaceblender",
+    canonicalId: "spaceblender-soundtoys",
+    image: "/images/products/soundtoys/spaceblender.webp",
+    category: "Reverb",
+    manufacturer: "Soundtoys",
+    registeredPrice: 99,
+    tags: ["reverb", "experimental", "spatial"],
+    retailers: ["plugin-boutique"],
   },
 ];
 
-const RETAILER_ASSIGNMENTS: Record<string, string[]> = {
-  "serum-xfer-records": ["plugin-boutique", "sweetwater", "adsr", "audio-plugin-deals", "pluginfox"],
-  "omnisphere-2-spectrasonics": ["sweetwater", "plugin-boutique", "gear4music", "zzounds", "guitar-center"],
-  "ozone-11-advanced-izotope": ["plugin-boutique", "sweetwater", "audio-plugin-deals", "pluginfox", "adsr"],
-  "pro-q-3-fabfilter": ["plugin-boutique", "sweetwater", "thomann", "gear4music", "adsr", "pluginfox"],
-  "valhalla-room-valhalla": ["plugin-boutique", "sweetwater", "adsr", "audio-plugin-deals", "pluginfox"],
-  "pigments-5-arturia": ["arturia", "plugin-boutique", "sweetwater", "thomann", "gear4music"],
-  "kontakt-7-native-instruments": ["native-instruments", "sweetwater", "thomann", "gear4music", "zzounds", "guitar-center"],
-  "ssl-g-master-buss-compressor-waves": ["waves", "plugin-boutique", "sweetwater", "adsr", "audio-plugin-deals"],
-  "pro-mb-fabfilter": ["plugin-boutique", "sweetwater", "thomann", "adsr"],
-  "rx-11-advanced-izotope": ["plugin-boutique", "sweetwater", "audio-plugin-deals", "adsr"],
-  "massive-x-native-instruments": ["native-instruments", "sweetwater", "thomann", "gear4music"],
-  "v-collection-x-arturia": ["arturia", "plugin-boutique", "sweetwater", "thomann", "gear4music"],
-  "soundtoys-5-bundle": ["plugin-boutique", "sweetwater", "adsr", "audio-plugin-deals", "best-service"],
-  "decapitator-soundtoys": ["plugin-boutique", "sweetwater", "adsr", "audio-plugin-deals"],
-  "reaktor-6-native-instruments": ["native-instruments", "sweetwater", "thomann", "plugin-boutique"],
-  "all-access-pass-slate-digital": ["plugin-boutique", "audio-plugin-deals", "adsr"],
-  "pro-l-2-fabfilter": ["plugin-boutique", "sweetwater", "thomann", "adsr", "pluginfox"],
-  "spire-studio-reveal-sound": ["plugin-boutique", "adsr", "audio-plugin-deals", "pluginfox"],
-  "cycles-slate-ash": ["plugin-boutique", "best-service", "adsr"],
-  "weaponiser-krotos": ["krotos", "plugin-boutique", "adsr", "best-service"],
-};
+function manufacturerSlugSuffix(manufacturer: string): string {
+  return manufacturer.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+}
 
-// Replace "arturia" reference in assignments with correct slug
-const CANONICAL_RETAILERS: Record<string, string> = {
-  arturia: "plugin-boutique", // manufacturer-direct not in our list — map to closest
-};
+function ensureUniqueSlug(
+  slug: string,
+  manufacturer: string,
+  usedSlugs: Set<string>,
+): string {
+  if (!usedSlugs.has(slug)) return slug;
+
+  const suffix = manufacturerSlugSuffix(manufacturer);
+  let candidate = `${slug}-${suffix}`;
+  let counter = 2;
+  while (usedSlugs.has(candidate)) {
+    candidate = `${slug}-${suffix}-${counter}`;
+    counter++;
+  }
+
+  console.warn(
+    `Duplicate slug "${slug}" — using "${candidate}" for ${manufacturer}`,
+  );
+  return candidate;
+}
+
+const PRODUCTS: SeedProduct[] = [
+  ...BASE_PRODUCTS,
+  ...WAVES_PRODUCTS,
+  ...PLUGIN_ALLIANCE_PRODUCTS,
+  ...UAD_PRODUCTS,
+  ...MCDSP_PRODUCTS,
+  ...FABFILTER_PRODUCTS,
+  ...IZOTOPE_PRODUCTS,
+  ...SONNOX_PRODUCTS,
+  ...SOFTUBE_PRODUCTS,
+  ...SSL_PRODUCTS,
+  ...SLATE_PRODUCTS,
+  ...EVENTIDE_PRODUCTS,
+  ...XLN_PRODUCTS,
+  ...RELAB_PRODUCTS,
+  ...ANTARES_PRODUCTS,
+  ...OUTPUT_PRODUCTS,
+  ...BABY_AUDIO_PRODUCTS,
+];
 
 function generatePriceHistory(
   basePrice: number,
   retailerSlug: string,
   productId: mongoose.Types.ObjectId,
   days = 30,
-  options?: { isHotDeal?: boolean }
+  options?: { isHotDeal?: boolean },
 ) {
   const entries = [];
   const now = new Date();
 
   const retailerOffset = Math.sin(retailerSlug.charCodeAt(0) * 137) * 0.075;
-  const baseRetailPrice = Math.round(basePrice * (1 + retailerOffset) * 100) / 100;
+  const baseRetailPrice =
+    Math.round(basePrice * (1 + retailerOffset) * 100) / 100;
 
   const saleStart = options?.isHotDeal
     ? 22
@@ -357,50 +321,114 @@ function generatePriceHistory(
 }
 
 const HOT_DEAL_SLUGS = new Set([
-  "serum-xfer-records",
-  "omnisphere-2-spectrasonics",
-  "ozone-11-advanced-izotope",
-  "valhalla-room-valhalla",
-  "soundtoys-5-bundle",
-  "decapitator-soundtoys",
-  "v-collection-x-arturia",
-  "all-access-pass-slate-digital",
+  "platinum",
+  "cla-76-compressor-limiter",
+  "renaissance-vox",
+  "bx_console-amek-9099",
+  "soundtoys-5",
+  "decapitator",
+  "echoboy",
 ]);
 
+function shouldSeedFakePrices(): boolean {
+  const raw = process.env.SEED_FAKE_PRICES?.trim().toLowerCase();
+  return raw === "1" || raw === "true" || raw === "yes";
+}
 
 async function seed() {
   await mongoose.connect(MONGODB_URI);
   console.log("Connected to MongoDB");
 
+  const seedFakePrices = shouldSeedFakePrices();
+  const existingProducts = seedFakePrices
+    ? []
+    : await Product.find({}).select("_id canonicalId").lean();
+  const canonicalByOldId = new Map(
+    existingProducts.map((p) => [p._id.toString(), p.canonicalId as string]),
+  );
+
   await Product.deleteMany({});
-  await PriceEntry.deleteMany({});
-  console.log("Cleared existing data");
+  if (seedFakePrices) {
+    await PriceEntry.deleteMany({});
+    console.log("Cleared existing products and price entries");
+  } else {
+    console.log("Cleared existing products (will re-link PriceEntry by canonicalId)");
+  }
 
   const priceEntriesToInsert: object[] = [];
+  const canonicalToNewId = new Map<string, mongoose.Types.ObjectId>();
+  const usedSlugs = new Set<string>();
 
   for (const p of PRODUCTS) {
-    const dealEndsAt = getEndsSoonDealEndDate(p.slug);
-    const product = await Product.create({ ...p, ...(dealEndsAt && { dealEndsAt }) });
+    const { retailers, ...productFields } = p;
+    const slug = ensureUniqueSlug(productFields.slug, productFields.manufacturer, usedSlugs);
+    usedSlugs.add(slug);
+
+    const canonicalId =
+      slug === productFields.slug
+        ? productFields.canonicalId
+        : `${slug}-${manufacturerSlugSuffix(productFields.manufacturer)}`;
+
+    const dealEndsAt = getEndsSoonDealEndDate(slug);
+    const image = resolveProductImageSrc({
+      image: productFields.image,
+      slug: productFields.slug,
+      canonicalId: productFields.canonicalId,
+      manufacturer: productFields.manufacturer,
+    });
+    const product = await Product.create({
+      ...productFields,
+      slug,
+      canonicalId,
+      image,
+      ...(dealEndsAt && { dealEndsAt }),
+    });
+    canonicalToNewId.set(canonicalId, product._id);
     console.log(`Created product: ${product.name}`);
 
-    const retailers = (RETAILER_ASSIGNMENTS[p.canonicalId] ?? []).map(
-      (slug) => CANONICAL_RETAILERS[slug] ?? slug
-    );
-
-    for (const retailerSlug of retailers) {
-      const entries = generatePriceHistory(
-        p.registeredPrice,
-        retailerSlug,
-        product._id,
-        30,
-        { isHotDeal: HOT_DEAL_SLUGS.has(p.slug) }
-      );
-      priceEntriesToInsert.push(...entries);
+    if (seedFakePrices) {
+      for (const retailerSlug of retailers) {
+        const entries = generatePriceHistory(
+          productFields.registeredPrice,
+          retailerSlug,
+          product._id,
+          30,
+          { isHotDeal: HOT_DEAL_SLUGS.has(slug) },
+        );
+        priceEntriesToInsert.push(...entries);
+      }
     }
   }
 
-  await PriceEntry.insertMany(priceEntriesToInsert);
-  console.log(`Inserted ${priceEntriesToInsert.length} price entries`);
+  if (seedFakePrices && priceEntriesToInsert.length > 0) {
+    await PriceEntry.insertMany(priceEntriesToInsert);
+    console.log(`Inserted ${priceEntriesToInsert.length} price entries`);
+  } else if (!seedFakePrices) {
+    let relinked = 0;
+    for (const [oldId, canonicalId] of canonicalByOldId) {
+      const newId = canonicalToNewId.get(canonicalId);
+      if (!newId) continue;
+      const result = await PriceEntry.updateMany(
+        { productId: new mongoose.Types.ObjectId(oldId) },
+        { $set: { productId: newId } },
+      );
+      relinked += result.modifiedCount;
+    }
+
+    const validIds = [...canonicalToNewId.values()];
+    const orphans = await PriceEntry.deleteMany({
+      productId: { $nin: validIds },
+    });
+
+    console.log(
+      `Re-linked ${relinked} price entries; removed ${orphans.deletedCount} orphans`,
+    );
+    if (relinked === 0) {
+      console.log(
+        "No prices linked — run audioplugin-worker catalog:bootstrap:all && catalog:scrape:all",
+      );
+    }
+  }
 
   await mongoose.disconnect();
   console.log("Done! Seed complete.");
