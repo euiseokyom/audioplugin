@@ -190,7 +190,11 @@ async function migrateManufacturerFiles(
 }
 
 async function main(): Promise<void> {
-  const mode = process.argv.includes("--originals") ? "originals" : "all";
+  const mode = process.argv.includes("--originals")
+    ? "originals"
+    : process.argv.includes("--webp")
+      ? "webp"
+      : "all";
 
   if (mode === "all" || mode === "webp") {
     await migrateManufacturerFiles(moveWebp, "webp");
