@@ -53,6 +53,7 @@ const CATALOG_FILES: Record<string, string> = {
   ssl: "lib/catalog/ssl-products.ts",
   slate: "lib/catalog/slate-products.ts",
   eventide: "lib/catalog/eventide-products.ts",
+  "newfangled-audio": "lib/catalog/newfangled-audio-products.ts",
   xln: "lib/catalog/xln-products.ts",
   relab: "lib/catalog/relab-products.ts",
   antares: "lib/catalog/antares-products.ts",

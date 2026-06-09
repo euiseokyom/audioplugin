@@ -3,10 +3,13 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
 import Navbar from "@/components/Navbar";
+import { getSiteUrl } from "@/lib/site-url";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "PluginBargains — Best Audio Plugin Deals & Price Tracker",
   description:
     "Track the best deals on audio plugins. Compare prices across 16 retailers, set price drop alerts, and never overpay for your favorite plugins again.",
@@ -21,6 +24,7 @@ export const metadata: Metadata = {
     description:
       "Compare plugin prices across 16 retailers and set price drop alerts.",
     type: "website",
+    url: siteUrl,
   },
 };
 

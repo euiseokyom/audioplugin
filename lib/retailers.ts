@@ -26,13 +26,7 @@ export const RETAILERS: Retailer[] = [
     logoUrl: "/logos/adsr.svg",
   },
   {
-    slug: "audio-plugin-deals",
-    name: "Audio Plugin Deals",
-    baseUrl: "https://www.audioplugindeals.com",
-    logoUrl: "/logos/audio-plugin-deals.svg",
-  },
-  {
-    slug: "pluginfox",
+    slug: "plugin-fox",
     name: "PluginFox",
     baseUrl: "https://www.pluginfox.com",
     logoUrl: "/logos/pluginfox.svg",
@@ -58,20 +52,6 @@ export const RETAILERS: Retailer[] = [
     isManufacturerDirect: true,
   },
   {
-    slug: "krotos",
-    name: "Krotos",
-    baseUrl: "https://www.krotosaudio.com",
-    logoUrl: "/logos/krotos.svg",
-    isManufacturerDirect: true,
-  },
-  {
-    slug: "toneboosters",
-    name: "Toneboosters",
-    baseUrl: "https://www.toneboosters.com",
-    logoUrl: "/logos/toneboosters.svg",
-    isManufacturerDirect: true,
-  },
-  {
     slug: "gear4music",
     name: "Gear4music",
     baseUrl: "https://www.gear4music.com",
@@ -82,12 +62,6 @@ export const RETAILERS: Retailer[] = [
     name: "zZounds",
     baseUrl: "https://www.zzounds.com",
     logoUrl: "/logos/zzounds.svg",
-  },
-  {
-    slug: "guitar-center",
-    name: "Guitar Center",
-    baseUrl: "https://www.guitarcenter.com",
-    logoUrl: "/logos/guitar-center.svg",
   },
   {
     slug: "audio-deluxe",

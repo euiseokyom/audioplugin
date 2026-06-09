@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { apiError, handleRouteError } from "@/lib/api-error";
 import { getProductBySlug } from "@/services/products";
 
 export async function GET(
@@ -8,10 +9,9 @@ export async function GET(
   const { slug } = await params;
   try {
     const product = await getProductBySlug(slug);
-    if (!product) return NextResponse.json({ error: "Not found" }, { status: 404 });
+    if (!product) return apiError("Not found", 404);
     return NextResponse.json(product);
   } catch (err) {
-    console.error(err);
-    return NextResponse.json({ error: "Failed to fetch product" }, { status: 500 });
+    return handleRouteError(err, "GET /api/products/[slug]", "Failed to fetch product");
   }
 }

@@ -528,24 +528,55 @@ export function collectUaudioProductImageUrls(html: string): string[] {
   return urls;
 }
 
-function isSslImageNoise(lower: string): boolean {
-  return (
-    /en-default|no[_-]?image|placeholder/i.test(lower) ||
-    /banner|web[_% ]banners|hero[_-]?shot|webpage_banner|web[_-]header/i.test(
-      lower,
-    ) ||
+function isSslImageNoise(lower: string, slug?: string): boolean {
+  const allowBundleBanner =
+    slug?.includes("bundle") === true &&
+    /band[_-]?bundle|bundle[_-]?banner/i.test(lower);
+
+  if (/presta-product-image/i.test(lower)) return true;
+  if (/en-default|no[_-]?image|placeholder/i.test(lower)) return true;
+  if (
+    /web[_% ]banners|hero[_-]?shot|webpage_banner|web[_-]header/i.test(lower)
+  ) {
+    return true;
+  }
+  if (/banner/i.test(lower) && !allowBundleBanner) return true;
+  if (
     /background[_-]?texture|feature[_-]?background|studio[_-]?background/i.test(
       lower,
-    ) ||
-    /thumbnail|maxresdefault|video/i.test(lower) ||
+    )
+  ) {
+    return true;
+  }
+  if (/thumbnail|maxresdefault|video/i.test(lower)) return true;
+  if (
     /quotes|trial|buy[_% ]now|button|creator[_-]?pack|slate[_-]?sounds/i.test(
       lower,
-    ) ||
-    /%20off|\d+%-off|special[_-]?offer|exclusive[_-]?pricing/i.test(lower) ||
-    /pe[_% ]gold|production[_-]?expert|webpage%20pe%20gold/i.test(lower) ||
-    /3500x583|banner[_% ]blank|texture\./i.test(lower) ||
-    /features_/i.test(lower) ||
-    /\/assets\/uploads\/products\/.*web[_% ]image.*off/i.test(lower)
+    )
+  ) {
+    return true;
+  }
+  if (
+    /%20off|\d+%-off|special[_-]?offer|exclusive[_-]?pricing/i.test(lower)
+  ) {
+    return true;
+  }
+  if (/pe[_% ]gold|production[_-]?expert|webpage%20pe%20gold/i.test(lower)) {
+    return true;
+  }
+  if (/3500x583|banner[_% ]blank|texture\./i.test(lower)) return true;
+  if (/features_/i.test(lower)) return true;
+  if (/\/assets\/uploads\/products\/.*web[_% ]image.*off/i.test(lower)) {
+    return true;
+  }
+  if (/\/assets\/uploads\/images\/.*web[_% ]image/i.test(lower)) return true;
+
+  return false;
+}
+
+function isSslGuiFilename(lower: string): boolean {
+  return /(?:^|[/_\s%-])gui(?:[._\s%-]|$)|%20gui|web_gui|-gui-|gui-webpage|gui-with|gui_webpage|-gui\./i.test(
+    lower,
   );
 }
 
@@ -582,7 +613,7 @@ function collectSslImageUrls(html: string, pageUrl: string): string[] {
 
 function scoreSslImageUrl(url: string, slug: string): number {
   const lower = url.toLowerCase();
-  if (isSslImageNoise(lower)) return -1;
+  if (isSslImageNoise(lower, slug)) return -1;
   if (!/solidstatelogic\.com/i.test(lower)) return -1;
 
   const slugNorm = slug.replace(/-/g, "");
@@ -605,7 +636,7 @@ function scoreSslImageUrl(url: string, slug: string): number {
 
   if (
     /\/assets\/uploads\/[^/]+\.(?:png|jpe?g)(?:\?|$)/i.test(lower) &&
-    !/\/assets\/uploads\/(?:components|template|products)\//i.test(lower)
+    !/\/assets\/uploads\/(?:components|template|products|images)\//i.test(lower)
   ) {
     score += 48;
   }
@@ -616,12 +647,59 @@ function scoreSslImageUrl(url: string, slug: string): number {
   ) {
     score += 40;
   }
+  if (/\/assets\/uploads\/products\/[^/]+\.jpe?g(?:\?|$)/i.test(lower)) {
+    score -= 28;
+  }
 
-  if (/-gui-|gui-webpage|gui-with|gui_webpage|-gui\./i.test(lower)) score += 28;
+  let filename = lower.split("/").pop() ?? "";
+  try {
+    filename = decodeURIComponent(filename).toLowerCase();
+  } catch {
+    filename = filename.toLowerCase();
+  }
+  const slugTokens = slugParts(slug).filter((part) => part.length > 3);
+  if (
+    /\.png(?:\?|$)/i.test(lower) &&
+    /phpthumbof\/cache/i.test(lower) &&
+    slugTokens.some((token) => filename.includes(token))
+  ) {
+    score += 38;
+  }
+
+  if (isSslGuiFilename(lower)) score += 32;
   if (/_tile_/i.test(lower)) score += 30;
   if (/mixbus_11_pro_tile/i.test(lower) && slug === "mixbus-11-pro") score += 25;
   if (/mixbus_11_tile/i.test(lower) && slug === "mixbus-11") score += 25;
   if (/\.png(?:\?|$)/i.test(lower)) score += 5;
+
+  if (slug === "ssl-4k-e" && /4k[_%\s-]*e|4000[_%\s-]*e/i.test(lower)) {
+    score += 22;
+  }
+  if (
+    slug === "ssl-4k-g-channel-strip" &&
+    /4k[_%\s-]*g|4000[_%\s-]*g|sl_4000_g/i.test(lower)
+  ) {
+    score += 22;
+  }
+  if (slug.includes("bundle") && /band[_-]?bundle/i.test(lower)) {
+    score += 30;
+  }
+  if (
+    slug === "ssl-band-bundle" &&
+    /guitarstrip|drumstrip|vocalstrip/i.test(lower)
+  ) {
+    score -= 80;
+  }
+  if (!slug.includes("band-bundle") && /---band-bundle/i.test(lower)) {
+    score -= 50;
+  }
+
+  if (
+    slug === "ssl-4k-e" &&
+    /uc1|channelstrips|4000[_%\s-]*e[_%\s-]*brochure|brochure/i.test(lower)
+  ) {
+    score -= 40;
+  }
 
   if (
     /\/assets\/components\/phpthumbof\/cache\//i.test(lower) &&
@@ -635,6 +713,7 @@ function scoreSslImageUrl(url: string, slug: string): number {
   for (const part of slugParts(slug)) {
     if (part.length > 2 && lower.includes(part)) score += 2;
   }
+  if (/\b4k\b/i.test(slug) && /4k/i.test(lower)) score += 4;
 
   if (/\/assets\/uploads\/products\//i.test(lower) && score < 30) score -= 15;
 

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { apiError, handleRouteError } from "@/lib/api-error";
 import { getPriceHistory } from "@/services/prices";
 import { getProductBySlug } from "@/services/products";
 
@@ -11,12 +12,11 @@ export async function GET(
 
   try {
     const product = await getProductBySlug(slug);
-    if (!product) return NextResponse.json({ error: "Not found" }, { status: 404 });
+    if (!product) return apiError("Not found", 404);
 
     const history = await getPriceHistory(product._id, days);
     return NextResponse.json(history);
   } catch (err) {
-    console.error(err);
-    return NextResponse.json({ error: "Failed to fetch price history" }, { status: 500 });
+    return handleRouteError(err, "GET /api/products/[slug]/history", "Failed to fetch price history");
   }
 }

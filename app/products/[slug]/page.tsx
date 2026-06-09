@@ -6,6 +6,7 @@ import RetailerPriceTable from "@/components/RetailerPriceTable";
 import SectionPriceHistory from "@/components/SectionPriceHistory";
 import ButtonPriceAlert from "@/components/ButtonPriceAlert";
 import { PAGE_CONTAINER } from "@/lib/layout";
+import { absoluteUrl } from "@/lib/site-url";
 
 export const revalidate = 3600;
 
@@ -20,6 +21,7 @@ export async function generateMetadata({
   return {
     title: `${product.name} — Best Price | PluginBargains`,
     description: `Compare prices for ${product.name} by ${product.manufacturer} across 16 retailers. Currently from $${product.lowestPrice.toFixed(2)}.`,
+    alternates: { canonical: absoluteUrl(`/products/${slug}`) },
   };
 }
 

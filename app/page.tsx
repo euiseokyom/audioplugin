@@ -8,16 +8,38 @@ import SectionManufacturers from "@/components/SectionManufacturers";
 import SectionSignIn from "@/components/SectionSignIn";
 import SearchBox from "@/components/SearchBox";
 import { PAGE_CONTAINER } from "@/lib/layout";
+import type { PaginatedResponse, ProductWithPrices } from "@/types";
 
 export const revalidate = 3600;
 
+function settled<T>(
+  result: PromiseSettledResult<T>,
+  fallback: T
+): T {
+  return result.status === "fulfilled" ? result.value : fallback;
+}
+
 export default async function HomePage() {
-  const [hotDeals, endsSoon, categories, manufacturers] = await Promise.all([
-    getHotDeals(8),
-    getEndsSoonDeals(8),
-    getCategories(),
-    getManufacturers(),
-  ]);
+  const [hotDealsResult, endsSoonResult, categoriesResult, manufacturersResult] =
+    await Promise.allSettled([
+      getHotDeals(8),
+      getEndsSoonDeals(8),
+      getCategories(),
+      getManufacturers(),
+    ]);
+
+  const emptyDeals: PaginatedResponse<ProductWithPrices> = {
+    data: [],
+    total: 0,
+    page: 1,
+    pageSize: 8,
+    hasMore: false,
+  };
+
+  const hotDeals = settled(hotDealsResult, emptyDeals);
+  const endsSoon = settled(endsSoonResult, emptyDeals);
+  const categories = settled(categoriesResult, []);
+  const manufacturers = settled(manufacturersResult, []);
 
   return (
     <>

@@ -4,6 +4,7 @@
  * Run: npm run build:eventide-catalog
  */
 
+import { NEWFANGLED_AUDIO_PRODUCT_SLUGS } from "../lib/catalog/newfangled-audio-slugs";
 import { buildFromShopifyProductsJson } from "./lib/shopify-manufacturer-catalog";
 import type { ShopifyProductJson } from "./lib/shopify-catalog";
 
@@ -13,6 +14,7 @@ function shouldInclude(product: ShopifyProductJson): boolean {
     return false;
   }
   if (/crossgrade|upgrade from/i.test(product.title)) return false;
+  if (NEWFANGLED_AUDIO_PRODUCT_SLUGS.has(product.handle)) return false;
   return true;
 }
 

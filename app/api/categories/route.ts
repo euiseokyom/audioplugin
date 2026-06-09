@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { handleRouteError } from "@/lib/api-error";
 import { getCategories } from "@/services/categories";
 
 export async function GET() {
@@ -6,7 +7,6 @@ export async function GET() {
     const categories = await getCategories();
     return NextResponse.json(categories);
   } catch (err) {
-    console.error(err);
-    return NextResponse.json({ error: "Failed to fetch categories" }, { status: 500 });
+    return handleRouteError(err, "GET /api/categories", "Failed to fetch categories");
   }
 }

@@ -648,6 +648,7 @@ async function stripRemovableBackground(
     if (!options?.skipEdgeBlackStrip) {
       current = await stripEdgeBlackRows(current);
       current = await stripEdgeBlackColumns(current);
+      current = await stripSoftNearBlackAlpha(current);
     }
     current = await transparentizeMatteSurroundSafe(current);
   }
@@ -655,6 +656,99 @@ async function stripRemovableBackground(
   current = await trimTransparentMargins(current);
 
   return sharp(current).ensureAlpha().toBuffer();
+}
+
+/** Drop semi-transparent near-black letterbox remnants before resize. */
+async function stripSoftNearBlackAlpha(imageBuffer: Buffer): Promise<Buffer> {
+  const { data, width, height, channels } = await readRawRgba(imageBuffer);
+  if (channels < 4) return imageBuffer;
+
+  let changed = false;
+  for (let idx = 0; idx < width * height; idx++) {
+    const i = idx * channels;
+    const alpha = data[i + 3];
+    if (alpha === 0 || alpha === 255) continue;
+
+    const max = Math.max(data[i], data[i + 1], data[i + 2]);
+    if (alpha < 140 && max < 45) {
+      data[i] = 0;
+      data[i + 1] = 0;
+      data[i + 2] = 0;
+      data[i + 3] = 0;
+      changed = true;
+    }
+  }
+
+  if (!changed) return imageBuffer;
+
+  return sharp(data, { raw: { width, height, channels: 4 } })
+    .png()
+    .toBuffer();
+}
+
+/** Remove matte halos and resize fringe only on pixels bordering transparency. */
+async function cleanAlphaFringe(imageBuffer: Buffer): Promise<Buffer> {
+  const { data, width, height, channels } = await readRawRgba(imageBuffer);
+  if (channels < 4) return imageBuffer;
+
+  const pixelCount = width * height;
+  const alphaAt = (idx: number) => data[idx * channels + 3];
+  const isTransparent = (idx: number) => alphaAt(idx) < 16;
+  const isFringe = new Uint8Array(pixelCount);
+
+  for (let idx = 0; idx < pixelCount; idx++) {
+    const alpha = alphaAt(idx);
+    if (alpha >= 245 || alpha < 16) continue;
+
+    const x = idx % width;
+    const y = (idx - x) / width;
+    const neighbors: Array<[number, number]> = [
+      [x + 1, y],
+      [x - 1, y],
+      [x, y + 1],
+      [x, y - 1],
+    ];
+
+    for (const [nx, ny] of neighbors) {
+      if (nx < 0 || ny < 0 || nx >= width || ny >= height) continue;
+      if (isTransparent(ny * width + nx)) {
+        isFringe[idx] = 1;
+        break;
+      }
+    }
+  }
+
+  for (let idx = 0; idx < pixelCount; idx++) {
+    const i = idx * channels;
+    const alpha = data[i + 3];
+
+    if (alpha < 16) {
+      data[i] = 0;
+      data[i + 1] = 0;
+      data[i + 2] = 0;
+      data[i + 3] = 0;
+      continue;
+    }
+
+    if (!isFringe[idx]) continue;
+
+    const color = { r: data[i], g: data[i + 1], b: data[i + 2] };
+    const avg = (color.r + color.g + color.b) / 3;
+
+    if (isMatteSurroundRemovable(color) || avg > 210 || avg < 25) {
+      data[i] = 0;
+      data[i + 1] = 0;
+      data[i + 2] = 0;
+      data[i + 3] = 0;
+      continue;
+    }
+
+    data[i + 3] = 255;
+  }
+
+  return sharp(data, { raw: { width, height, channels: 4 } })
+    .png()
+    .toBuffer();
 }
 
 /**
@@ -682,12 +776,15 @@ export async function letterboxToSquareWebp(
   );
   const innerMax = Math.round(size * tileFillRatio);
 
-  const fitted = await sharp(prepared)
-    .resize(innerMax, innerMax, {
-      fit: "contain",
-      background: TRANSPARENT,
-    })
-    .toBuffer();
+  const fitted = await cleanAlphaFringe(
+    await sharp(prepared)
+      .resize(innerMax, innerMax, {
+        fit: "contain",
+        background: TRANSPARENT,
+        kernel: sharp.kernel.lanczos3,
+      })
+      .toBuffer(),
+  );
 
   const { width = innerMax, height = innerMax } = await sharp(fitted).metadata();
   const padLeft = Math.max(0, Math.floor((size - width) / 2) + offsetX);

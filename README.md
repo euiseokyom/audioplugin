@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+**PluginBargains** — audio plugin deal aggregator with price tracking and admin scraper dashboard.
+
+See **[DEPLOYMENT.md](./DEPLOYMENT.md)** for production setup (domain, Vercel, Railway worker, env vars, and verification checklist).
+
 ## Getting Started
 
 First, run the development server:

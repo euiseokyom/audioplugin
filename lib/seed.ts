@@ -11,6 +11,7 @@ import { IZOTOPE_PRODUCTS } from "@/lib/catalog/izotope-products";
 import { MCDSP_PRODUCTS } from "@/lib/catalog/mcdsp-products";
 import { SLATE_PRODUCTS } from "@/lib/catalog/slate-products";
 import { EVENTIDE_PRODUCTS } from "@/lib/catalog/eventide-products";
+import { NEWFANGLED_AUDIO_PRODUCTS } from "@/lib/catalog/newfangled-audio-products";
 import { XLN_PRODUCTS } from "@/lib/catalog/xln-products";
 import { RELAB_PRODUCTS } from "@/lib/catalog/relab-products";
 import { ANTARES_PRODUCTS } from "@/lib/catalog/antares-products";
@@ -24,6 +25,10 @@ import { UAD_PRODUCTS } from "@/lib/catalog/uad-products";
 import { WAVES_PRODUCTS } from "@/lib/catalog/waves-products";
 import type { SeedProduct } from "@/lib/catalog/seed-product";
 import { resolveProductImageSrc } from "@/lib/catalog/product-image-path";
+import {
+  ensureUniqueSlug,
+  warnCatalogSlugCollisions,
+} from "@/lib/catalog/slug-utils";
 import { getEndsSoonDealEndDate } from "@/lib/ends-soon";
 
 const MONGODB_URI =
@@ -219,31 +224,6 @@ const BASE_PRODUCTS: SeedProduct[] = [
   },
 ];
 
-function manufacturerSlugSuffix(manufacturer: string): string {
-  return manufacturer.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-}
-
-function ensureUniqueSlug(
-  slug: string,
-  manufacturer: string,
-  usedSlugs: Set<string>,
-): string {
-  if (!usedSlugs.has(slug)) return slug;
-
-  const suffix = manufacturerSlugSuffix(manufacturer);
-  let candidate = `${slug}-${suffix}`;
-  let counter = 2;
-  while (usedSlugs.has(candidate)) {
-    candidate = `${slug}-${suffix}-${counter}`;
-    counter++;
-  }
-
-  console.warn(
-    `Duplicate slug "${slug}" — using "${candidate}" for ${manufacturer}`,
-  );
-  return candidate;
-}
-
 const PRODUCTS: SeedProduct[] = [
   ...BASE_PRODUCTS,
   ...WAVES_PRODUCTS,
@@ -257,6 +237,7 @@ const PRODUCTS: SeedProduct[] = [
   ...SSL_PRODUCTS,
   ...SLATE_PRODUCTS,
   ...EVENTIDE_PRODUCTS,
+  ...NEWFANGLED_AUDIO_PRODUCTS,
   ...XLN_PRODUCTS,
   ...RELAB_PRODUCTS,
   ...ANTARES_PRODUCTS,
@@ -335,39 +316,119 @@ function shouldSeedFakePrices(): boolean {
   return raw === "1" || raw === "true" || raw === "yes";
 }
 
+function parseSeedManufacturers(): string[] | null {
+  const raw = process.env.SEED_MANUFACTURERS?.trim();
+  if (!raw) return null;
+  return raw.split(",").map((m) => m.trim()).filter(Boolean);
+}
+
+function filterProductsByManufacturers(
+  products: SeedProduct[],
+  manufacturers: string[],
+): SeedProduct[] {
+  const allowed = new Set(manufacturers.map((m) => m.toLowerCase()));
+  return products.filter((p) => allowed.has(p.manufacturer.toLowerCase()));
+}
+
 async function seed() {
   await mongoose.connect(MONGODB_URI);
   console.log("Connected to MongoDB");
 
+  const seedManufacturers = parseSeedManufacturers();
+  const isPartialSeed = seedManufacturers !== null && seedManufacturers.length > 0;
+  const productsToSeed = isPartialSeed
+    ? filterProductsByManufacturers(PRODUCTS, seedManufacturers)
+    : PRODUCTS;
+
+  if (isPartialSeed) {
+    console.warn(
+      `Partial seed mode — only upserting: ${seedManufacturers.join(", ")}`,
+    );
+    console.log(`Seeding ${productsToSeed.length} products (other manufacturers untouched)`);
+  }
+
+  warnCatalogSlugCollisions(PRODUCTS);
+
   const seedFakePrices = shouldSeedFakePrices();
-  const existingProducts = seedFakePrices
-    ? []
-    : await Product.find({}).select("_id canonicalId").lean();
+  const existingProducts =
+    seedFakePrices || isPartialSeed
+      ? []
+      : await Product.find({}).select("_id canonicalId").lean();
   const canonicalByOldId = new Map(
     existingProducts.map((p) => [p._id.toString(), p.canonicalId as string]),
   );
 
-  await Product.deleteMany({});
-  if (seedFakePrices) {
-    await PriceEntry.deleteMany({});
-    console.log("Cleared existing products and price entries");
-  } else {
-    console.log("Cleared existing products (will re-link PriceEntry by canonicalId)");
+  if (!isPartialSeed) {
+    await Product.deleteMany({});
+    if (seedFakePrices) {
+      await PriceEntry.deleteMany({});
+      console.log("Cleared existing products and price entries");
+    } else {
+      console.log("Cleared existing products (will re-link PriceEntry by canonicalId)");
+    }
   }
 
   const priceEntriesToInsert: object[] = [];
   const canonicalToNewId = new Map<string, mongoose.Types.ObjectId>();
   const usedSlugs = new Set<string>();
+  const existingSlugByCanonicalId = new Map<string, string>();
+  const catalogCanonicalIds = new Set(productsToSeed.map((p) => p.canonicalId));
+  const seededManufacturerSet = new Set(
+    productsToSeed.map((p) => p.manufacturer.toLowerCase()),
+  );
 
-  for (const p of PRODUCTS) {
+  if (isPartialSeed) {
+    const seededManufacturers = [
+      ...new Set(productsToSeed.map((p) => p.manufacturer)),
+    ];
+    const orphanResult = await Product.deleteMany({
+      manufacturer: { $in: seededManufacturers },
+      canonicalId: { $nin: [...catalogCanonicalIds] },
+    });
+    if (orphanResult.deletedCount > 0) {
+      console.log(
+        `Removed ${orphanResult.deletedCount} stale product(s) from seeded manufacturers`,
+      );
+    }
+
+    const existingProducts = await Product.find({})
+      .select("slug canonicalId manufacturer")
+      .lean();
+    for (const product of existingProducts) {
+      const isManagedManufacturer = seededManufacturerSet.has(
+        product.manufacturer.toLowerCase(),
+      );
+      const isCatalogProduct =
+        product.canonicalId &&
+        catalogCanonicalIds.has(product.canonicalId);
+
+      if (!isManagedManufacturer || isCatalogProduct) {
+        usedSlugs.add(product.slug);
+      }
+
+      if (isCatalogProduct && product.canonicalId) {
+        existingSlugByCanonicalId.set(product.canonicalId, product.slug);
+      }
+    }
+  }
+
+  let created = 0;
+  let updated = 0;
+
+  for (const p of productsToSeed) {
     const { retailers, ...productFields } = p;
-    const slug = ensureUniqueSlug(productFields.slug, productFields.manufacturer, usedSlugs);
-    usedSlugs.add(slug);
+    const canonicalId = productFields.canonicalId;
 
-    const canonicalId =
-      slug === productFields.slug
-        ? productFields.canonicalId
-        : `${slug}-${manufacturerSlugSuffix(productFields.manufacturer)}`;
+    const slugsForResolution = new Set(usedSlugs);
+    const existingSlug = existingSlugByCanonicalId.get(canonicalId);
+    if (existingSlug) slugsForResolution.delete(existingSlug);
+
+    const slug = ensureUniqueSlug(
+      productFields.slug,
+      productFields.manufacturer,
+      slugsForResolution,
+    );
+    usedSlugs.add(slug);
 
     const dealEndsAt = getEndsSoonDealEndDate(slug);
     const image = resolveProductImageSrc({
@@ -376,34 +437,67 @@ async function seed() {
       canonicalId: productFields.canonicalId,
       manufacturer: productFields.manufacturer,
     });
-    const product = await Product.create({
-      ...productFields,
-      slug,
-      canonicalId,
-      image,
-      ...(dealEndsAt && { dealEndsAt }),
-    });
-    canonicalToNewId.set(canonicalId, product._id);
-    console.log(`Created product: ${product.name}`);
 
-    if (seedFakePrices) {
-      for (const retailerSlug of retailers) {
-        const entries = generatePriceHistory(
-          productFields.registeredPrice,
-          retailerSlug,
-          product._id,
-          30,
-          { isHotDeal: HOT_DEAL_SLUGS.has(slug) },
-        );
-        priceEntriesToInsert.push(...entries);
+    if (isPartialSeed) {
+      const existed = await Product.exists({ canonicalId });
+      const result = await Product.findOneAndUpdate(
+        { canonicalId },
+        {
+          $set: {
+            ...productFields,
+            slug,
+            canonicalId,
+            image,
+            ...(dealEndsAt && { dealEndsAt }),
+          },
+        },
+        { upsert: true, returnDocument: "after" },
+      );
+      if (result) {
+        canonicalToNewId.set(canonicalId, result._id);
+        if (existed) {
+          updated++;
+          console.log(`Updated product: ${result.name}`);
+        } else {
+          created++;
+          console.log(`Created product: ${result.name}`);
+        }
+      }
+    } else {
+      const product = await Product.create({
+        ...productFields,
+        slug,
+        canonicalId,
+        image,
+        ...(dealEndsAt && { dealEndsAt }),
+      });
+      canonicalToNewId.set(canonicalId, product._id);
+      created++;
+      console.log(`Created product: ${product.name}`);
+
+      if (seedFakePrices) {
+        for (const retailerSlug of retailers) {
+          const entries = generatePriceHistory(
+            productFields.registeredPrice,
+            retailerSlug,
+            product._id,
+            30,
+            { isHotDeal: HOT_DEAL_SLUGS.has(slug) },
+          );
+          priceEntriesToInsert.push(...entries);
+        }
       }
     }
+  }
+
+  if (isPartialSeed) {
+    console.log(`Partial seed done: ${created} created, ${updated} updated`);
   }
 
   if (seedFakePrices && priceEntriesToInsert.length > 0) {
     await PriceEntry.insertMany(priceEntriesToInsert);
     console.log(`Inserted ${priceEntriesToInsert.length} price entries`);
-  } else if (!seedFakePrices) {
+  } else if (!seedFakePrices && !isPartialSeed) {
     let relinked = 0;
     for (const [oldId, canonicalId] of canonicalByOldId) {
       const newId = canonicalToNewId.get(canonicalId);

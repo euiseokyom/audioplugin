@@ -51,12 +51,53 @@ export interface IScraperLog {
   retailerSlug: string;
   startedAt: string;
   finishedAt?: string;
-  status: "running" | "success" | "failed" | "partial";
+  status: "pending" | "running" | "success" | "failed" | "partial";
+  type?: "scheduled" | "manual";
   errorMessage?: string;
   itemsScraped: number;
+  productsAdded?: number;
+  productsUpdated?: number;
   failedUrls: string[];
   screenshotUrl?: string;
   rawHtmlPath?: string;
+}
+
+export type RetailerHealth = "healthy" | "warning" | "error";
+
+export interface RetailerDashboardEntry {
+  slug: string;
+  name: string;
+  health: RetailerHealth;
+  lastSuccessAt: string | null;
+  productCount: number;
+  hasPendingJob?: boolean;
+  isActive: boolean;
+}
+
+export interface AdminDashboardStats {
+  totalProducts: number;
+  activeRetailers: number;
+  lastSuccessfulRun: IScraperLog | null;
+  productsAdded24h: number;
+  productsUpdated24h: number;
+}
+
+export interface AdminDashboardData {
+  stats: AdminDashboardStats;
+  recentRuns: IScraperLog[];
+  retailers: RetailerDashboardEntry[];
+  fetchedAt: string;
+}
+
+export type SystemHealthStatus = "healthy" | "warning" | "error";
+
+export interface SystemHealthSummary {
+  status: SystemHealthStatus;
+  lastSuccessfulRun: IScraperLog | null;
+  recentFailureCount: number;
+  pendingJobCount: number;
+  retailerErrorCount: number;
+  retailerWarningCount: number;
 }
 
 export interface PriceHistoryPoint {
