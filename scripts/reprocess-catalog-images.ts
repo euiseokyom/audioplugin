@@ -11,7 +11,7 @@ import { fileURLToPath } from "url";
 import {
   productOriginalDir,
   productWebpDir,
-} from "../lib/catalog/product-image-path";
+} from "../lib/catalog/product-image-fs";
 import {
   IMAGE_PLACEMENT_OFFSETS,
   letterboxToSquareWebp,

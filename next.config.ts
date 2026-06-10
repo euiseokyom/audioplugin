@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  outputFileTracingExcludes: {
+    "*": ["./public/images/**/*"],
+  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "**.plugin-boutique.com" },

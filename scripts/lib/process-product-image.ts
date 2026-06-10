@@ -5,7 +5,7 @@ import sharp from "sharp";
 import {
   productOriginalDir,
   productWebpDir,
-} from "../../lib/catalog/product-image-path";
+} from "../../lib/catalog/product-image-fs";
 
 const ROOT = path.resolve(fileURLToPath(new URL(".", import.meta.url)), "../..");
 

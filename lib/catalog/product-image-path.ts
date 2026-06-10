@@ -1,5 +1,3 @@
-import path from "path";
-
 /** Manufacturer folder tags — longest first for canonicalId suffix matching. */
 export const MANUFACTURER_IMAGE_TAGS = [
   "relab-development",
@@ -44,16 +42,6 @@ const MANUFACTURER_TO_TAG: Record<string, string> = {
 /** Public URL for a processed product tile WebP. */
 export function productImageUrl(manufacturerTag: string, slug: string): string {
   return `/images/products/${manufacturerTag}/${slug}.webp`;
-}
-
-/** Filesystem directory for a manufacturer's WebP tiles. */
-export function productWebpDir(root: string, manufacturerTag: string): string {
-  return path.join(root, "public/images/products", manufacturerTag);
-}
-
-/** Filesystem directory for a manufacturer's original source PNGs. */
-export function productOriginalDir(root: string, manufacturerTag: string): string {
-  return path.join(root, "public/images/products/original", manufacturerTag);
 }
 
 export function manufacturerTagFromCanonicalId(
