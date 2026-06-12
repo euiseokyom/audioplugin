@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
 import Navbar from "@/components/Navbar";
@@ -8,11 +9,17 @@ import { getSiteUrl } from "@/lib/site-url";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const siteUrl = getSiteUrl();
 
+const defaultTitle = "PluginBargains — Best Audio Plugin Deals & Price Tracker";
+const defaultDescription =
+  "Track the best deals on audio plugins. Compare prices across 16 retailers, set price drop alerts, and never overpay for your favorite plugins again.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "PluginBargains — Best Audio Plugin Deals & Price Tracker",
-  description:
-    "Track the best deals on audio plugins. Compare prices across 16 retailers, set price drop alerts, and never overpay for your favorite plugins again.",
+  title: {
+    default: defaultTitle,
+    template: "%s | PluginBargains",
+  },
+  description: defaultDescription,
   keywords: [
     "audio plugins",
     "plugin deals",
@@ -20,11 +27,19 @@ export const metadata: Metadata = {
     "plugin price tracker",
   ],
   openGraph: {
-    title: "PluginBargains — Best Audio Plugin Deals & Price Tracker",
+    title: defaultTitle,
     description:
       "Compare plugin prices across 16 retailers and set price drop alerts.",
     type: "website",
     url: siteUrl,
+    siteName: "PluginBargains",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultTitle,
+    description:
+      "Compare plugin prices across 16 retailers and set price drop alerts.",
   },
 };
 
@@ -52,6 +67,7 @@ export default function RootLayout({
             </footer>
           </div>
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   );

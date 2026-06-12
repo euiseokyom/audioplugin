@@ -5,6 +5,7 @@
  */
 
 import { isBundleNameOrSlug } from "../lib/catalog/catalog-category-map";
+import { DEFAULT_RETAILERS } from "../lib/catalog/manufacturer-retailers";
 import {
   buildCatalogFile,
   type CatalogSourceItem,
@@ -56,6 +57,7 @@ async function main() {
     generatedBy: "scripts/build-izotope-catalog.ts",
     outputFile: "lib/catalog/izotope-products.ts",
     items,
+    retailers: [...DEFAULT_RETAILERS],
     delayMs: 50,
     processingProfile: "light",
   });

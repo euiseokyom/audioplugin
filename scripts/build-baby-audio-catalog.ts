@@ -9,7 +9,6 @@ import {
   buildCatalogFile,
   type CatalogSourceItem,
 } from "./lib/official-catalog";
-import { processProductImageFromUrls } from "./lib/process-product-image";
 import { fetchPageHtml } from "./lib/page-scrape";
 import { isBundleNameOrSlug } from "../lib/catalog/catalog-category-map";
 
@@ -17,26 +16,45 @@ const MANUFACTURER = "Baby Audio";
 const MANUFACTURER_TAG = "baby-audio";
 const BASE = "https://www.babyaud.io";
 
-const PRODUCT_PATHS = [
-  "/taip-plugin",
-  "/parallel-aggressor-plugin",
-  "/comeback-kid-delay-plugin",
-  "/i-heart-ny-parallel-compression-plugin",
-  "/ihny-2",
-  "/smooth-operator-plugin",
-  "/spaced-out-plugin",
-  "/super-vhs-multi-fx-plugin",
-  "/crystalline",
-  "/humanoid",
-  "/grainferno",
-  "/atoms",
-  "/ba-1",
-  "/tekno",
-  "/transit",
-  "/complete-bundle",
-];
+/** Official USD MSRP — babyaud.io renders KRW in h1 outside the US. */
+const BABY_AUDIO_PRICES: Record<string, number> = {
+  taip: 69,
+  "parallel-aggressor": 49,
+  "comeback-kid-delay": 49,
+  "ihny-2": 49,
+  "smooth-operator": 49,
+  "spaced-out": 49,
+  "super-vhs-multi-fx": 49,
+  crystalline: 69,
+  humanoid: 49,
+  grainferno: 59,
+  atoms: 59,
+  "ba-1": 69,
+  tekno: 89,
+  transit: 69,
+  "complete-bundle": 199,
+};
+
+const BABY_AUDIO_NAMES: Record<string, string> = {
+  taip: "TAIP",
+  "parallel-aggressor": "Parallel Aggressor",
+  "comeback-kid-delay": "Comeback Kid",
+  "ihny-2": "I Heart NY 2",
+  "smooth-operator": "Smooth Operator",
+  "spaced-out": "Spaced Out",
+  "super-vhs-multi-fx": "Super VHS",
+  crystalline: "Crystalline",
+  humanoid: "Humanoid",
+  grainferno: "Grainferno",
+  atoms: "Atoms",
+  "ba-1": "BA-1",
+  tekno: "Tekno",
+  transit: "Transit",
+  "complete-bundle": "Complete Bundle",
+};
 
 const SKIP_SEGMENTS = new Set([
+  "all-products",
   "expansion-packs",
   "freebies",
   "downloads",
@@ -44,7 +62,22 @@ const SKIP_SEGMENTS = new Set([
   "blog",
   "about",
   "checkout",
+  "jobs",
+  "privacy-policy",
+  "refund-policy",
+  "grants-for-good",
 ]);
+
+function parseBabyAudioName(docTitle: string, slug: string): string {
+  if (BABY_AUDIO_NAMES[slug]) return BABY_AUDIO_NAMES[slug];
+  const byMatch = docTitle.match(/^(.+?)\s+by\s+Baby Audio/i);
+  if (byMatch) return byMatch[1].trim();
+  return docTitle.replace(/\s*[-|].*$/, "").trim() || slug.replace(/-/g, " ");
+}
+
+function isPriceHeading(text: string): boolean {
+  return /^[$₩€£][\d,]/.test(text.trim());
+}
 
 function slugFromPath(pathname: string): string {
   const segment = pathname.split("/").filter(Boolean).pop() ?? "";
@@ -64,12 +97,12 @@ function pickBabyAudioImage(urls: string[], slug: string): string | null {
       const lower = url.toLowerCase();
       let score = 0;
       if (/\.avif|\.webp|\.png|\.jpe?g/i.test(lower)) score += 2;
-      if (/\*[a-z]/.test(lower) || /interface|gui|screen|hero/i.test(lower)) {
-        score += 5;
-      }
+      if (/gui|interface|screen/i.test(lower)) score += 10;
+      if (/\*[a-z]/.test(lower) && !/gui|interface|screen/i.test(lower)) score += 1;
+      else if (/hero/i.test(lower)) score += 5;
       if (lower.includes(keywords.replace(/ /g, ""))) score += 4;
       if (lower.includes(keywords.split(" ")[0] ?? "")) score += 2;
-      if (/icon/i.test(lower)) score -= 3;
+      if (/icon/i.test(lower)) score -= 8;
       return { url, score };
     })
     .sort((a, b) => b.score - a.score);
@@ -79,7 +112,7 @@ function pickBabyAudioImage(urls: string[], slug: string): string | null {
 
 async function discoverFromAllProducts(): Promise<string[]> {
   const html = await fetchPageHtml(`${BASE}/all-products`);
-  const paths = new Set<string>(PRODUCT_PATHS);
+  const paths = new Set<string>();
 
   if (html) {
     for (const match of html.matchAll(/href="(\/[a-z0-9-]+(?:-plugin)?)"/gi)) {
@@ -114,35 +147,38 @@ async function main() {
       await page.goto(pageUrl, { waitUntil: "domcontentloaded", timeout: 60_000 });
       await page.waitForTimeout(2000);
 
-      const { title, imageUrls, priceText } = await page.evaluate(() => {
-        const title =
-          document.querySelector("h1")?.textContent?.trim() ??
-          document.title.replace(/\s*\|.*/, "").trim();
+      const { h1, docTitle, imageUrls, priceText } = await page.evaluate(() => {
+        const h1 = document.querySelector("h1")?.textContent?.trim() ?? "";
         const imageUrls = [...document.querySelectorAll("img")]
           .map((img) => img.src)
           .filter(Boolean);
-        const priceText = document.body.innerText.match(/\$\d+(?:\.\d{2})?/)?.[0];
-        return { title, imageUrls, priceText };
+        const priceText =
+          document.body.innerText.match(/\$\d+(?:\.\d{2})?/)?.[0] ??
+          document
+            .querySelector("[class*='price'], [data-price]")
+            ?.textContent?.match(/\$\d+(?:\.\d{2})?/)?.[0];
+        return { h1, docTitle: document.title, imageUrls, priceText };
       });
 
-      const imageUrl = pickBabyAudioImage(imageUrls, slug);
-      if (imageUrl) {
-        await processProductImageFromUrls(slug, [imageUrl]);
-      } else {
-        console.warn(`  ✗ No image for ${slug}`);
+      const name = parseBabyAudioName(docTitle, slug);
+      if (!name || (isPriceHeading(h1) && !BABY_AUDIO_NAMES[slug])) {
+        continue;
       }
 
-      const registeredPrice = priceText
-        ? Math.round(Number.parseFloat(priceText.replace("$", "")) * 100) / 100
-        : 0;
+      const imageUrl = pickBabyAudioImage(imageUrls, slug);
+      const registeredPrice =
+        BABY_AUDIO_PRICES[slug] ??
+        (priceText
+          ? Math.round(Number.parseFloat(priceText.replace("$", "")) * 100) / 100
+          : 0);
 
       items.push({
-        name: title || slug.replace(/-/g, " "),
+        name,
         slug,
         pageUrl,
         imageUrl,
         registeredPrice,
-        isBundle: isBundleNameOrSlug(title ?? slug, slug),
+        isBundle: isBundleNameOrSlug(name, slug),
       });
     } catch (error) {
       console.warn(`  ✗ Failed ${pageUrl}:`, error);
@@ -161,6 +197,7 @@ async function main() {
     outputFile: "lib/catalog/baby-audio-products.ts",
     items,
     delayMs: 0,
+    processingProfile: "light",
   });
 }
 

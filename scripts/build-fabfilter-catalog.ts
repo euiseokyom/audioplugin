@@ -12,6 +12,7 @@ import {
 } from "./lib/official-catalog";
 import { fetchPageHtml } from "./lib/page-scrape";
 import { isBundleNameOrSlug } from "../lib/catalog/catalog-category-map";
+import { DEFAULT_RETAILERS } from "../lib/catalog/manufacturer-retailers";
 
 const MANUFACTURER = "FabFilter";
 const MANUFACTURER_TAG = "fabfilter";
@@ -66,6 +67,7 @@ async function main() {
     generatedBy: "scripts/build-fabfilter-catalog.ts",
     outputFile: "lib/catalog/fabfilter-products.ts",
     items,
+    retailers: [...DEFAULT_RETAILERS],
     delayMs: 0,
     processingProfile: "light",
   });

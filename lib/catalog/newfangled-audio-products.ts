@@ -11,18 +11,18 @@ export const NEWFANGLED_AUDIO_PRODUCTS: SeedProduct[] = [
     manufacturer: "Newfangled Audio",
     registeredPrice: 69,
     tags: ["newfangled-audio", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Elevate Mastering Bundle",
     slug: "elevate-mastering-bundle",
     canonicalId: "elevate-mastering-bundle-newfangled-audio",
     image: "/images/products/eventide/elevate-mastering-bundle.webp",
-    category: "Bundle",
+    category: "Limiter",
     manufacturer: "Newfangled Audio",
     registeredPrice: 199,
     tags: ["newfangled-audio", "bundle", "mastering"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "EQuivocate",
@@ -33,7 +33,7 @@ export const NEWFANGLED_AUDIO_PRODUCTS: SeedProduct[] = [
     manufacturer: "Newfangled Audio",
     registeredPrice: 99,
     tags: ["newfangled-audio", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Fixate:Midrange",
@@ -44,7 +44,7 @@ export const NEWFANGLED_AUDIO_PRODUCTS: SeedProduct[] = [
     manufacturer: "Newfangled Audio",
     registeredPrice: 139,
     tags: ["newfangled-audio", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Generate",
@@ -55,7 +55,7 @@ export const NEWFANGLED_AUDIO_PRODUCTS: SeedProduct[] = [
     manufacturer: "Newfangled Audio",
     registeredPrice: 99,
     tags: ["newfangled-audio", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Invigorate",
@@ -66,7 +66,7 @@ export const NEWFANGLED_AUDIO_PRODUCTS: SeedProduct[] = [
     manufacturer: "Newfangled Audio",
     registeredPrice: 99,
     tags: ["newfangled-audio", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Punctuate",
@@ -77,7 +77,7 @@ export const NEWFANGLED_AUDIO_PRODUCTS: SeedProduct[] = [
     manufacturer: "Newfangled Audio",
     registeredPrice: 99,
     tags: ["newfangled-audio", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Recirculate",
@@ -88,7 +88,7 @@ export const NEWFANGLED_AUDIO_PRODUCTS: SeedProduct[] = [
     manufacturer: "Newfangled Audio",
     registeredPrice: 99,
     tags: ["newfangled-audio", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Saturate",
@@ -99,6 +99,6 @@ export const NEWFANGLED_AUDIO_PRODUCTS: SeedProduct[] = [
     manufacturer: "Newfangled Audio",
     registeredPrice: 49,
     tags: ["newfangled-audio", "saturation"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
 ];

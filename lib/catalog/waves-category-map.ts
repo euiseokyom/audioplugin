@@ -1,3 +1,5 @@
+import { isLimiterProduct } from "@/lib/catalog/limiter-category";
+
 const EXACT_CATEGORY_MAP: Record<string, string> = {
   "Premium Bundles": "Bundle",
   Bundles: "Bundle",
@@ -5,14 +7,14 @@ const EXACT_CATEGORY_MAP: Record<string, string> = {
   EQ: "Equalizer",
   Equalizers: "Equalizer",
   Compressors: "Compressor",
-  Limiters: "Compressor",
+  Limiters: "Limiter",
   Reverb: "Reverb",
   Delays: "Delay",
   Delay: "Delay",
-  Modulation: "Modulation",
-  Phaser: "Modulation",
-  Flanger: "Modulation",
-  Chorus: "Modulation",
+  Modulation: "Effects",
+  Phaser: "Effects",
+  Flanger: "Effects",
+  Chorus: "Effects",
   Saturation: "Saturation",
   Distortion: "Saturation",
   Vocal: "Vocal",
@@ -22,21 +24,21 @@ const EXACT_CATEGORY_MAP: Record<string, string> = {
   Synth: "Instrument",
   Synthesizer: "Instrument",
   Mastering: "Mastering",
-  Pitch: "Modulation",
+  Pitch: "Effects",
   "Pitch Correction": "Vocal",
   Analyzer: "Effects",
   Utilities: "Effects",
   Surround: "Effects",
-  "SoundGrid": "Effects",
+  SoundGrid: "Effects",
 };
 
 const KEYWORD_CATEGORY_RULES: { keywords: string[]; category: string }[] = [
   { keywords: ["bundle"], category: "Bundle" },
   { keywords: ["eq", "equal"], category: "Equalizer" },
-  { keywords: ["compress", "limit"], category: "Compressor" },
+  { keywords: ["ultramaximizer", "multimaximizer", "pro-l-2", "pro-l2"], category: "Limiter" },
+  { keywords: ["compress"], category: "Compressor" },
   { keywords: ["reverb"], category: "Reverb" },
   { keywords: ["delay", "echo"], category: "Delay" },
-  { keywords: ["modul", "phaser", "flanger", "chorus", "tremolo", "pan"], category: "Modulation" },
   { keywords: ["satur", "distort", "amp"], category: "Saturation" },
   { keywords: ["vocal", "pitch"], category: "Vocal" },
   { keywords: ["restor", "denois", "de-ess"], category: "Restoration" },
@@ -48,8 +50,11 @@ const KEYWORD_CATEGORY_RULES: { keywords: string[]; category: string }[] = [
 export function mapWavesCategory(
   gsfCategory: string,
   isBundle: boolean,
+  name = "",
+  slug = "",
 ): string {
   if (isBundle) return "Bundle";
+  if (name && slug && isLimiterProduct(name, slug)) return "Limiter";
 
   const trimmed = gsfCategory.trim();
   if (trimmed && EXACT_CATEGORY_MAP[trimmed]) {

@@ -11,7 +11,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "A-Type Multiband Dynamic Enhancer",
@@ -22,7 +22,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "A/DA Flanger",
@@ -33,7 +33,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 50,
     tags: ["universal-audio", "uad", "delay"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "A/DA STD-1 Stereo Tapped Delay",
@@ -44,7 +44,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "delay"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "AKG BX 20 Spring Reverb",
@@ -55,7 +55,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Ampeg B-15N Bass Amplifier",
@@ -66,7 +66,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Ampeg SVT-3 PRO Bass Amplifier",
@@ -77,7 +77,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Ampeg SVT-VR Bass Amplifier",
@@ -88,7 +88,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Ampex ATR-102 Mastering Tape Recorder",
@@ -99,7 +99,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "AMS DMX Digital Delay & Pitch Shifter",
@@ -110,7 +110,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "delay"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "AMS Neve DFC Channel Strip",
@@ -121,7 +121,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "AMS RMX16 Expanded Digital Reverb",
@@ -132,7 +132,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Analog Classics Pro Bundle",
@@ -143,7 +143,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 299,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Analog Tape Bundle",
@@ -154,7 +154,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 249,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Anthem Analog Synthesizer",
@@ -165,7 +165,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "API 2500 Bus Compressor",
@@ -176,7 +176,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "API 500 Series EQ Collection",
@@ -187,7 +187,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "API Preamp",
@@ -198,7 +198,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "API Summing",
@@ -209,7 +209,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "API Vision Channel Strip Collection",
@@ -220,7 +220,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Auto-Tune Realtime X",
@@ -231,7 +231,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 299,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Avalon VT-737 Tube Channel Strip",
@@ -242,7 +242,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Brainworx bx_digital V3 EQ Collection",
@@ -253,7 +253,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 150,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Brainworx bx_masterdesk",
@@ -264,7 +264,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Brainworx bx_masterdesk Classic",
@@ -275,7 +275,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 50,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Brainworx bx_refinement",
@@ -286,7 +286,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 100,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Brainworx bx_saturator V2",
@@ -297,7 +297,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 100,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Brigade Chorus",
@@ -308,7 +308,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 49,
     tags: ["universal-audio", "uad", "delay"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "bx_subsynth Subharmonic Synth",
@@ -319,7 +319,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "C-Suite C-Axe Guitar Noise Suppressor",
@@ -330,7 +330,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 249,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "C-Suite C-Max Limiter",
@@ -341,7 +341,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 249,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "C-Suite C-Vox Noise & Ambience Reduction",
@@ -352,7 +352,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 249,
     tags: ["universal-audio", "uad", "vocal"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Cambridge EQ",
@@ -363,7 +363,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Capitol Chambers",
@@ -374,7 +374,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Capitol Mastering Compressor",
@@ -385,18 +385,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
-  },
-  {
-    name: "Century Tube Channel Strip",
-    slug: "century-tube-channel-strip",
-    canonicalId: "century-tube-channel-strip-universal-audio",
-    image: "/images/products/universal-audio/century-tube-channel-strip.webp",
-    category: "Instrument",
-    manufacturer: "Universal Audio",
-    registeredPrice: 0,
-    tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Chandler Limited Curve Bender Mastering EQ",
@@ -407,7 +396,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 299,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Chandler Limited GAV19T Amplifier",
@@ -418,7 +407,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 50,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Chandler Limited Zener Limiter",
@@ -429,7 +418,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 299,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Cooper Time Cube Mk II Delay",
@@ -440,7 +429,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "delay"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Dangerous BAX EQ Collection",
@@ -451,7 +440,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 125,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "dbx 160 Compressor / Limiter",
@@ -462,7 +451,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Diezel Herbert Amplifier",
@@ -473,7 +462,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Diezel VH4 Amplifier",
@@ -484,7 +473,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Distortion Essentials Bundle",
@@ -495,7 +484,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "DreamVerb Room Modeler",
@@ -506,7 +495,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Dytronics Cyclosonic Panner",
@@ -517,7 +506,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "delay"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Dytronics Tri-Stereo Chorus",
@@ -528,7 +517,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "delay"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Eden WT800 Bass Amplifier",
@@ -539,7 +528,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Electra 88 Vintage Keyboard Studio",
@@ -550,7 +539,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "elysia• alpha compressor v2",
@@ -561,7 +550,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 150,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "elysia• mpressor",
@@ -572,7 +561,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 100,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Empirical Labs EL8 Distressor Compressor",
@@ -583,7 +572,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "EMT 140 Classic Plate Reverberator",
@@ -594,7 +583,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "EMT 250 Classic Electronic Reverb",
@@ -605,7 +594,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "ENGL E646 VS Limited Edition",
@@ -616,7 +605,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 50,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "ENGL E765 Retro Tube",
@@ -627,7 +616,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 50,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "ENGL Savage 120 Amplifier",
@@ -638,7 +627,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "EP-34 Tape Echo",
@@ -649,7 +638,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "delay"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Eventide H910 Harmonizer",
@@ -660,7 +649,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Fairchild Tube Limiter Collection",
@@ -671,7 +660,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "FATSO Jr./Sr. Tape Sim. & Compressor",
@@ -682,7 +671,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Fender '55 Tweed Deluxe",
@@ -693,7 +682,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Friedman Amplifiers Collection",
@@ -704,7 +693,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 150,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Friedman Buxom Betty Amplifier",
@@ -715,7 +704,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Fuchs Overdrive Supreme 50 Amplifier",
@@ -726,7 +715,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Fuchs Train II Amplifier",
@@ -737,7 +726,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Galaxy Tape Echo",
@@ -748,7 +737,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 49,
     tags: ["universal-audio", "uad", "delay"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Gallien-Krueger 800RB Bass Amp",
@@ -759,7 +748,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Harrison 32C / 32C SE Channel EQ",
@@ -770,7 +759,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Helios Type 69 Preamp and EQ Collection",
@@ -781,7 +770,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Hitsville EQ Collection",
@@ -792,7 +781,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Hitsville Reverb Chambers",
@@ -803,7 +792,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Korg SDD-3000 Digital Delay",
@@ -814,7 +803,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "delay"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "LA-6176 Signature Channel Strip",
@@ -825,7 +814,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Lexicon 224 Digital Reverb",
@@ -836,7 +825,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Lexicon 480L Digital Reverb and Effects",
@@ -847,7 +836,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Little Labs IBP Phase Alignment Tool",
@@ -858,7 +847,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 49,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Little Labs Voice Of God Bass Resonance",
@@ -869,7 +858,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "LUNA API Vision Console Emulation Bundle",
@@ -880,7 +869,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "LUNA Pro",
@@ -891,7 +880,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "LUNA Spitfire Bundle",
@@ -902,7 +891,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 349,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Maag Audio EQ4 MS",
@@ -913,7 +902,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 129,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Manley Massive Passive EQ",
@@ -924,7 +913,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Manley Tube Preamp",
@@ -935,7 +924,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Manley Variable Mu Limiter Compressor",
@@ -946,7 +935,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Manley VOXBOX Channel Strip",
@@ -957,7 +946,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Marshall Bluesbreaker 1962",
@@ -968,7 +957,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Marshall JMP 2203",
@@ -979,7 +968,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Marshall Legends Bundle",
@@ -990,7 +979,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Marshall Plexi Super Lead 1959",
@@ -1001,7 +990,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Marshall Silver Jubilee 2555",
@@ -1012,7 +1001,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Massenburg MDWEQ5 Parametric EQ",
@@ -1023,7 +1012,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Millennia NSEQ-2 EQ",
@@ -1034,7 +1023,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 100,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Moog Minimoog",
@@ -1045,7 +1034,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Moog Multimode Filter Collection",
@@ -1056,7 +1045,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "MXR Flanger/Doubler",
@@ -1067,7 +1056,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "delay"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Neve 1073 Preamp & EQ Collection",
@@ -1078,7 +1067,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Neve 1081 / 1081SE Classic Console EQ",
@@ -1089,7 +1078,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Neve 1084 Preamp & EQ",
@@ -1100,7 +1089,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Neve 31102 / 31102SE Classic Console EQs",
@@ -1111,7 +1100,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Neve 88RS Channel Strip Collection",
@@ -1122,7 +1111,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Neve Complete Bundle",
@@ -1133,7 +1122,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 499,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Neve Dynamics Collection",
@@ -1144,7 +1133,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Neve Preamp",
@@ -1155,7 +1144,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Neve Summing",
@@ -1166,7 +1155,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Ocean Way Microphone Collection",
@@ -1177,7 +1166,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Ocean Way Studios Deluxe",
@@ -1188,7 +1177,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 249,
     tags: ["universal-audio", "uad", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Opal Morphing Synthesizer",
@@ -1199,7 +1188,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "OTO BISCUIT 8-bit Effects",
@@ -1210,7 +1199,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "vocal"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Oxide Tape Recorder",
@@ -1221,7 +1210,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 49,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Paradise Guitar Studio",
@@ -1232,18 +1221,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
-  },
-  {
-    name: "PolyMAX Synth",
-    slug: "polymax-synth",
-    canonicalId: "polymax-synth-universal-audio",
-    image: "/images/products/universal-audio/polymax-synth.webp",
-    category: "Instrument",
-    manufacturer: "Universal Audio",
-    registeredPrice: 0,
-    tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Precision Buss Compressor",
@@ -1254,7 +1232,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Precision De-Esser",
@@ -1265,7 +1243,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Precision Enhancer Hz",
@@ -1276,7 +1254,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Precision Enhancer kHz",
@@ -1287,7 +1265,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Precision EQ",
@@ -1298,7 +1276,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Precision K-Stereo Ambience Recovery",
@@ -1309,7 +1287,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Precision Limiter",
@@ -1320,7 +1298,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Precision Maximizer",
@@ -1331,7 +1309,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Precision Multiband",
@@ -1342,7 +1320,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Pultec Passive EQ Collection",
@@ -1353,18 +1331,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
-  },
-  {
-    name: "Pure Plate Reverb",
-    slug: "pure-plate-reverb",
-    canonicalId: "pure-plate-reverb-universal-audio",
-    image: "/images/products/universal-audio/pure-plate-reverb.webp",
-    category: "Reverb",
-    manufacturer: "Universal Audio",
-    registeredPrice: 0,
-    tags: ["universal-audio", "uad", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Ravel",
@@ -1375,7 +1342,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Shadow Hills Mastering Compressor Class A",
@@ -1386,7 +1353,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 169,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Softube Amp Room Bundle",
@@ -1397,7 +1364,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Softube Vocoder",
@@ -1408,7 +1375,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "vocal"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Sonnox Oxford Dynamic EQ",
@@ -1419,7 +1386,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Sonnox Oxford Envolution",
@@ -1430,7 +1397,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Sonnox Oxford EQ",
@@ -1441,7 +1408,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Sonnox Oxford Inflator",
@@ -1452,7 +1419,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Sonnox Oxford Limiter v2",
@@ -1463,7 +1430,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Sonnox Oxford SuprEsser DS",
@@ -1474,7 +1441,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Sound Machine Wood Works",
@@ -1485,7 +1452,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Sphere Mic Collection",
@@ -1496,7 +1463,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Spitfire Chamber Strings",
@@ -1507,7 +1474,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 249,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Spitfire Symphonic Brass",
@@ -1518,7 +1485,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Spitfire Symphonic Woodwinds",
@@ -1529,7 +1496,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "SPL Transient Designer",
@@ -1540,7 +1507,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "SPL TwinTube Processor",
@@ -1551,7 +1518,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 100,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "SPL Vitalizer MK3-T",
@@ -1562,7 +1529,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 100,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "SSL 4000 E Channel Strip",
@@ -1573,7 +1540,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "SSL 4000 G Bus Compressor",
@@ -1584,7 +1551,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "SSL 4000 Series Console Bundle",
@@ -1595,7 +1562,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 249,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Studer A800 Multichannel Tape Recorder",
@@ -1606,7 +1573,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Studio D Chorus",
@@ -1617,7 +1584,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "delay"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Suhr PT100 Amplifier",
@@ -1628,7 +1595,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Suhr SE100 Amplifier",
@@ -1639,7 +1606,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Summit Audio TLA-100A Compressor",
@@ -1650,7 +1617,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 159,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Teletronix LA-2A Leveler Collection",
@@ -1661,18 +1628,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
-  },
-  {
-    name: "Teletronix LA-2A Tube Compressor",
-    slug: "teletronix-la-2a-tube-compressor",
-    canonicalId: "teletronix-la-2a-tube-compressor-universal-audio",
-    image: "/images/products/universal-audio/teletronix-la-2a-tube-compressor.webp",
-    category: "Compressor",
-    manufacturer: "Universal Audio",
-    registeredPrice: 0,
-    tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Teletronix LA-3A Classic Audio Leveler",
@@ -1683,7 +1639,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "The Bill Putnam Mic Collection",
@@ -1694,7 +1650,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Thermionic Culture Vulture",
@@ -1705,7 +1661,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Tonelux Tilt EQ",
@@ -1716,7 +1672,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 59,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Topline Vocal Suite",
@@ -1727,7 +1683,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "vocal"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Topline Vocal Tune",
@@ -1738,7 +1694,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "vocal"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Trident A-Range Classic Console EQ",
@@ -1749,7 +1705,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Tube-Tech CL 1B MkII Compressor",
@@ -1760,7 +1716,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Tube-Tech EQ Collection",
@@ -1771,18 +1727,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
-  },
-  {
-    name: "UA 1176 Classic FET Compressor",
-    slug: "ua-1176-fet",
-    canonicalId: "ua-1176-fet-universal-audio",
-    image: "/images/products/universal-audio/ua-1176-fet.webp",
-    category: "Compressor",
-    manufacturer: "Universal Audio",
-    registeredPrice: 0,
-    tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UA 175B & 176 Tube Compressor Collection",
@@ -1793,7 +1738,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UA 610 Tube Preamp & EQ Collection",
@@ -1804,7 +1749,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 0,
     tags: ["universal-audio", "uad", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD B-Side Mix Tape",
@@ -1815,7 +1760,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Carlos De La Garza Mix Tape",
@@ -1826,7 +1771,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Classic Keys and Synths Bundle",
@@ -1837,7 +1782,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Complete 4",
@@ -1848,7 +1793,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 2499,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Custom 2 Bundle",
@@ -1859,7 +1804,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 199,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Custom 3 + 3 Bundle",
@@ -1870,7 +1815,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 249,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Custom 6 + 6 Bundle",
@@ -1881,7 +1826,18 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 399,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
+  },
+  {
+    name: "UAD Custom 10 + 10 Bundle",
+    slug: "uad-custom-10-plus-10-bundle",
+    canonicalId: "uad-custom-10-plus-10-bundle-universal-audio",
+    image: "/images/products/universal-audio/uad-custom-10-plus-10-bundle.webp",
+    category: "Bundle",
+    manufacturer: "Universal Audio",
+    registeredPrice: 399,
+    tags: ["universal-audio", "uad", "bundle"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Dream '65 Reverb Amplifier",
@@ -1892,7 +1848,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Enigmatic '82 Overdrive Special Amp",
@@ -1903,7 +1859,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Guitar Amp Bundle",
@@ -1914,7 +1870,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 299,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Guitar Bundle",
@@ -1925,7 +1881,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Lion '68 Super Lead Amp",
@@ -1936,7 +1892,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Mix Tape Pro",
@@ -1947,7 +1903,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Pro Vocal Bundle",
@@ -1958,7 +1914,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Ruby '63 Top Boost Amplifier",
@@ -1969,51 +1925,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
-  },
-  {
-    name: "UAD Select 10 + 10 Bundle",
-    slug: "uad-select-10-plus-10-bundle",
-    canonicalId: "uad-select-10-plus-10-bundle-universal-audio",
-    image: "/images/products/universal-audio/uad-select-10-plus-10-bundle.webp",
-    category: "Bundle",
-    manufacturer: "Universal Audio",
-    registeredPrice: 399,
-    tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
-  },
-  {
-    name: "UAD Select 2 Bundle",
-    slug: "uad-select-2-bundle",
-    canonicalId: "uad-select-2-bundle-universal-audio",
-    image: "/images/products/universal-audio/uad-select-2-bundle.webp",
-    category: "Bundle",
-    manufacturer: "Universal Audio",
-    registeredPrice: 149,
-    tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
-  },
-  {
-    name: "UAD Select 3 + 3 Bundle",
-    slug: "uad-select-3-plus-3-bundle",
-    canonicalId: "uad-select-3-plus-3-bundle-universal-audio",
-    image: "/images/products/universal-audio/uad-select-3-plus-3-bundle.webp",
-    category: "Bundle",
-    manufacturer: "Universal Audio",
-    registeredPrice: 199,
-    tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
-  },
-  {
-    name: "UAD Select 6 + 6 Bundle",
-    slug: "uad-select-6-plus-6-bundle",
-    canonicalId: "uad-select-6-plus-6-bundle-universal-audio",
-    image: "/images/products/universal-audio/uad-select-6-plus-6-bundle.webp",
-    category: "Bundle",
-    manufacturer: "Universal Audio",
-    registeredPrice: 299,
-    tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Showtime '64 Tube Amp",
@@ -2024,7 +1936,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 0,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Signature Edition Version 3",
@@ -2035,7 +1947,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 599,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Sound City Studios Plug-In",
@@ -2046,7 +1958,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 249,
     tags: ["universal-audio", "uad", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Summer Mix Tape",
@@ -2057,7 +1969,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 79,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Ultimate 14",
@@ -2068,7 +1980,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 999,
     tags: ["universal-audio", "uad", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UAD Woodrow '55 Instrument Amplifier",
@@ -2079,7 +1991,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "V76 Preamplifier",
@@ -2090,7 +2002,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Valley People Dyna-mite",
@@ -2101,7 +2013,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Vertigo Sound VSC-2 Compressor",
@@ -2112,7 +2024,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Vertigo Sound VSM-3 Mix Satellite",
@@ -2123,7 +2035,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 75,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Vibe Analog Machines",
@@ -2134,18 +2046,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "saturation"],
-    retailers: ["plugin-boutique"],
-  },
-  {
-    name: "Vibe Analog Machines Essentials",
-    slug: "vibe-analog-machines-essentials",
-    canonicalId: "vibe-analog-machines-essentials-universal-audio",
-    image: "/images/products/universal-audio/vibe-analog-machines-essentials.webp",
-    category: "Saturation",
-    manufacturer: "Universal Audio",
-    registeredPrice: 0,
-    tags: ["universal-audio", "uad", "saturation"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Waterfall B3 Organ",
@@ -2156,7 +2057,7 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 149,
     tags: ["universal-audio", "uad", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Waterfall Rotary Speaker",
@@ -2167,6 +2068,6 @@ export const UAD_PRODUCTS: SeedProduct[] = [
     manufacturer: "Universal Audio",
     registeredPrice: 99,
     tags: ["universal-audio", "uad", "delay"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   }
 ];

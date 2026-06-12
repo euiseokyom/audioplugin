@@ -8,27 +8,28 @@ import {
 import CardProduct from "@/components/CardProduct";
 import SearchFiltersBar from "@/components/SearchFiltersBar";
 import SectionHeader from "@/components/SectionHeader";
+import EmptyState from "@/components/EmptyState";
+import DealGridSkeleton, { DEAL_GRID_CLASS } from "@/components/DealGridSkeleton";
 import { PAGE_CONTAINER } from "@/lib/layout";
-import { parseProductFilters } from "@/lib/search-filters";
+import { parseBrowseSort, parseProductFilters } from "@/lib/search-filters";
+import { absoluteUrl } from "@/lib/site-url";
+import type { Metadata } from "next";
 import type { ProductWithPrices } from "@/types";
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: "Search Plugins",
+  description:
+    "Search and filter audio plugin deals by price, category, and manufacturer. Sort by lowest price, newest, or ending soon.",
+  alternates: { canonical: absoluteUrl("/search") },
+};
 
 const FILTER_TITLES: Record<ProductFilter, string> = {
   "ends-soon": "Ends Soon",
   "lowest-ever": "Lowest Ever",
   "recently-added": "Recently Added",
 };
-
-const VALID_SORTS: ProductSort[] = [
-  "price-asc",
-  "price-desc",
-  "newest",
-  "ending-soon",
-];
-
-const PRODUCT_GRID_CLASS =
-  "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-start gap-3 sm:gap-4";
 
 async function getFilteredResults(
   isHotFilter: boolean,
@@ -77,22 +78,27 @@ async function SearchResults({
 
   if (result.data.length === 0) {
     return (
-      <div className="text-center py-20">
-        <p className="text-4xl mb-4">🔍</p>
-        <p className="text-base-content/60">
-          {isHotFilter || productFilters.length > 0
-            ? "No plugins match this filter right now."
-            : `No plugins found for "${q}"`}
-        </p>
-        <p className="text-sm text-base-content/40 mt-2">
-          Try a different search term or browse by category.
-        </p>
-      </div>
+      <EmptyState
+        title={
+          isHotFilter || productFilters.length > 0
+            ? "No plugins match this filter"
+            : q
+              ? `No results for "${q}"`
+              : "No plugins found"
+        }
+        description={
+          isHotFilter || productFilters.length > 0
+            ? "Try removing a filter or browse all plugins."
+            : "Try a different search term or browse by category."
+        }
+        actionLabel="Browse all plugins"
+        actionHref="/search"
+      />
     );
   }
 
   return (
-    <div className={PRODUCT_GRID_CLASS}>
+    <div className={DEAL_GRID_CLASS}>
       {result.data.map((product) => (
         <CardProduct key={product._id} product={product} />
       ))}
@@ -112,9 +118,7 @@ export default async function SearchPage({
   const { q = "", sort = "price-asc", filter } = await searchParams;
   const isHotFilter = filter === "hot";
   const productFilters = isHotFilter ? [] : parseProductFilters(filter);
-  const validSort = VALID_SORTS.includes(sort as ProductSort)
-    ? (sort as ProductSort)
-    : "price-asc";
+  const validSort = parseBrowseSort(sort);
 
   const pageTitle = getPageTitle(isHotFilter, productFilters, q);
 
@@ -135,18 +139,7 @@ export default async function SearchPage({
         )}
 
         <div className="mt-6">
-          <Suspense
-            fallback={
-              <div className={PRODUCT_GRID_CLASS}>
-                {[...Array(8)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="rounded-lg bg-base-300 aspect-square animate-pulse"
-                  />
-                ))}
-              </div>
-            }
-          >
+          <Suspense fallback={<DealGridSkeleton count={10} />}>
             <SearchResults
               q={q}
               sort={validSort}

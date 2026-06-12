@@ -1,3 +1,5 @@
+import { formatProductName } from "../../lib/catalog/product-name";
+
 const USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36";
 
@@ -277,6 +279,32 @@ export function normalizeFabFilterProductName(name: string): string {
     return withoutPlugin.slice(0, dash).trim();
   }
   return withoutPlugin;
+}
+
+export function normalizeRelabProductName(name: string): string {
+  return formatProductName(name);
+}
+
+/** MSRP from relabdevelopment.com — prefer "reg. $X" over WooCommerce meta (often sale price). */
+export function parseRelabRegisteredPrice(html: string): number | null {
+  const regMatches = [
+    ...html.matchAll(/reg\.?\s*\$([0-9]+(?:\.[0-9]{2})?)/gi),
+  ];
+  if (regMatches.length > 0) {
+    const amounts = regMatches
+      .map((m) => Number.parseFloat(m[1]))
+      .filter((n) => Number.isFinite(n) && n > 0);
+    if (amounts.length > 0) {
+      return Math.max(...amounts);
+    }
+  }
+
+  const priceMeta = parseMetaProductPrice(html);
+  if (priceMeta) {
+    return registeredPriceUsd(priceMeta.amount, priceMeta.currency);
+  }
+
+  return null;
 }
 
 function normalizeSoftubeSlug(value: string): string {
@@ -765,10 +793,286 @@ export function resolveSslProductImageFromHtmlPages(
   return pickBestSslImageUrl(urls, slug);
 }
 
+function isSlateImageNoise(lower: string): boolean {
+  if (
+    /_gui_|gui-image|gui_screen|userinterface|user-interface|deconstructed_gui/i.test(
+      lower,
+    )
+  ) {
+    return false;
+  }
+
+  return /logo|icon|favicon|avatar|menu-bg|menu-featured|halloween|cropped-untitled|arrow-up-down|headline-stroke|landing-page-introducing|walkthrough|standing-3qtr|floating_angled|floating-angled|videothumb|thumbnail-dark|play-button|play_button|headphones\.png|mask-group|mask_group|fpo-|frame-11|rectangle-|group-132|gigapixel|photoroom|video-feature|presetbrowser|macrostight|sidechaintight|new-vmr-play|vmr_3_thumbnail|mix-templates|ultimate-guide-to-eq|typeSDC-card|header-background|background-scaled|precision-icon|waves-icon|testimonial|\.jpg\?/i.test(
+    lower,
+  );
+}
+
+function slateSlugTokens(slug: string): string[] {
+  return slug
+    .replace(/-plugin$|-bundle$/g, "")
+    .split("-")
+    .filter((part) => part.length > 1 || /^\d+$/.test(part));
+}
+
+function slateConflictingProduct(lower: string, slug: string): boolean {
+  const pairs: Array<[string, RegExp]> = [
+    ["metapitch", /infinity-bass/i],
+    ["fg-2a-compressor", /fg-@a|fg-a-1|fg-a\.png/i],
+    ["fg-a", /fg-2a|fg-@a/i],
+    ["infinity-bass", /metapitch/i],
+    ["submerge", /heatwave/i],
+  ];
+
+  for (const [needle, conflict] of pairs) {
+    if (!slug.includes(needle)) continue;
+    if (conflict.test(lower) && !lower.includes(needle.replace(/-/g, ""))) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function scoreSlateImageUrl(
+  url: string,
+  slug: string,
+  isBundle: boolean,
+): number {
+  const lower = url.toLowerCase();
+  if (!lower.includes("slatedigital.com/wp-content/uploads")) return -1;
+  if (isSlateImageNoise(lower)) return -1;
+  if (slateConflictingProduct(lower, slug)) return -1;
+
+  let score = 0;
+
+  if (/userinterface|user-interface|user_interface/i.test(lower)) score += 28;
+  if (/(?:^|[/_-])gui(?:[._-]|$)|_gui\.|gui-screen|plugin-gui|deconstructed_gui/i.test(lower)) {
+    score += 22;
+  }
+  if (/\binterface\b/i.test(lower)) score += 18;
+  if (/\bscreen\b/i.test(lower)) score += 12;
+  if (/overview-\d|overview_\d|product-page|website-product/i.test(lower)) {
+    score += 14;
+  }
+
+  if (slug === "vmr-3" && /vmr3-rack|vmr-3-rack|vmr_3.*rack/i.test(lower)) {
+    score += 30;
+  }
+  if (slug === "fresh-air" && /freshair_angled|fresh-air/i.test(lower)) {
+    score += 20;
+  }
+  if (isBundle && /bundle|collection|gate-classic|gate-drums/i.test(lower)) {
+    score += 12;
+  }
+  if (/pluginpage|plugin-on-page|feature-\d/i.test(lower) && isBundle) {
+    score += 10;
+  }
+  if (/featured-image|featured-imge/i.test(lower)) score += 10;
+  if (/top-cell/i.test(lower)) score += 8;
+  if (/background-image|background_image/i.test(lower)) score -= 35;
+  if (/hero|banner/i.test(lower)) score -= 10;
+  if (/icon/i.test(lower)) score -= 20;
+  if (/-\d+x\d+\.(?:png|jpe?g|webp)/i.test(lower)) score -= 8;
+
+  const slugNorm = slug.replace(/[^a-z0-9]/g, "");
+  const fileNorm = lower.replace(/[^a-z0-9]/g, "");
+  if (fileNorm.includes(slugNorm.slice(0, Math.min(12, slugNorm.length)))) {
+    score += 14;
+  }
+
+  for (const token of slateSlugTokens(slug)) {
+    if (token.length > 2 && lower.includes(token)) score += 3;
+  }
+
+  if (/\.png(?:\?|$)/i.test(lower)) score += 4;
+  if (/\.webp(?:\?|$)/i.test(lower)) score += 2;
+
+  return score;
+}
+
+function collectSlateUploadUrls(html: string, pageUrl: string): string[] {
+  const seen = new Set<string>();
+  const urls: string[] = [];
+
+  const add = (raw: string) => {
+    try {
+      const url = new URL(raw.replace(/&amp;/g, "&"), pageUrl).href;
+      const key = url.toLowerCase();
+      if (seen.has(key)) return;
+      if (!/slatedigital\.com\/wp-content\/uploads/i.test(url)) return;
+      seen.add(key);
+      urls.push(url);
+    } catch {
+      // ignore malformed URLs
+    }
+  };
+
+  for (const match of html.matchAll(
+    /https:\/\/slatedigital\.com\/wp-content\/uploads\/[^"'\s)]+\.(?:png|jpe?g|webp)(?:\?[^"'\s)]*)?/gi,
+  )) {
+    add(match[0]);
+  }
+
+  for (const match of html.matchAll(/<img[^>]+src=["']([^"']+)["']/gi)) {
+    add(match[1]);
+  }
+
+  return urls;
+}
+
+function pickBestSlateImageUrl(
+  urls: string[],
+  slug: string,
+  isBundle: boolean,
+): string | null {
+  let best: { url: string; score: number } | null = null;
+
+  for (const url of urls) {
+    const score = scoreSlateImageUrl(url, slug, isBundle);
+    if (score < 6) continue;
+    if (!best || score > best.score) {
+      best = { url, score };
+    }
+  }
+
+  return best?.url ?? null;
+}
+
+export function resolveSlateProductImage(
+  html: string,
+  pageUrl: string,
+  slug: string,
+  options?: { isBundle?: boolean },
+): string | null {
+  const isBundle = options?.isBundle ?? /bundle|collection/i.test(slug);
+  const urls = collectSlateUploadUrls(html, pageUrl);
+  const og = resolveOgImage(html, pageUrl);
+  if (og) urls.push(og);
+
+  const best = pickBestSlateImageUrl(urls, slug, isBundle);
+  if (best) return best;
+
+  if (
+    og &&
+    !isSlateImageNoise(og.toLowerCase()) &&
+    !slateConflictingProduct(og.toLowerCase(), slug)
+  ) {
+    return og;
+  }
+
+  return null;
+}
+
+const SLATE_NAME_OVERRIDES: Record<string, string> = {
+  "ana2-ultra-bundle-online-synthesizer-plugin": "ANA 2 Ultra Bundle",
+  "chorus-d-bundle-plugin": "Chorus D Bundle",
+  "eiosis-e2deesser-deesser-plugin": "Eiosis E2 Deesser",
+  "eiosis-aireq": "Eiosis AirEQ",
+  "fg-116-blue-series-fet-compressors": "FG-116 Blue Series FET Compressors",
+  "fg-2a-compressor-plugin": "FG-2A",
+  "fg-stress-distressor-plugin": "FG-Stress",
+  "fg-x-2-mastering-plugin": "FG-X 2",
+  "infinity-bass-plugin": "Infinity Bass",
+  "kilohearts-bundle": "Kilohearts Bundle",
+  "metapitch-pitch-shifting-plugin": "MetaPitch",
+  "mo-tt-ott-plugin-multiband-compressor": "MO-TT",
+  "sd-3a-compressor-plugin": "SD-3A",
+  "sd-pe1-passive-eq-plugin": "SD-PE1",
+  "submerge-sidechain-compressor-plugin": "Submerge",
+  "the-monster-extreme-dynamic-processor": "The Monster",
+  "transient-shaper-plugin": "Transient Shaper",
+  thu: "THU Slate Edition",
+  "vmr-3": "VMR 3.0",
+};
+
+export function normalizeSlateProductName(name: string, slug?: string): string {
+  if (slug && SLATE_NAME_OVERRIDES[slug]) {
+    return SLATE_NAME_OVERRIDES[slug];
+  }
+
+  let normalized = decodeHtmlEntities(name).trim();
+  normalized = normalized
+    .replace(/\s*:\s*Free\s+Plugin\b.*$/i, "")
+    .replace(/\s*-\s*NOW AVAILABLE!?\s*$/i, "")
+    .replace(/\s*-\s*Now Available!?\s*$/i, "")
+    .replace(/\s+Plugin\s+by\s+Slate\s+Digital\s*$/i, "")
+    .replace(/\s+by\s+Slate\s+Digital\s*$/i, "")
+    .trim();
+
+  const parts = normalized.split(/\s*[-–—]\s*/);
+  if (parts.length > 1) {
+    const first = parts[0].trim();
+    const rest = parts.slice(1).join(" ");
+    const isMarketingRest =
+      /plugin|shift your|make your|essential|multiband|pitch shifting|sidechain|analog-modeled|available now/i.test(
+        rest,
+      );
+    if (isMarketingRest && first.length >= 2) {
+      normalized = first;
+    }
+  }
+
+  return normalized.replace(/\s+Plugin\s*$/i, "").trim();
+}
+
+export function shouldSkipSlateCatalogItem(item: {
+  slug: string;
+  name?: string;
+}): boolean {
+  const { slug } = item;
+
+  const skipSlugs = new Set([
+    "plugins",
+    "about",
+    "academy",
+    "blog",
+    "careers",
+    "complete-access",
+    "complete-access-bundle",
+    "education-pricing",
+    "feed",
+    "find-a-dealer",
+    "legacy-products",
+    "privacy-policy",
+    "sitemap",
+    "xmlrpc",
+    "wp-admin",
+    "wp-includes",
+    "heatwave",
+    "audified-u73b",
+    "ana2-ultra-bundle-online-synthesizer-plugin",
+    "fresh-air",
+    "kilohearts-bundle",
+    "lustrous-plates",
+    "repeater-delay",
+    "revival",
+    "the-monster-extreme-dynamic-processor",
+    "thu",
+    "vmr-3",
+    "virtu-mastering-software",
+    "virtu-online-mastering-software",
+    "virtual-microphone-system",
+    "microphone-models",
+    "ml-1a-modeling-microphone",
+    "ml-2a-modeling-microphone",
+    "ml2-modeling-microphone",
+    "radio-france-mic-expansion",
+    "strongroom-london",
+    "slatedigital.com",
+  ]);
+
+  if (skipSlugs.has(slug)) return true;
+  if (slug.startsWith("#")) return true;
+  if (/^ml\d?-/i.test(slug) || slug.startsWith("ml-")) return true;
+  if (/subscription|all access pass/i.test(item.name ?? "")) return true;
+
+  return false;
+}
+
 export function resolveProductImage(
   html: string,
   pageUrl: string,
-  options?: { slug?: string },
+  options?: { slug?: string; isBundle?: boolean },
 ): string | null {
   if (/fabfilter\.com/i.test(pageUrl)) {
     const fab = resolveFabFilterProductImage(html);
@@ -783,6 +1087,13 @@ export function resolveProductImage(
   if (/solidstatelogic\.com/i.test(pageUrl) && options?.slug) {
     const ssl = resolveSslProductImage(html, pageUrl, options.slug);
     if (ssl) return ssl;
+  }
+
+  if (/slatedigital\.com/i.test(pageUrl) && options?.slug) {
+    const slate = resolveSlateProductImage(html, pageUrl, options.slug, {
+      isBundle: options.isBundle,
+    });
+    if (slate) return slate;
   }
 
   const og = resolveOgImage(html, pageUrl);

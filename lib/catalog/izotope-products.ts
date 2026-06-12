@@ -11,7 +11,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 49,
     tags: ["izotope", "reverb", "audio-engineering", "effects", "mixing-and-creative", "mixing-mastering", "vocal-processing"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Cascadia",
@@ -22,7 +22,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 49,
     tags: ["izotope", "reverb", "audio-engineering", "delay", "effects", "mixing-and-creative", "mixing-mastering", "music-creation", "vocal-processing"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Creative Effects Bundle",
@@ -33,7 +33,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 495,
     tags: ["izotope", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Elements Suite 12",
@@ -44,7 +44,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 149,
     tags: ["izotope", "bundle", "audio-engineering", "audio-repair", "bundles", "deals", "effects", "mastering", "mixing-and-creative", "mixing-mastering", "music-creation"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Equinox",
@@ -55,7 +55,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 249,
     tags: ["izotope", "equalizer", "audio-engineering", "effects", "mixing-and-creative", "mixing-mastering", "music-creation", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Everything Bundle",
@@ -66,7 +66,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 2999,
     tags: ["izotope", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "FXEQ",
@@ -77,7 +77,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 49,
     tags: ["izotope", "equalizer", "eq"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Insight 2",
@@ -88,7 +88,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 199,
     tags: ["izotope", "metering", "mastering", "post-production", "ygroup-insight"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Mix & Master Bundle Advanced",
@@ -99,7 +99,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 599,
     tags: ["izotope", "bundle", "audio-engineering", "bundles", "effects", "mastering", "mixing-and-creative", "mixing-mastering", "music-creation"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Mix & Master Bundle Standard",
@@ -110,7 +110,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 429,
     tags: ["izotope", "bundle", "audio-engineering", "bundles", "deals", "effects", "mastering", "mixing-and-creative", "mixing-mastering", "music-creation"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Music Production Suite 9",
@@ -121,7 +121,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 799,
     tags: ["izotope", "bundle", "audio-engineering", "bundles", "deals", "effects", "mastering", "mixing-and-creative", "mixing-mastering", "music-creation", "ygroup-music-production-suite"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Nectar 4 Advanced",
@@ -132,7 +132,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 299,
     tags: ["izotope", "pitch", "audio-engineering", "creative-effects", "deals", "effects", "mixing-and-creative", "mixing-mastering", "multi-effects", "music-creation", "vocal-processing", "ygroup-nectar-advanced"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Nectar 4 Elements",
@@ -143,7 +143,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 55,
     tags: ["izotope", "pitch", "audio-engineering", "creative-effects", "effects", "mixing-and-creative", "mixing-mastering", "multi-effects", "music-creation", "vocal-processing", "ygroup-nectar-elements"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Nectar 4 Standard",
@@ -154,7 +154,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 199,
     tags: ["izotope", "pitch", "audio-engineering", "creative-effects", "deals", "effects", "mixing-and-creative", "mixing-mastering", "multi-effects", "music-creation", "vocal-processing", "ygroup-nectar-standard"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Neoverb",
@@ -165,7 +165,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 99,
     tags: ["izotope", "reverb", "audio-engineering", "effects", "mixing-and-creative", "mixing-mastering", "music-creation", "vocal-processing", "ygroup-neoverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Neutron 5",
@@ -176,7 +176,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 299,
     tags: ["izotope", "equalizer", "audio-engineering", "deals", "delay", "dynamics", "effects", "eq", "filter", "mixing-and-creative", "mixing-mastering", "modulation", "multi-effects", "music-creation", "reverb", "tape-and-saturation", "vocal-processing", "ygroup-neutron"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Neutron 5 Elements",
@@ -187,7 +187,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 55,
     tags: ["izotope", "equalizer", "audio-engineering", "delay", "dynamics", "effects", "eq", "filter", "mixing-and-creative", "mixing-mastering", "modulation", "multi-effects", "music-creation", "reverb", "tape-and-saturation", "vocal-processing", "ygroup-neutron"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Ozone 12 Advanced",
@@ -198,7 +198,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 499,
     tags: ["izotope", "equalizer", "audio-engineering", "dynamics", "effects", "eq", "filter", "mastering", "mixing-and-creative", "mixing-mastering", "multi-effects", "music-creation", "tape-and-saturation", "ygroup-ozone-advanced"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Ozone 12 Elements",
@@ -209,7 +209,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 55,
     tags: ["izotope", "equalizer", "audio-engineering", "dynamics", "effects", "eq", "filter", "mastering", "mixing-and-creative", "mixing-mastering", "multi-effects", "music-creation", "tape-and-saturation", "ygroup-ozone-elements"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Ozone 12 Standard",
@@ -220,7 +220,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 219,
     tags: ["izotope", "equalizer", "audio-engineering", "dynamics", "effects", "eq", "filter", "mastering", "mixing-and-creative", "mixing-mastering", "multi-effects", "music-creation", "tape-and-saturation", "ygroup-ozone-standard"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Ozone EQ",
@@ -231,7 +231,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 0,
     tags: ["izotope", "equalizer", "eq", "free", "izo-free", "mastering", "mixing-mastering"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Ozone Imager",
@@ -242,7 +242,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 0,
     tags: ["izotope", "effects", "free", "mixing-and-creative", "mixing-mastering"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Plasma",
@@ -253,7 +253,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 49,
     tags: ["izotope", "saturation", "effects", "mixing-and-creative", "mixing-mastering", "music-creation", "tape-and-saturation"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "RX 12 Advanced",
@@ -264,7 +264,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 1399,
     tags: ["izotope", "restoration", "audio-repair", "ygroup-rx-advanced"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "RX 12 Elements",
@@ -275,7 +275,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 99,
     tags: ["izotope", "restoration", "audio-repair", "mixing-mastering", "ygroup-rx-elements"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "RX 12 Standard",
@@ -286,7 +286,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 399,
     tags: ["izotope", "restoration", "audio-repair", "ygroup-rx-standard"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "RX Post Production Suite 9",
@@ -297,7 +297,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 1799,
     tags: ["izotope", "bundle", "audio-engineering", "audio-repair", "bundles", "deals", "effects", "music-creation", "special-tools"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Stutter Edit 2",
@@ -308,7 +308,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 199,
     tags: ["izotope", "saturation", "audio-engineering", "creative-effects", "deals", "distortion", "effects", "filter", "mixing-and-creative", "modulation", "multi-effects", "music-creation", "ygroup-stutter-edit"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Tonal Balance Control 3",
@@ -319,7 +319,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 129,
     tags: ["izotope", "metering", "audio-engineering", "mixing-mastering", "ygroup-tonal-balance-control"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Trash",
@@ -330,7 +330,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 99,
     tags: ["izotope", "saturation", "audio-engineering", "creative-effects", "distortion", "effects", "mixing-and-creative", "mixing-mastering", "modulation", "special-tools", "vocal-processing"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Trash Lite",
@@ -341,7 +341,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 0,
     tags: ["izotope", "saturation", "creative-effects", "free", "mixing-and-creative", "ygroup-trash"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "VEA",
@@ -352,7 +352,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 29,
     tags: ["izotope", "restoration", "audio-repair", "effects", "mixing-and-creative", "mixing-mastering", "music-creation", "special-tools", "vocal-processing"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Velvet",
@@ -363,7 +363,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 49,
     tags: ["izotope", "restoration", "audio-repair", "mixing-and-creative", "mixing-mastering", "vocal-processing"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Vinyl",
@@ -374,7 +374,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 0,
     tags: ["izotope", "effects", "creative-effects", "free", "mixing-and-creative"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Vocal Doubler",
@@ -385,7 +385,7 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 0,
     tags: ["izotope", "pitch", "creative-effects", "free", "mixing-and-creative", "vocal-processing"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "VocalSynth 2",
@@ -396,6 +396,6 @@ export const IZOTOPE_PRODUCTS: SeedProduct[] = [
     manufacturer: "iZotope",
     registeredPrice: 199,
     tags: ["izotope", "instrument", "audio-engineering", "creative-effects", "effects", "mixing-and-creative", "mixing-mastering", "modulation", "multi-effects", "special-tools", "synthesizers", "vocal-processing", "ygroup-vocalsynth"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   }
 ];

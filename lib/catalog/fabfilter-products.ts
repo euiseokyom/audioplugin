@@ -11,7 +11,7 @@ export const FABFILTER_PRODUCTS: SeedProduct[] = [
     manufacturer: "FabFilter",
     registeredPrice: 35,
     tags: ["fabfilter", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "FabFilter One",
@@ -22,7 +22,7 @@ export const FABFILTER_PRODUCTS: SeedProduct[] = [
     manufacturer: "FabFilter",
     registeredPrice: 55,
     tags: ["fabfilter", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "FabFilter Pro-C 3",
@@ -33,7 +33,7 @@ export const FABFILTER_PRODUCTS: SeedProduct[] = [
     manufacturer: "FabFilter",
     registeredPrice: 199,
     tags: ["fabfilter", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "FabFilter Pro-DS",
@@ -44,7 +44,7 @@ export const FABFILTER_PRODUCTS: SeedProduct[] = [
     manufacturer: "FabFilter",
     registeredPrice: 199,
     tags: ["fabfilter", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "FabFilter Pro-G",
@@ -55,18 +55,18 @@ export const FABFILTER_PRODUCTS: SeedProduct[] = [
     manufacturer: "FabFilter",
     registeredPrice: 199,
     tags: ["fabfilter", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "FabFilter Pro-L 2",
     slug: "pro-l-2-limiter-plug-in",
     canonicalId: "pro-l-2-limiter-plug-in-fabfilter",
     image: "/images/products/fabfilter/pro-l-2-limiter-plug-in.webp",
-    category: "Compressor",
+    category: "Limiter",
     manufacturer: "FabFilter",
     registeredPrice: 199,
     tags: ["fabfilter", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "FabFilter Pro-MB",
@@ -77,7 +77,7 @@ export const FABFILTER_PRODUCTS: SeedProduct[] = [
     manufacturer: "FabFilter",
     registeredPrice: 199,
     tags: ["fabfilter", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "FabFilter Pro-Q 4",
@@ -88,7 +88,7 @@ export const FABFILTER_PRODUCTS: SeedProduct[] = [
     manufacturer: "FabFilter",
     registeredPrice: 199,
     tags: ["fabfilter", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "FabFilter Pro-R 2",
@@ -99,7 +99,7 @@ export const FABFILTER_PRODUCTS: SeedProduct[] = [
     manufacturer: "FabFilter",
     registeredPrice: 199,
     tags: ["fabfilter", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "FabFilter Saturn 2",
@@ -110,7 +110,7 @@ export const FABFILTER_PRODUCTS: SeedProduct[] = [
     manufacturer: "FabFilter",
     registeredPrice: 149,
     tags: ["fabfilter", "saturation"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "FabFilter Simplon",
@@ -121,7 +121,7 @@ export const FABFILTER_PRODUCTS: SeedProduct[] = [
     manufacturer: "FabFilter",
     registeredPrice: 55,
     tags: ["fabfilter", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "FabFilter Timeless 3",
@@ -132,7 +132,7 @@ export const FABFILTER_PRODUCTS: SeedProduct[] = [
     manufacturer: "FabFilter",
     registeredPrice: 149,
     tags: ["fabfilter", "delay"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "FabFilter Twin 3",
@@ -143,7 +143,7 @@ export const FABFILTER_PRODUCTS: SeedProduct[] = [
     manufacturer: "FabFilter",
     registeredPrice: 149,
     tags: ["fabfilter", "instrument"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "FabFilter Volcano 3",
@@ -154,6 +154,6 @@ export const FABFILTER_PRODUCTS: SeedProduct[] = [
     manufacturer: "FabFilter",
     registeredPrice: 149,
     tags: ["fabfilter", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   }
 ];

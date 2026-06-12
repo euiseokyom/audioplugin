@@ -1,7 +1,12 @@
 import { notFound } from "next/navigation";
-import { getProducts } from "@/services/products";
+import { getProducts, type ProductSort } from "@/services/products";
 import { getManufacturers } from "@/services/manufacturers";
 import ProductGridWithLoadMore from "@/components/ProductGridWithLoadMore";
+import SearchFiltersBar from "@/components/SearchFiltersBar";
+import EmptyState from "@/components/EmptyState";
+import { PAGE_CONTAINER } from "@/lib/layout";
+import { matchManufacturer, normalizeManufacturerSlug } from "@/lib/manufacturer-slug";
+import { parseBrowseSort, parseProductFilters } from "@/lib/search-filters";
 
 export const revalidate = 3600;
 
@@ -13,37 +18,52 @@ export async function generateMetadata({
   const { slug } = await params;
   const name = decodeURIComponent(slug);
   return {
-    title: `${name} Plugins — Deals & Prices | PluginBargains`,
+    title: `${name} Plugins — Deals & Prices`,
     description: `Find the best deals on ${name} audio plugins across 16 retailers.`,
   };
 }
 
 export default async function ManufacturerPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{
+    sort?: string;
+    filter?: string | string[];
+  }>;
 }) {
   const { slug } = await params;
-  const manufacturerName = decodeURIComponent(slug);
+  const { sort, filter } = await searchParams;
+  const manufacturerName = normalizeManufacturerSlug(slug);
+  const productFilters = parseProductFilters(filter);
+  const validSort = parseBrowseSort(sort) as ProductSort;
+  const basePath = `/manufacturer/${slug}`;
 
   const allManufacturers = await getManufacturers();
-  const matched = allManufacturers.find(
-    (m) => m.name.toLowerCase() === manufacturerName.toLowerCase()
+  const matched = allManufacturers.find((m) =>
+    matchManufacturer(m.name, manufacturerName),
   );
   const displayName = matched?.name ?? manufacturerName;
 
   const result = await getProducts({
     manufacturer: displayName,
+    sort: validSort,
+    filters: productFilters,
     pageSize: 40,
   });
 
   if (!matched && result.data.length === 0) notFound();
 
+  const gridKey = `${validSort}-${productFilters.join(",")}`;
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 space-y-8">
+    <div className={`${PAGE_CONTAINER} py-10 space-y-8`}>
       <div>
         <div className="flex items-center gap-2 text-sm text-base-content/50 mb-3">
-          <a href="/" className="hover:text-primary transition-colors">Home</a>
+          <a href="/" className="hover:text-primary transition-colors">
+            Home
+          </a>
           <span>/</span>
           <span>Manufacturers</span>
           <span>/</span>
@@ -53,16 +73,30 @@ export default async function ManufacturerPage({
         <p className="text-base-content/50 mt-1">{result.total} plugins</p>
       </div>
 
+      <SearchFiltersBar
+        basePath={basePath}
+        sort={validSort}
+        filters={productFilters}
+      />
+
       {result.data.length === 0 ? (
-        <div className="text-center py-20 text-base-content/40">
-          No plugins found for this manufacturer.
-        </div>
+        <EmptyState
+          title="No plugins match this filter"
+          description="Try removing a filter or browse all plugins from this manufacturer."
+          actionLabel={`Browse all ${displayName}`}
+          actionHref={basePath}
+        />
       ) : (
         <ProductGridWithLoadMore
+          key={gridKey}
           initialProducts={result.data}
           total={result.total}
           pageSize={40}
-          fetchParams={{ manufacturer: displayName, sort: "deals" }}
+          fetchParams={{
+            manufacturer: displayName,
+            sort: validSort,
+            filters: productFilters,
+          }}
         />
       )}
     </div>

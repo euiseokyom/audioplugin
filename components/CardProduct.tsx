@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import Link from "next/link";
+import { manufacturerToSlug } from "@/lib/manufacturer-slug";
 import Image from "next/image";
 import type { ProductWithPrices } from "@/types";
 import CardProductActions from "@/components/CardProductActions";
@@ -28,7 +29,7 @@ export default function CardProduct({
     new Date(product.dealEndsAt).getTime() - now <= 48 * 60 * 60 * 1000;
 
   const productHref = `/products/${product.slug}`;
-  const manufacturerHref = `/manufacturer/${encodeURIComponent(product.manufacturer.toLowerCase())}`;
+  const manufacturerHref = `/manufacturer/${manufacturerToSlug(product.manufacturer)}`;
 
   return (
     <div

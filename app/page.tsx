@@ -1,50 +1,43 @@
-import { getHotDeals, getEndsSoonDeals } from "@/services/products";
+import { Suspense } from "react";
 import { getCategories } from "@/services/categories";
 import { getManufacturers } from "@/services/manufacturers";
-import SectionHotDeals from "@/components/SectionHotDeals";
-import SectionEndsSoon from "@/components/SectionEndsSoon";
 import SectionCategories from "@/components/SectionCategories";
 import SectionManufacturers from "@/components/SectionManufacturers";
 import SectionSignIn from "@/components/SectionSignIn";
 import SearchBox from "@/components/SearchBox";
+import HomeHotDealsSection from "@/components/HomeHotDealsSection";
+import HomeEndsSoonSection from "@/components/HomeEndsSoonSection";
+import HomeBundlesSection from "@/components/HomeBundlesSection";
+import DealGridSkeleton from "@/components/DealGridSkeleton";
 import { PAGE_CONTAINER } from "@/lib/layout";
-import type { PaginatedResponse, ProductWithPrices } from "@/types";
+import { absoluteUrl } from "@/lib/site-url";
+import type { Metadata } from "next";
 
 export const revalidate = 3600;
 
-function settled<T>(
-  result: PromiseSettledResult<T>,
-  fallback: T
-): T {
+export const metadata: Metadata = {
+  title: "Best Audio Plugin Deals & Price Tracker",
+  description:
+    "Find the hottest audio plugin deals, compare prices across 16 retailers, and track price drops — all in one place.",
+  alternates: { canonical: absoluteUrl("/") },
+};
+
+function settled<T>(result: PromiseSettledResult<T>, fallback: T): T {
   return result.status === "fulfilled" ? result.value : fallback;
 }
 
 export default async function HomePage() {
-  const [hotDealsResult, endsSoonResult, categoriesResult, manufacturersResult] =
-    await Promise.allSettled([
-      getHotDeals(8),
-      getEndsSoonDeals(8),
-      getCategories(),
-      getManufacturers(),
-    ]);
+  const [categoriesResult, manufacturersResult] = await Promise.allSettled([
+    getCategories(),
+    getManufacturers(),
+  ]);
 
-  const emptyDeals: PaginatedResponse<ProductWithPrices> = {
-    data: [],
-    total: 0,
-    page: 1,
-    pageSize: 8,
-    hasMore: false,
-  };
-
-  const hotDeals = settled(hotDealsResult, emptyDeals);
-  const endsSoon = settled(endsSoonResult, emptyDeals);
   const categories = settled(categoriesResult, []);
   const manufacturers = settled(manufacturersResult, []);
 
   return (
     <>
       <div className={`${PAGE_CONTAINER} py-10 space-y-16`}>
-        {/* Hero */}
         <div className="text-center space-y-4 py-6">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
             Save Money on Plugins
@@ -58,9 +51,38 @@ export default async function HomePage() {
 
         <SearchBox className="mx-auto w-full max-w-xl" inputClassName="input-md" />
 
-        <SectionHotDeals products={hotDeals.data} />
+        <Suspense
+          fallback={
+            <section className="space-y-5">
+              <div className="h-8 w-32 rounded bg-base-300 animate-pulse" />
+              <DealGridSkeleton className="pt-4" />
+            </section>
+          }
+        >
+          <HomeHotDealsSection />
+        </Suspense>
 
-        <SectionEndsSoon products={endsSoon.data} />
+        <Suspense
+          fallback={
+            <section className="space-y-5">
+              <div className="h-8 w-32 rounded bg-base-300 animate-pulse" />
+              <DealGridSkeleton className="pt-4" />
+            </section>
+          }
+        >
+          <HomeEndsSoonSection />
+        </Suspense>
+
+        <Suspense
+          fallback={
+            <section className="space-y-5">
+              <div className="h-8 w-32 rounded bg-base-300 animate-pulse" />
+              <DealGridSkeleton className="pt-4" />
+            </section>
+          }
+        >
+          <HomeBundlesSection />
+        </Suspense>
 
         <SectionCategories categories={categories} />
 

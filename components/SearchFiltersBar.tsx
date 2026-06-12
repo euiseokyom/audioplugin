@@ -4,18 +4,26 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { ProductFilter, ProductSort } from "@/services/products";
 import {
-  buildSearchUrl,
+  BROWSE_SORT_OPTIONS,
+  buildBrowseUrl,
   FILTER_OPTIONS,
   getFilterButtonLabel,
   toggleFilter,
 } from "@/lib/search-filters";
 
-const SORT_OPTIONS: { value: ProductSort; label: string }[] = [
-  { value: "price-asc", label: "Price: Low–High" },
-  { value: "price-desc", label: "Price: High–Low" },
-  { value: "newest", label: "Newest" },
-  { value: "ending-soon", label: "Ending Soon" },
-];
+const SORT_LABELS: Record<ProductSort, string> = {
+  deals: "Best Deals",
+  bestseller: "Bestseller",
+  "price-asc": "Price: Low–High",
+  "price-desc": "Price: High–Low",
+  newest: "Newest",
+  "ending-soon": "Ending Soon",
+};
+
+const SORT_OPTIONS = BROWSE_SORT_OPTIONS.map((value) => ({
+  value,
+  label: SORT_LABELS[value],
+}));
 
 const DROPDOWN_MENU_CLASS =
   "absolute top-full mt-2 menu bg-base-200 rounded-xl z-[1] w-52 p-2 shadow-2xl border border-base-300";
@@ -82,10 +90,12 @@ function useClickOutside(
 }
 
 function FilterDropdown({
+  basePath,
   q,
   sort,
   filters,
 }: {
+  basePath: string;
   q: string;
   sort: ProductSort;
   filters: ProductFilter[];
@@ -114,9 +124,10 @@ function FilterDropdown({
   }
 
   function applyFilters(nextFilters: ProductFilter[]) {
-    router.replace(buildSearchUrl({ q, sort, filters: nextFilters }), {
-      scroll: false,
-    });
+    router.replace(
+      buildBrowseUrl({ basePath, q, sort, filters: nextFilters }),
+      { scroll: false },
+    );
     setIsOpen(false);
   }
 
@@ -200,10 +211,12 @@ function FilterDropdown({
 }
 
 function SortDropdown({
+  basePath,
   q,
   sort,
   filters,
 }: {
+  basePath: string;
   q: string;
   sort: ProductSort;
   filters: ProductFilter[];
@@ -218,7 +231,7 @@ function SortDropdown({
     SORT_OPTIONS.find((o) => o.value === sort)?.label ?? "Sort";
 
   function selectSort(value: ProductSort) {
-    router.replace(buildSearchUrl({ q, sort: value, filters }), {
+    router.replace(buildBrowseUrl({ basePath, q, sort: value, filters }), {
       scroll: false,
     });
     setIsOpen(false);
@@ -263,18 +276,25 @@ function SortDropdown({
 }
 
 export default function SearchFiltersBar({
-  q,
+  basePath = "/search",
+  q = "",
   sort,
   filters,
 }: {
-  q: string;
+  basePath?: string;
+  q?: string;
   sort: ProductSort;
   filters: ProductFilter[];
 }) {
   return (
     <div className="flex items-center justify-between gap-4">
-      <FilterDropdown q={q} sort={sort} filters={filters} />
-      <SortDropdown q={q} sort={sort} filters={filters} />
+      <FilterDropdown
+        basePath={basePath}
+        q={q}
+        sort={sort}
+        filters={filters}
+      />
+      <SortDropdown basePath={basePath} q={q} sort={sort} filters={filters} />
     </div>
   );
 }

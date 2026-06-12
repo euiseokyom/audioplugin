@@ -11,12 +11,14 @@ import {
   categoryToTag,
   mapMcdspCategory,
 } from "../lib/catalog/mcdsp-category-map";
+import { DEFAULT_RETAILERS } from "../lib/catalog/manufacturer-retailers";
 import { productImageUrl } from "../lib/catalog/product-image-path";
 import type { SeedProduct } from "../lib/catalog/seed-product";
 import {
   fetchAllAudioDeluxeMcDSPProducts,
   matchAudioDeluxeMcDSPProduct,
 } from "./lib/audiodeluxe";
+import { registeredPriceFromVariants } from "./lib/shopify-catalog";
 import {
   fetchPageHtml,
   normalizeMcdspProductName,
@@ -92,14 +94,16 @@ async function main() {
 
     const rawTitle = parseTitleFromHtml(html) ?? slug.replace(/-/g, " ");
     const title = normalizeMcdspProductName(rawTitle);
-    const registeredPrice = parsePriceFromHtml(html) ?? 0;
+    const adProduct = matchAudioDeluxeMcDSPProduct(audioDeluxeProducts, slug);
+    const registeredPrice =
+      parsePriceFromHtml(html) ??
+      (adProduct ? registeredPriceFromVariants(adProduct.variants) : 0);
     const isBundle = isBundlePath(pathname);
     const category = mapMcdspCategory(pathname, title);
 
     const tags = new Set<string>([MANUFACTURER_TAG, categoryToTag(category)]);
     if (isBundle) tags.add("bundle");
 
-    const adProduct = matchAudioDeluxeMcDSPProduct(audioDeluxeProducts, slug);
     const mcdspImageUrl = html
       ? resolveMcdspProductImage(html, pageUrl, slug, { isBundle })
       : null;
@@ -132,7 +136,7 @@ async function main() {
       manufacturer: MANUFACTURER,
       registeredPrice,
       tags: [...tags],
-      retailers: ["plugin-boutique"],
+      retailers: [...DEFAULT_RETAILERS],
     });
 
     if ((i + 1) % 10 === 0) {

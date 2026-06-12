@@ -9,6 +9,7 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 import { categoryToTag, mapUadCategory } from "../lib/catalog/uad-category-map";
+import { DEFAULT_RETAILERS } from "../lib/catalog/manufacturer-retailers";
 import { productImageUrl } from "../lib/catalog/product-image-path";
 import type { SeedProduct } from "../lib/catalog/seed-product";
 import { collectUaudioProductImageUrls, fetchPageHtml } from "./lib/page-scrape";
@@ -37,6 +38,33 @@ const INCLUDED_TYPES = new Set([
   "Pick Any Bundles",
 ]);
 
+/** UAD Select bundles are legacy aliases of Custom bundles. */
+const SELECT_TO_CUSTOM_SLUG: Record<string, string> = {
+  "uad-select-2-bundle": "uad-custom-2-bundle",
+  "uad-select-3-plus-3-bundle": "uad-custom-3-plus-3-bundle",
+  "uad-select-6-plus-6-bundle": "uad-custom-6-plus-6-bundle",
+  "uad-select-10-plus-10-bundle": "uad-custom-10-plus-10-bundle",
+};
+
+function remapSelectBundleToCustom(slug: string, title: string) {
+  const customSlug = SELECT_TO_CUSTOM_SLUG[slug];
+  if (!customSlug) return { slug, title };
+  return {
+    slug: customSlug,
+    title: title.replace(/\bSelect\b/i, "Custom"),
+  };
+}
+
+/** Free UAD plugins — excluded from the deal catalog. */
+const SKIP_FREE_SLUGS = new Set([
+  "century-tube-channel-strip",
+  "polymax-synth",
+  "pure-plate-reverb",
+  "teletronix-la-2a-tube-compressor",
+  "ua-1176-fet",
+  "vibe-analog-machines-essentials",
+]);
+
 function includeUadProduct(productType: string): boolean {
   return INCLUDED_TYPES.has(productType.trim());
 }
@@ -56,6 +84,7 @@ async function main() {
   const filtered = raw.filter(
     (p) =>
       !shouldSkipShopifyProduct(p, { skipSubscriptions: true }) &&
+      !SKIP_FREE_SLUGS.has(p.handle) &&
       includeUadProduct(p.product_type),
   );
 
@@ -67,45 +96,50 @@ async function main() {
     const item = normalizeShopifyProduct(product, {
       resolveImage: (raw) => resolveUadGuiImageUrls(raw)[0] ?? null,
     });
+    const shopifySlug = item.slug;
+    const { slug, title } = remapSelectBundleToCustom(item.slug, item.title);
+    if (slug !== shopifySlug && bySlug.has(slug)) continue;
+
     const isBundle = isBundleProduct(item.productType, item.tags);
     const category = mapUadCategory(
       item.productType,
       item.tags,
-      item.title,
+      title,
       isBundle,
+      slug,
     );
 
     const tags = new Set<string>([MANUFACTURER_TAG, "uad", categoryToTag(category)]);
     if (isBundle) tags.add("bundle");
 
     const seedProduct: SeedProduct = {
-      name: item.title,
-      slug: item.slug,
-      canonicalId: `${item.slug}-${MANUFACTURER_TAG}`,
-      image: productImageUrl(MANUFACTURER_TAG, item.slug),
+      name: title,
+      slug,
+      canonicalId: `${slug}-${MANUFACTURER_TAG}`,
+      image: productImageUrl(MANUFACTURER_TAG, slug),
       category,
       manufacturer: MANUFACTURER,
       registeredPrice: item.registeredPrice,
       tags: [...tags],
-      retailers: ["plugin-boutique"],
+      retailers: [...DEFAULT_RETAILERS],
     };
 
     const imageUrls = await resolveUadProductImageUrls(
-      item.slug,
+      shopifySlug,
       resolveUadGuiImageUrls(product),
     );
 
     if (imageUrls.length > 0) {
-      const ok = await processProductImageFromUrls(item.slug, imageUrls, {
+      const ok = await processProductImageFromUrls(slug, imageUrls, {
         manufacturerTag: MANUFACTURER_TAG,
         processingProfile: "light",
       });
       if (ok) imageSuccess++;
     } else {
-      console.warn(`  ✗ No image for ${item.slug}`);
+      console.warn(`  ✗ No image for ${slug}`);
     }
 
-    bySlug.set(item.slug, seedProduct);
+    bySlug.set(slug, seedProduct);
     if ((i + 1) % 25 === 0) {
       console.log(`  ${i + 1}/${filtered.length} processed...`);
     }

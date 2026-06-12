@@ -7,11 +7,19 @@ import type { ProductWithPrices } from "@/types";
 const PRODUCT_GRID_CLASS =
   "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-start gap-3 sm:gap-4";
 
+export type ProductGridFetchParams = {
+  category?: string;
+  manufacturer?: string;
+  sort?: string;
+  filters?: string[];
+  pageSize?: number;
+};
+
 type Props = {
   initialProducts: ProductWithPrices[];
   total: number;
   pageSize: number;
-  fetchParams: Record<string, string>;
+  fetchParams: ProductGridFetchParams;
 };
 
 export default function ProductGridWithLoadMore({
@@ -33,10 +41,17 @@ export default function ProductGridWithLoadMore({
     try {
       const nextPage = page + 1;
       const params = new URLSearchParams({
-        ...fetchParams,
         page: String(nextPage),
         pageSize: String(pageSize),
       });
+      if (fetchParams.category) params.set("category", fetchParams.category);
+      if (fetchParams.manufacturer) {
+        params.set("manufacturer", fetchParams.manufacturer);
+      }
+      if (fetchParams.sort) params.set("sort", fetchParams.sort);
+      for (const filter of fetchParams.filters ?? []) {
+        params.append("filter", filter);
+      }
       const res = await fetch(`/api/products?${params}`);
       if (!res.ok) return;
 
@@ -62,7 +77,7 @@ export default function ProductGridWithLoadMore({
         <div className="flex justify-center">
           <button
             type="button"
-            className="btn btn-outline min-w-40"
+            className="btn btn-sm btn-ghost gap-2 pl-3 pr-2.5 font-normal border border-base-300 text-sm min-w-40"
             onClick={loadMore}
             disabled={loading}
           >

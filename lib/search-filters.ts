@@ -26,12 +26,30 @@ export function parseProductFilters(
   return VALID_FILTERS.filter((f) => seen.has(f));
 }
 
-export function buildSearchUrl({
-  q,
+export const BROWSE_SORT_OPTIONS: ProductSort[] = [
+  "price-asc",
+  "price-desc",
+  "newest",
+  "ending-soon",
+];
+
+export function parseBrowseSort(
+  sort: string | undefined,
+  fallback: ProductSort = "price-asc",
+): ProductSort {
+  return BROWSE_SORT_OPTIONS.includes(sort as ProductSort)
+    ? (sort as ProductSort)
+    : fallback;
+}
+
+export function buildBrowseUrl({
+  basePath,
+  q = "",
   sort,
   filters = [],
 }: {
-  q: string;
+  basePath: string;
+  q?: string;
   sort: ProductSort;
   filters?: ProductFilter[];
 }) {
@@ -41,7 +59,20 @@ export function buildSearchUrl({
   for (const value of filters) {
     params.append("filter", value);
   }
-  return `/search?${params.toString()}`;
+  const query = params.toString();
+  return query ? `${basePath}?${query}` : basePath;
+}
+
+export function buildSearchUrl({
+  q,
+  sort,
+  filters = [],
+}: {
+  q: string;
+  sort: ProductSort;
+  filters?: ProductFilter[];
+}) {
+  return buildBrowseUrl({ basePath: "/search", q, sort, filters });
 }
 
 export function toggleFilter(

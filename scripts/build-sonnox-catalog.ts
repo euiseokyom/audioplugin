@@ -12,9 +12,18 @@ import {
 const MANUFACTURER = "Sonnox";
 const MANUFACTURER_TAG = "sonnox";
 
+/** Discontinued on sonnox.com — keep out of catalog if sitemap ever re-lists them. */
+const EXCLUDED_SLUGS = new Set([
+  "sonnox-producer-power-bundle",
+  "sonnox-guitar-tone-bundle",
+  "sonnox-singer-songwriter-bundle",
+]);
+
 async function main() {
   console.log("Discovering Sonnox products from sitemap...");
-  const items = await discoverSonnoxFromSitemap();
+  const items = (await discoverSonnoxFromSitemap()).filter(
+    (item) => !EXCLUDED_SLUGS.has(item.slug),
+  );
   console.log(`Found ${items.length} products`);
 
   await buildCatalogFile({

@@ -11,7 +11,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 999,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Blackhole Immersive",
@@ -22,7 +22,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 199,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Blackhole®",
@@ -33,7 +33,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Clockworks Bundle",
@@ -44,7 +44,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 299,
     tags: ["eventide", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "CrushStation®",
@@ -55,7 +55,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Crystals",
@@ -66,7 +66,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "DeBoom",
@@ -77,7 +77,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 49,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "EChannel",
@@ -88,7 +88,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 49,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "EQ45",
@@ -99,7 +99,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 49,
     tags: ["eventide", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "EQ65",
@@ -110,7 +110,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 49,
     tags: ["eventide", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "H3000 Band Delays Mk II",
@@ -121,7 +121,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "delay"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "H3000 Factory Mk II",
@@ -132,7 +132,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 149,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "H9 Plug-in Series",
@@ -143,7 +143,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 299,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "H910 Harmonizer®",
@@ -154,7 +154,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 149,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "H949 Harmonizer®",
@@ -165,29 +165,29 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 149,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Instant Flanger Mk II",
     slug: "instant-flanger-mk-ii",
     canonicalId: "instant-flanger-mk-ii-eventide",
     image: "/images/products/eventide/instant-flanger-mk-ii.webp",
-    category: "Modulation",
+    category: "Effects",
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "modulation"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Instant Phaser Mk II",
     slug: "instant-phaser-mk-ii",
     canonicalId: "instant-phaser-mk-ii-eventide",
     image: "/images/products/eventide/instant-phaser-mk-ii.webp",
-    category: "Modulation",
+    category: "Effects",
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "modulation"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "MangledVerb",
@@ -198,7 +198,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "MicroPitch Immersive",
@@ -209,7 +209,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 199,
     tags: ["eventide", "pitch"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "MicroPitch Plug-in",
@@ -220,7 +220,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "pitch"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Octavox",
@@ -231,7 +231,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Omnipressor®",
@@ -242,7 +242,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Physion Mk II",
@@ -253,7 +253,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 149,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Precision Time Align",
@@ -264,7 +264,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 49,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Quadravox",
@@ -275,7 +275,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 49,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Rotary Mod",
@@ -286,7 +286,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Sheen Machine",
@@ -297,7 +297,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 49,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "ShimmerVerb",
@@ -308,7 +308,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "SP2016 Reverb",
@@ -319,7 +319,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "SplitEQ",
@@ -330,7 +330,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 149,
     tags: ["eventide", "equalizer"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Spring Reverb",
@@ -341,7 +341,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Temperance Lite",
@@ -352,7 +352,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 49,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Temperance Pro",
@@ -363,18 +363,18 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 199,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "TriceraChorus",
     slug: "tricerachorus",
     canonicalId: "tricerachorus-eventide",
     image: "/images/products/eventide/tricerachorus.webp",
-    category: "Modulation",
+    category: "Effects",
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "modulation"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Tverb",
@@ -385,7 +385,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 149,
     tags: ["eventide", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Ultra Essentials Bundle",
@@ -396,7 +396,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 199,
     tags: ["eventide", "bundle"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UltraChannel",
@@ -407,7 +407,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UltraReverb",
@@ -418,7 +418,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "reverb"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "UltraTap",
@@ -429,7 +429,7 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Undulator",
@@ -440,6 +440,6 @@ export const EVENTIDE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Eventide",
     registeredPrice: 99,
     tags: ["eventide", "effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   }
 ];

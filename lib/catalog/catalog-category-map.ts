@@ -1,13 +1,16 @@
+import { isLimiterProduct } from "@/lib/catalog/limiter-category";
+
 const TAG_RULES: { pattern: RegExp; category: string }[] = [
   { pattern: /bundle|collection|suite|pack/i, category: "Bundle" },
+  { pattern: /addictive keys|piano|keyboard instrument/i, category: "Instrument" },
   { pattern: /eq|equal/i, category: "Equalizer" },
-  { pattern: /compress|limit|gate|de-ess|deess|supress/i, category: "Compressor" },
+  { pattern: /ultramaximizer|multimaximizer|pro-l-?2|\blimiter\b/i, category: "Limiter" },
+  { pattern: /compress|gate|de-ess|deess|supress/i, category: "Compressor" },
   { pattern: /channel strip|channel-strip/i, category: "Channel Strip" },
   { pattern: /reverb|verb/i, category: "Reverb" },
   { pattern: /delay|echo/i, category: "Delay" },
   { pattern: /synth/i, category: "Instrument" },
   { pattern: /satur|distort|saturn|trash/i, category: "Saturation" },
-  { pattern: /modul|chorus|phaser|flanger/i, category: "Modulation" },
   { pattern: /meter|insight|analysis/i, category: "Metering" },
   { pattern: /repair|rx|restore|denois/i, category: "Restoration" },
   { pattern: /pitch|tune|vocal/i, category: "Pitch" },
@@ -22,6 +25,8 @@ export function mapCatalogCategory(
 
   const type = hints.productType?.trim() ?? "";
   if (/bundle/i.test(type)) return "Bundle";
+
+  if (isLimiterProduct(name, slug)) return "Limiter";
 
   const haystack = `${name} ${slug} ${type} ${(hints.tags ?? []).join(" ")}`.toLowerCase();
   for (const rule of TAG_RULES) {

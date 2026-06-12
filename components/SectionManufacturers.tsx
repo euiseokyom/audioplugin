@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { manufacturerToSlug } from "@/lib/manufacturer-slug";
 import SectionHeader from "@/components/SectionHeader";
 
 const MANUFACTURER_COLORS: Record<string, string> = {
@@ -22,7 +23,6 @@ const MANUFACTURER_COLORS: Record<string, string> = {
   "XLN Audio": "bg-[#7f1d1d] hover:bg-[#991b1b]",
   "Relab Development": "bg-[#4c1d95] hover:bg-[#5b21b6]",
   Antares: "bg-[#831843] hover:bg-[#9d174d]",
-  Output: "bg-[#312e81] hover:bg-[#3730a3]",
   "Baby Audio": "bg-[#134e4a] hover:bg-[#115e59]",
   "Reveal Sound": "bg-[#14532d] hover:bg-[#166534]",
   Krotos: "bg-[#701a75] hover:bg-[#86198f]",
@@ -49,7 +49,7 @@ export default function SectionManufacturers({ manufacturers }: Props) {
           return (
             <Link
               key={mfr.name}
-              href={`/manufacturer/${encodeURIComponent(mfr.name.toLowerCase())}`}
+              href={`/manufacturer/${manufacturerToSlug(mfr.name)}`}
               className={`block aspect-square rounded-xl transition-colors ${colorClass}`}
             >
               <span className="flex h-full w-full items-center justify-center p-5 text-center text-lg sm:text-xl font-bold text-base-100 leading-tight">

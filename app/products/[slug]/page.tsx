@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
+import { manufacturerToSlug } from "@/lib/manufacturer-slug";
 import { getProductBySlug } from "@/services/products";
 import { getPriceHistory } from "@/services/prices";
 import RetailerPriceTable from "@/components/RetailerPriceTable";
@@ -18,10 +20,25 @@ export async function generateMetadata({
   const { slug } = await params;
   const product = await getProductBySlug(slug);
   if (!product) return {};
+
+  const ogTitle = `${product.name} from $${product.lowestPrice.toFixed(2)}`;
+  const ogDescription = `Compare prices for ${product.name} by ${product.manufacturer} across 16 retailers.`;
+
   return {
-    title: `${product.name} — Best Price | PluginBargains`,
-    description: `Compare prices for ${product.name} by ${product.manufacturer} across 16 retailers. Currently from $${product.lowestPrice.toFixed(2)}.`,
+    title: `${product.name} — Best Price`,
+    description: `${ogDescription} Currently from $${product.lowestPrice.toFixed(2)}.`,
     alternates: { canonical: absoluteUrl(`/products/${slug}`) },
+    openGraph: {
+      title: ogTitle,
+      description: ogDescription,
+      type: "website",
+      url: absoluteUrl(`/products/${slug}`),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: ogTitle,
+      description: ogDescription,
+    },
   };
 }
 
@@ -78,9 +95,12 @@ export default async function ProductPage({
               <h1 className="text-lg sm:text-2xl md:text-3xl font-bold tracking-tight leading-tight">
                 {product.name}
               </h1>
-              <p className="text-sm sm:text-base text-base-content/60 font-medium">
+              <Link
+                href={`/manufacturer/${manufacturerToSlug(product.manufacturer)}`}
+                className="text-sm sm:text-base text-base-content/60 font-medium hover:text-primary transition-colors"
+              >
                 {product.manufacturer}
-              </p>
+              </Link>
             </div>
 
             <div className="flex flex-col gap-2 sm:gap-3 pt-0 sm:pt-1 items-end w-full">

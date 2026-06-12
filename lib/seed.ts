@@ -15,7 +15,6 @@ import { NEWFANGLED_AUDIO_PRODUCTS } from "@/lib/catalog/newfangled-audio-produc
 import { XLN_PRODUCTS } from "@/lib/catalog/xln-products";
 import { RELAB_PRODUCTS } from "@/lib/catalog/relab-products";
 import { ANTARES_PRODUCTS } from "@/lib/catalog/antares-products";
-import { OUTPUT_PRODUCTS } from "@/lib/catalog/output-products";
 import { BABY_AUDIO_PRODUCTS } from "@/lib/catalog/baby-audio-products";
 import { SOFTUBE_PRODUCTS } from "@/lib/catalog/softube-products";
 import { SONNOX_PRODUCTS } from "@/lib/catalog/sonnox-products";
@@ -44,7 +43,7 @@ const BASE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Soundtoys",
     registeredPrice: 599,
     tags: ["bundle", "effects", "saturation", "delay"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Decapitator",
@@ -55,7 +54,7 @@ const BASE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Soundtoys",
     registeredPrice: 199,
     tags: ["saturation", "analog"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "EchoBoy",
@@ -66,7 +65,7 @@ const BASE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Soundtoys",
     registeredPrice: 199,
     tags: ["delay", "analog"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Sie-Q",
@@ -77,7 +76,7 @@ const BASE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Soundtoys",
     registeredPrice: 99,
     tags: ["equalizer", "analog"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Devil-Loc Deluxe",
@@ -88,18 +87,18 @@ const BASE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Soundtoys",
     registeredPrice: 99,
     tags: ["saturation", "compressor"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "MicroShift",
     slug: "microshift",
     canonicalId: "microshift-soundtoys",
     image: "/images/products/soundtoys/microshift.webp",
-    category: "Modulation",
+    category: "Effects",
     manufacturer: "Soundtoys",
     registeredPrice: 99,
     tags: ["pitch-shift", "chorus", "modulation"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Crystallizer",
@@ -110,29 +109,29 @@ const BASE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Soundtoys",
     registeredPrice: 149,
     tags: ["pitch-shift", "experimental", "modulation"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "PhaseMistress",
     slug: "phasemistress",
     canonicalId: "phasemistress-soundtoys",
     image: "/images/products/soundtoys/phasemistress.webp",
-    category: "Modulation",
+    category: "Effects",
     manufacturer: "Soundtoys",
     registeredPrice: 99,
     tags: ["phaser", "modulation"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Tremolator",
     slug: "tremolator",
     canonicalId: "tremolator-soundtoys",
     image: "/images/products/soundtoys/tremolator.webp",
-    category: "Modulation",
+    category: "Effects",
     manufacturer: "Soundtoys",
     registeredPrice: 99,
     tags: ["tremolo", "modulation"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "FilterFreak",
@@ -143,7 +142,7 @@ const BASE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Soundtoys",
     registeredPrice: 149,
     tags: ["filter", "analog"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "PrimalTap",
@@ -154,7 +153,7 @@ const BASE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Soundtoys",
     registeredPrice: 99,
     tags: ["delay", "pitch", "analog"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Radiator",
@@ -165,7 +164,7 @@ const BASE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Soundtoys",
     registeredPrice: 99,
     tags: ["console", "tube", "saturation", "analog"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "SuperPlate",
@@ -176,29 +175,29 @@ const BASE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Soundtoys",
     registeredPrice: 149,
     tags: ["reverb", "plate"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Little AlterBoy",
     slug: "little-alterboy",
     canonicalId: "little-alterboy-soundtoys",
     image: "/images/products/soundtoys/little-alterboy.webp",
-    category: "Modulation",
+    category: "Effects",
     manufacturer: "Soundtoys",
     registeredPrice: 99,
     tags: ["vocal", "pitch-shift", "experimental"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "PanMan",
     slug: "panman",
     canonicalId: "panman-soundtoys",
     image: "/images/products/soundtoys/panman.webp",
-    category: "Modulation",
+    category: "Effects",
     manufacturer: "Soundtoys",
     registeredPrice: 99,
     tags: ["auto-pan", "modulation", "experimental"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "Effect Rack",
@@ -209,7 +208,7 @@ const BASE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Soundtoys",
     registeredPrice: 299,
     tags: ["bundle", "effects", "multi-effects"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
   {
     name: "SpaceBlender",
@@ -220,7 +219,7 @@ const BASE_PRODUCTS: SeedProduct[] = [
     manufacturer: "Soundtoys",
     registeredPrice: 99,
     tags: ["reverb", "experimental", "spatial"],
-    retailers: ["plugin-boutique"],
+    retailers: ["plugin-boutique", "gear4music"],
   },
 ];
 
@@ -241,7 +240,6 @@ const PRODUCTS: SeedProduct[] = [
   ...XLN_PRODUCTS,
   ...RELAB_PRODUCTS,
   ...ANTARES_PRODUCTS,
-  ...OUTPUT_PRODUCTS,
   ...BABY_AUDIO_PRODUCTS,
 ];
 

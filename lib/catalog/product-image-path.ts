@@ -15,7 +15,6 @@ export const MANUFACTURER_IMAGE_TAGS = [
   "izotope",
   "sonnox",
   "mcdsp",
-  "output",
   "waves",
 ] as const;
 
@@ -34,8 +33,8 @@ const MANUFACTURER_TO_TAG: Record<string, string> = {
   "XLN Audio": "xln-audio",
   "Relab Development": "relab-development",
   Antares: "antares",
-  Output: "output",
   "Baby Audio": "baby-audio",
+  "Mastering the Mix": "plugin-alliance",
   Soundtoys: "soundtoys",
 };
 

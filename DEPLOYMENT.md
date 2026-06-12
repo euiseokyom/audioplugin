@@ -175,6 +175,7 @@ Daily / after cron runs:
 2. Hit `/api/health` (or configure an uptime monitor on it)
 3. Watch Discord for failed/partial scrape alerts
 4. Spot-check a few product pages for fresh prices
+5. Review **Vercel Analytics** (Project → Analytics) for traffic and page views — enabled via `@vercel/analytics` in the root layout; no extra env vars required on Vercel
 
 ---
 

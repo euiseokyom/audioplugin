@@ -77,6 +77,12 @@ export function shouldSkipShopifyProduct(
   if (type.includes("promo") && !type.includes("plug-in")) {
     return true;
   }
+  if (
+    product.handle === "truefire-courses" ||
+    /truefire.*guitar course/i.test(product.title)
+  ) {
+    return true;
+  }
   return false;
 }
 

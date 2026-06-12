@@ -12,6 +12,15 @@ import {
   categoryToTag,
   mapPluginAllianceCategory,
 } from "../lib/catalog/plugin-alliance-category-map";
+import {
+  pluginAllianceRetailers,
+  shouldSkipPluginAllianceProduct,
+  shouldSkipPluginAllianceVendor,
+} from "../lib/catalog/plugin-alliance-thomann-vendors";
+import {
+  resolvePaProductManufacturer,
+  shouldExcludeFromPluginAllianceCatalog,
+} from "../lib/catalog/pa-vendor-manufacturers";
 import { productImageUrl } from "../lib/catalog/product-image-path";
 import type { SeedProduct } from "../lib/catalog/seed-product";
 import { processProductImageFromUrls } from "./lib/process-product-image";
@@ -44,20 +53,32 @@ async function main() {
     const item = normalizeShopifyProduct(filtered[i], {
       resolveImage: resolvePluginAllianceGuiImage,
     });
+    if (shouldSkipPluginAllianceProduct(item.slug)) continue;
+
     const isBundle = isBundleProduct(item.productType, item.tags);
     const category = mapPluginAllianceCategory(
       item.productType,
       item.tags,
       isBundle,
+      item.title,
+      item.slug,
     );
 
     const tags = new Set<string>([MANUFACTURER_TAG, categoryToTag(category)]);
     if (isBundle) tags.add("bundle");
-    if (item.vendor) {
-      tags.add(
-        item.vendor.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
-      );
+    const vendorTag = item.vendor
+      ? item.vendor.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+      : undefined;
+
+    if (vendorTag) {
+      if (shouldSkipPluginAllianceVendor(vendorTag)) continue;
+      tags.add(vendorTag);
     }
+
+    const tagList = [...tags];
+    if (shouldExcludeFromPluginAllianceCatalog(tagList)) continue;
+
+    const manufacturer = resolvePaProductManufacturer(tagList);
 
     const product: SeedProduct = {
       name: item.title,
@@ -65,10 +86,10 @@ async function main() {
       canonicalId: `${item.slug}-${MANUFACTURER_TAG}`,
       image: productImageUrl(MANUFACTURER_TAG, item.slug),
       category,
-      manufacturer: MANUFACTURER,
+      manufacturer,
       registeredPrice: item.registeredPrice,
-      tags: [...tags],
-      retailers: ["plugin-boutique"],
+      tags: tagList,
+      retailers: pluginAllianceRetailers(tagList),
     };
 
     if (item.imageUrl) {

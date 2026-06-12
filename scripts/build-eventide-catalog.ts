@@ -4,6 +4,7 @@
  * Run: npm run build:eventide-catalog
  */
 
+import { DEFAULT_RETAILERS } from "../lib/catalog/manufacturer-retailers";
 import { NEWFANGLED_AUDIO_PRODUCT_SLUGS } from "../lib/catalog/newfangled-audio-slugs";
 import { buildFromShopifyProductsJson } from "./lib/shopify-manufacturer-catalog";
 import type { ShopifyProductJson } from "./lib/shopify-catalog";
@@ -29,6 +30,7 @@ async function main() {
     outputFile: "lib/catalog/eventide-products.ts",
     marketingBaseUrl: "https://store.eventideaudio.com/products",
     shouldInclude,
+    retailers: [...DEFAULT_RETAILERS],
     processingProfile: "light",
   });
 }

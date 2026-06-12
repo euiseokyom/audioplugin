@@ -32,7 +32,6 @@ const CATALOG_MANUFACTURERS: Record<string, string> = {
   "lib/catalog/xln-products.ts": "xln-audio",
   "lib/catalog/relab-products.ts": "relab-development",
   "lib/catalog/antares-products.ts": "antares",
-  "lib/catalog/output-products.ts": "output",
   "lib/catalog/baby-audio-products.ts": "baby-audio",
 };
 

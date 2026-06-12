@@ -48,14 +48,20 @@ export default function Navbar() {
           {session && (
             <div className="dropdown dropdown-end shrink-0">
               <div tabIndex={0} role="button" className="avatar cursor-pointer">
-                <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1">
-                  <Image
-                    src={session.user?.image ?? "/default-avatar.png"}
-                    alt={session.user?.name ?? "User"}
-                    width={32}
-                    height={32}
-                    className="rounded-full"
-                  />
+                <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1 overflow-hidden bg-base-300 flex items-center justify-center text-xs font-bold">
+                  {session.user?.image ? (
+                    <Image
+                      src={session.user.image}
+                      alt={session.user?.name ?? "User"}
+                      width={32}
+                      height={32}
+                      className="rounded-full"
+                    />
+                  ) : (
+                    <span aria-hidden>
+                      {(session.user?.name ?? "U").charAt(0).toUpperCase()}
+                    </span>
+                  )}
                 </div>
               </div>
               <ul

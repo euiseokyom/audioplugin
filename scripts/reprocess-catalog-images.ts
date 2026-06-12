@@ -13,10 +13,8 @@ import {
   productWebpDir,
 } from "../lib/catalog/product-image-fs";
 import {
-  IMAGE_PLACEMENT_OFFSETS,
   letterboxToSquareWebp,
-  MANUFACTURER_IMAGE_OPTIONS,
-  type ImageProcessingProfile,
+  resolveLetterboxOptions,
 } from "./lib/process-product-image";
 
 const ROOT = path.resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
@@ -37,7 +35,6 @@ const CATALOG_MANUFACTURERS: Record<string, string> = {
   xln: "xln-audio",
   relab: "relab-development",
   antares: "antares",
-  output: "output",
   "baby-audio": "baby-audio",
 };
 
@@ -57,7 +54,6 @@ const CATALOG_FILES: Record<string, string> = {
   xln: "lib/catalog/xln-products.ts",
   relab: "lib/catalog/relab-products.ts",
   antares: "lib/catalog/antares-products.ts",
-  output: "lib/catalog/output-products.ts",
   "baby-audio": "lib/catalog/baby-audio-products.ts",
 };
 
@@ -68,6 +64,7 @@ const LIGHT_PROCESSING_TAGS = new Set([
   "sonnox",
   "fabfilter",
   "slate-digital",
+  "xln-audio",
   "izotope",
   "eventide",
 ]);
@@ -109,18 +106,15 @@ async function reprocessEntry(entry: ReprocessEntry): Promise<boolean> {
   try {
     const buffer = await fs.readFile(originalPath);
     await fs.mkdir(webpDir, { recursive: true });
-    const manufacturerDefaults =
-      MANUFACTURER_IMAGE_OPTIONS[entry.manufacturerTag];
-    const processingProfile: ImageProcessingProfile =
-      manufacturerDefaults?.processingProfile ??
-      (LIGHT_PROCESSING_TAGS.has(entry.manufacturerTag) ? "light" : "default");
-
-    await letterboxToSquareWebp(buffer, webpPath, {
-      offsetX: IMAGE_PLACEMENT_OFFSETS[entry.slug] ?? 0,
-      processingProfile,
-      tileFillRatio: manufacturerDefaults?.tileFillRatio,
-      skipEdgeBlackStrip: manufacturerDefaults?.skipEdgeBlackStrip,
-    });
+    await letterboxToSquareWebp(
+      buffer,
+      webpPath,
+      resolveLetterboxOptions(
+        entry.slug,
+        entry.manufacturerTag,
+        LIGHT_PROCESSING_TAGS,
+      ),
+    );
     return true;
   } catch {
     return false;

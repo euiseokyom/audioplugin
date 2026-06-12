@@ -18,6 +18,8 @@ import {
 } from "../lib/catalog/waves-category-map";
 import { processProductImageFromUrls } from "./lib/process-product-image";
 import { WAVES_BUNDLE_SLUGS } from "../lib/catalog/waves-bundle-slugs";
+import { WAVES_NOT_INDIVIDUALLY_SOLD } from "../lib/catalog/waves-not-individually-sold";
+import { DEFAULT_RETAILERS } from "../lib/catalog/manufacturer-retailers";
 import { productImageUrl } from "../lib/catalog/product-image-path";
 import type { SeedProduct } from "../lib/catalog/seed-product";
 
@@ -212,7 +214,12 @@ async function processProductImage(
 
 function normalizeProduct(raw: WavesRawProduct, isBundle: boolean): SeedProduct {
   const slug = slugFromPath(raw.documentUrlPath);
-  const category = mapWavesCategory(raw.gsfCategory ?? "", isBundle);
+  const category = mapWavesCategory(
+    raw.gsfCategory ?? "",
+    isBundle,
+    raw.documentName,
+    slug,
+  );
   const registeredPrice =
     raw.msrp && raw.msrp > 0
       ? Math.round(raw.msrp * 100) / 100
@@ -238,7 +245,7 @@ function normalizeProduct(raw: WavesRawProduct, isBundle: boolean): SeedProduct 
     manufacturer: "Waves",
     registeredPrice,
     tags: [...tags].filter(Boolean),
-    retailers: ["plugin-boutique"],
+    retailers: [...DEFAULT_RETAILERS],
   };
 }
 
@@ -254,7 +261,7 @@ function serializeProducts(products: SeedProduct[]): string {
     manufacturer: "Waves",
     registeredPrice: ${p.registeredPrice},
     tags: [${tags}],
-    retailers: ["plugin-boutique"],
+    retailers: [${DEFAULT_RETAILERS.map((r) => JSON.stringify(r)).join(", ")}],
   }`;
   });
 
@@ -267,6 +274,23 @@ ${lines.join(",\n")}
 `;
 }
 
+function mergeWavesProduct(
+  existing: WavesRawProduct | undefined,
+  incoming: WavesRawProduct,
+): WavesRawProduct {
+  if (!existing) return incoming;
+
+  const existingMsrp = existing.msrp ?? 0;
+  const incomingMsrp = incoming.msrp ?? 0;
+  const existingSku = existing.skuPrice ?? 0;
+  const incomingSku = incoming.skuPrice ?? 0;
+
+  if (incomingMsrp > existingMsrp) return incoming;
+  if (existingMsrp > incomingMsrp) return existing;
+  if (incomingSku > existingSku) return incoming;
+  return existing;
+}
+
 async function loadPlugins(): Promise<WavesRawProduct[]> {
   const byPath = new Map<string, WavesRawProduct>();
 
@@ -277,7 +301,10 @@ async function loadPlugins(): Promise<WavesRawProduct[]> {
       continue;
     }
     for (const product of parseProductsFromHtml(html, "/plugins/")) {
-      byPath.set(product.documentUrlPath, product);
+      byPath.set(
+        product.documentUrlPath,
+        mergeWavesProduct(byPath.get(product.documentUrlPath), product),
+      );
     }
   }
 
@@ -339,9 +366,9 @@ async function main() {
     bySlug.set(product.slug, product);
   }
 
-  const products = [...bySlug.values()].sort((a, b) =>
-    a.name.localeCompare(b.name),
-  );
+  const products = [...bySlug.values()]
+    .filter((p) => !WAVES_NOT_INDIVIDUALLY_SOLD.has(p.slug))
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   console.log(`Processing images for ${products.length} products...`);
   let imageSuccess = 0;

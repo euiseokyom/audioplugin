@@ -4,6 +4,7 @@
  * Run: npm run build:ssl-catalog
  */
 
+import { SSL_RETAILERS } from "../lib/catalog/manufacturer-retailers";
 import {
   buildCatalogFile,
   discoverSslStoreProducts,
@@ -24,6 +25,7 @@ async function main() {
     generatedBy: "scripts/build-ssl-catalog.ts",
     outputFile: "lib/catalog/ssl-products.ts",
     items,
+    retailers: [...SSL_RETAILERS],
     delayMs: 0,
     processingProfile: "light",
   });

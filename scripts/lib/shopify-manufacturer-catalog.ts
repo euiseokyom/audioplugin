@@ -27,6 +27,7 @@ export type ShopifyCatalogOptions = {
   marketingBaseUrl: string;
   shouldInclude?: (product: ShopifyProductJson) => boolean;
   slugFromHandle?: (handle: string) => string;
+  retailers?: string[];
   delayMs?: number;
   processingProfile?: ImageProcessingProfile;
 };
@@ -57,6 +58,7 @@ export async function buildFromShopifyProductsJson(
     marketingBaseUrl,
     shouldInclude = defaultInclude,
     slugFromHandle,
+    retailers,
     delayMs = 50,
     processingProfile,
   } = options;
@@ -95,6 +97,7 @@ export async function buildFromShopifyProductsJson(
     generatedBy,
     outputFile,
     items,
+    retailers,
     delayMs,
     processingProfile,
   });

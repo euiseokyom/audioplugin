@@ -1,11 +1,16 @@
 import { resolveProductImageSrc } from "@/lib/catalog/product-image-path";
+import { formatProductName } from "@/lib/catalog/product-name";
 import { connectDB } from "@/lib/db";
 import Product from "@/models/Product";
 import PriceEntry from "@/models/PriceEntry";
 import { ENDS_SOON_SLUGS, getEndsSoonDealEndDate } from "@/lib/ends-soon";
 import { RETAILER_MAP } from "@/lib/retailers";
+import { buildSearchFilter } from "@/lib/search-query";
 import type { ProductWithPrices, IPriceEntry, IProduct } from "@/types";
 import mongoose from "mongoose";
+
+const HOT_DEALS_LOWEST_PRICE_COUNT = 5;
+const HOME_SECTION_SIZE = 10;
 
 export type ProductSort =
   | "deals"
@@ -20,6 +25,7 @@ export type ProductFilter = "ends-soon" | "lowest-ever" | "recently-added";
 const RECENTLY_ADDED_DAYS = 30;
 
 function withResolvedImage<T extends {
+  name: string;
   image: string;
   slug: string;
   canonicalId?: string;
@@ -27,6 +33,7 @@ function withResolvedImage<T extends {
 }>(product: T): T {
   return {
     ...product,
+    name: formatProductName(product.name),
     image: resolveProductImageSrc(product),
   };
 }
@@ -170,13 +177,15 @@ export async function getProducts({
     (productFilter !== undefined ? [productFilter] : []);
 
   const filter: Record<string, unknown> = {};
-  if (category) filter.category = category;
+  if (category) {
+    filter.category = {
+      $regex: `^${category.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`,
+      $options: "i",
+    };
+  }
   if (manufacturer) filter.manufacturer = manufacturer;
   if (q) {
-    filter.$or = [
-      { name: { $regex: q, $options: "i" } },
-      { manufacturer: { $regex: q, $options: "i" } },
-    ];
+    Object.assign(filter, buildSearchFilter(q));
   }
 
   if (activeFilters.includes("ends-soon")) {
@@ -306,12 +315,27 @@ export async function getProductBySlug(slug: string): Promise<ProductWithPrices 
   });
 }
 
+const SITEMAP_PRODUCT_LIMIT = 3000;
+
+export async function getProductSlugsForSitemap(): Promise<
+  { slug: string; updatedAt?: Date }[]
+> {
+  await connectDB();
+  return Product.find({}, { slug: 1, updatedAt: 1 })
+    .sort({ updatedAt: -1 })
+    .limit(SITEMAP_PRODUCT_LIMIT)
+    .lean();
+}
+
 export async function searchProducts(q: string, limit = 10) {
   await connectDB();
-  const results = await Product.find(
-    { $or: [{ name: { $regex: q, $options: "i" } }, { manufacturer: { $regex: q, $options: "i" } }] },
-    { name: 1, slug: 1, image: 1, manufacturer: 1, canonicalId: 1 }
-  )
+  const results = await Product.find(buildSearchFilter(q), {
+    name: 1,
+    slug: 1,
+    image: 1,
+    manufacturer: 1,
+    canonicalId: 1,
+  })
     .limit(limit)
     .lean();
 
@@ -326,23 +350,63 @@ export async function searchProducts(q: string, limit = 10) {
   );
 }
 
-export async function getHotDeals(limit = 8) {
+function isBundleProduct(product: { category: string }) {
+  return product.category === "Bundle";
+}
+
+function pickHotDeals(
+  products: ProductWithPrices[],
+  limit: number,
+): ProductWithPrices[] {
+  const nonBundles = products.filter((p) => !isBundleProduct(p));
+  const lowestPricePicks = [...nonBundles]
+    .sort((a, b) => a.lowestPrice - b.lowestPrice)
+    .slice(0, HOT_DEALS_LOWEST_PRICE_COUNT);
+  const pickedIds = new Set(lowestPricePicks.map((p) => p._id));
+
+  const discountPicks = nonBundles
+    .filter((p) => !pickedIds.has(p._id))
+    .sort((a, b) => b.discountPercent - a.discountPercent)
+    .slice(0, limit - lowestPricePicks.length);
+
+  return [...lowestPricePicks, ...discountPicks];
+}
+
+export async function getHotDeals(limit = HOME_SECTION_SIZE) {
   await connectDB();
 
-  const products = await Product.find({}).lean();
+  const products = await Product.find({ category: { $ne: "Bundle" } }).lean();
   const withPrices = await enrichProductsWithPrices(products);
   const minPrices = await getHistoricalMinPrices(products.map((p) => p._id));
 
-  const hot = applyAllTimeLow(withPrices, minPrices)
-    .filter((p) => p.discountPercent > 50 || p.isAllTimeLow)
-    .sort((a, b) => b.discountPercent - a.discountPercent);
+  const hot = pickHotDeals(applyAllTimeLow(withPrices, minPrices), limit);
 
   return {
-    data: hot.slice(0, limit),
+    data: hot,
     total: hot.length,
     page: 1,
     pageSize: limit,
     hasMore: false,
+  };
+}
+
+export async function getBundles(limit = HOME_SECTION_SIZE) {
+  await connectDB();
+
+  const products = await Product.find({ category: "Bundle" }).lean();
+  const withPrices = await enrichProductsWithPrices(products);
+  const minPrices = await getHistoricalMinPrices(products.map((p) => p._id));
+
+  const sorted = applyAllTimeLow(withPrices, minPrices).sort(
+    (a, b) => b.discountPercent - a.discountPercent,
+  );
+
+  return {
+    data: sorted.slice(0, limit),
+    total: sorted.length,
+    page: 1,
+    pageSize: limit,
+    hasMore: sorted.length > limit,
   };
 }
 
@@ -361,7 +425,7 @@ async function refreshStaleEndsSoonDeals(now: Date) {
   );
 }
 
-export async function getEndsSoonDeals(limit = 8) {
+export async function getEndsSoonDeals(limit = HOME_SECTION_SIZE) {
   await connectDB();
 
   const now = new Date();
@@ -370,6 +434,7 @@ export async function getEndsSoonDeals(limit = 8) {
   await refreshStaleEndsSoonDeals(now);
 
   const products = await Product.find({
+    category: { $ne: "Bundle" },
     dealEndsAt: { $gte: now, $lte: in48h },
   })
     .sort({ dealEndsAt: 1 })

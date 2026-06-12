@@ -11,6 +11,7 @@ import {
   mapCatalogCategory,
 } from "../../lib/catalog/catalog-category-map";
 import { productImageUrl } from "../../lib/catalog/product-image-path";
+import { formatProductName } from "../../lib/catalog/product-name";
 import type { SeedProduct } from "../../lib/catalog/seed-product";
 import {
   decodeHtmlEntities,
@@ -43,6 +44,8 @@ export type CatalogSourceItem = {
   tags?: string[];
   registeredPrice?: number;
   imageUrl?: string | null;
+  processingProfile?: ImageProcessingProfile;
+  skipEdgeBlackStrip?: boolean;
 };
 
 export type BuildCatalogOptions = {
@@ -52,6 +55,7 @@ export type BuildCatalogOptions = {
   generatedBy: string;
   outputFile: string;
   items: CatalogSourceItem[];
+  retailers?: string[];
   delayMs?: number;
   processingProfile?: ImageProcessingProfile;
 };
@@ -96,6 +100,7 @@ export async function buildCatalogFile(
     generatedBy,
     outputFile,
     items,
+    retailers = ["plugin-boutique"],
     delayMs = 150,
     processingProfile,
   } = options;
@@ -126,7 +131,8 @@ export async function buildCatalogFile(
     if (raw.imageUrl) {
       const ok = await processProductImageFromUrls(slug, [raw.imageUrl], {
         manufacturerTag,
-        processingProfile,
+        processingProfile: raw.processingProfile ?? processingProfile,
+        skipEdgeBlackStrip: raw.skipEdgeBlackStrip,
       });
       if (ok) imageSuccess++;
     } else {
@@ -134,7 +140,7 @@ export async function buildCatalogFile(
     }
 
     bySlug.set(slug, {
-      name: raw.name,
+      name: formatProductName(raw.name),
       slug,
       canonicalId: `${slug}-${manufacturerTag}`,
       image: productImageUrl(manufacturerTag, slug),
@@ -142,7 +148,7 @@ export async function buildCatalogFile(
       manufacturer,
       registeredPrice: raw.registeredPrice ?? 0,
       tags: [...tags],
-      retailers: ["plugin-boutique"],
+      retailers: [...retailers],
     });
 
     if ((i + 1) % 20 === 0) {

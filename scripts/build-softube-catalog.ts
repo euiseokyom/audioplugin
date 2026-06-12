@@ -4,6 +4,7 @@
  * Run: npm run build:softube-catalog
  */
 
+import { SOFTUBE_RETAILERS } from "../lib/catalog/manufacturer-retailers";
 import {
   buildCatalogFile,
   discoverSoftubeProducts,
@@ -24,6 +25,7 @@ async function main() {
     generatedBy: "scripts/build-softube-catalog.ts",
     outputFile: "lib/catalog/softube-products.ts",
     items,
+    retailers: [...SOFTUBE_RETAILERS],
     delayMs: 0,
     processingProfile: "light",
   });
