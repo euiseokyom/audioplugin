@@ -37,6 +37,7 @@
   "dependencies": {
     "@auth/mongodb-adapter": "^3.11.2",
     "@vercel/analytics": "^2.0.1",
+    "mongodb": "^6.21.0",
     "mongoose": "^9.6.3",
     "next": "^16.3.0-preview.3",
     "next-auth": "^4.24.14",
