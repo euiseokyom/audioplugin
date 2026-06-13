@@ -5,6 +5,11 @@ import Image from "next/image";
 import type { ProductWithPrices } from "@/types";
 import CardProductActions from "@/components/CardProductActions";
 
+const RECENTLY_ADDED_DAYS = 30;
+
+const BADGE_CLASS =
+  "inline-flex w-fit items-center rounded px-2 py-0.5 text-[10px] font-bold uppercase leading-tight";
+
 interface Props {
   product: ProductWithPrices;
   plain?: boolean;
@@ -28,6 +33,13 @@ export default function CardProduct({
     new Date(product.dealEndsAt).getTime() > now &&
     new Date(product.dealEndsAt).getTime() - now <= 48 * 60 * 60 * 1000;
 
+  const isRecentlyAdded =
+    now - new Date(product.createdAt).getTime() <=
+    RECENTLY_ADDED_DAYS * 24 * 60 * 60 * 1000;
+
+  const hasBadges =
+    isRecentlyAdded || isEndingSoon || !!product.isAllTimeLow;
+
   const productHref = `/products/${product.slug}`;
   const manufacturerHref = `/manufacturer/${manufacturerToSlug(product.manufacturer)}`;
 
@@ -46,20 +58,6 @@ export default function CardProduct({
           className="object-contain transition-transform duration-200 group-hover:scale-105"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
         />
-
-        {/* Badges — top left, stacked */}
-        <div className="absolute top-0 left-0 flex flex-col gap-1 pt-0">
-          {isEndingSoon && (
-            <span className="text-xs font-extrabold px-2.5 py-1 bg-red-600 text-white leading-tight rounded-br-lg">
-              ENDS SOON
-            </span>
-          )}
-          {product.isAllTimeLow && (
-            <span className="text-[10px] font-bold px-1.5 py-0.5 text-white leading-tight bg-red-600 rounded-br-lg">
-              Lowest Price
-            </span>
-          )}
-        </div>
 
         {/* Alert + Favorite icons — top right */}
         <CardProductActions />
@@ -122,11 +120,25 @@ export default function CardProduct({
                   </Fragment>
                 );
               })}
-              <div className="col-span-2 flex min-w-0 flex-col gap-0.5 mt-0.5">
-                <span className="inline-flex w-fit items-center rounded px-2 py-0.5 text-[10px] font-bold uppercase bg-green-600 text-base-100 leading-tight">
-                  Recently Added
-                </span>
-              </div>
+              {hasBadges && (
+                <div className="col-span-2 flex min-w-0 flex-wrap items-center gap-1 mt-0.5">
+                  {isEndingSoon && (
+                    <span className={`${BADGE_CLASS} bg-red-600 text-base-100`}>
+                      Ends Soon
+                    </span>
+                  )}
+                  {product.isAllTimeLow && (
+                    <span className={`${BADGE_CLASS} bg-amber-600 text-base-100`}>
+                      Lowest Price
+                    </span>
+                  )}
+                  {isRecentlyAdded && (
+                    <span className={`${BADGE_CLASS} bg-green-600 text-base-100`}>
+                      Recently Added
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </Link>

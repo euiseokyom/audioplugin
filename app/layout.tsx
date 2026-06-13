@@ -49,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="corporate">
+    <html lang="en" data-theme="silk">
       <body
         className={`${inter.variable} font-sans bg-base-100 text-base-content min-h-screen overflow-x-hidden flex flex-col`}
       >

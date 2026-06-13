@@ -38,7 +38,7 @@
     "@auth/mongodb-adapter": "^3.11.2",
     "@vercel/analytics": "^2.0.1",
     "mongoose": "^9.6.3",
-    "next": "^16.2.6",
+    "next": "^16.3.0-preview.3",
     "next-auth": "^4.24.14",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"

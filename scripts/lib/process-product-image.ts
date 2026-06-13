@@ -35,6 +35,8 @@ export type ImageTileOptions = {
   stripSoftNearBlackAlphaMax?: number;
   /** Light fringe smudge on bundle collage edges after resize (Sonnox bundles). */
   softenEdgeHalos?: boolean;
+  /** Contain-fit only — skip background stripping and alpha fringe cleanup. */
+  rawLetterbox?: boolean;
 };
 
 /** Per-slug tile fit and background handling overrides. */
@@ -273,6 +275,31 @@ export const IMAGE_SLUG_OPTIONS: Record<string, ImageTileOptions> = {
   maxxvolume: { processingProfile: "default" },
   "um225-um226": { processingProfile: "default" },
   "l3-multimaximizer": { processingProfile: "default" },
+  // Antares Articulator — manual GUI shot; contain-fit only, no background pipeline.
+  "creative-vocal-effects-articulator": {
+    rawLetterbox: true,
+    tileFillRatio: 0.96,
+  },
+  // Antares Aspire — wide GUI shot; raw letterbox like Articulator, slightly inset for aspect ratio.
+  "creative-vocal-effects-aspire": {
+    rawLetterbox: true,
+    tileFillRatio: 0.94,
+  },
+  // Antares Auto-Tune Pro 11 — manual GUI shot; same raw letterbox treatment as Aspire.
+  pro: {
+    rawLetterbox: true,
+    tileFillRatio: 0.94,
+  },
+  // Antares Duo — manual GUI shot; same raw letterbox treatment as Aspire.
+  "creative-vocal-effects-duo": {
+    rawLetterbox: true,
+    tileFillRatio: 0.94,
+  },
+  // Antares Vocal Prep — manual GUI shot; same raw letterbox treatment as Aspire.
+  "ai-powered-vocal-chain-vocal-prep": {
+    rawLetterbox: true,
+    tileFillRatio: 0.94,
+  },
 };
 
 /** UAD Pick Any / Custom bundle promo art — full-bleed dark background is intentional. */
@@ -382,6 +409,8 @@ export type ProcessProductImageOptions = {
   stripSoftNearBlackAlphaMax?: number;
   /** Light fringe smudge on bundle collage edges after resize (Sonnox bundles). */
   softenEdgeHalos?: boolean;
+  /** Contain-fit only — skip background stripping and alpha fringe cleanup. */
+  rawLetterbox?: boolean;
 };
 
 function resolveImageOptions(
@@ -399,6 +428,7 @@ function resolveImageOptions(
     | "trimSurroundThreshold"
     | "stripSoftNearBlackAlphaMax"
     | "softenEdgeHalos"
+    | "rawLetterbox"
   >
 > {
   const slugDefaults = options?.slug
@@ -459,6 +489,11 @@ function resolveImageOptions(
       slugDefaults?.softenEdgeHalos ??
       manufacturerDefaults?.softenEdgeHalos ??
       false,
+    rawLetterbox:
+      options?.rawLetterbox ??
+      slugDefaults?.rawLetterbox ??
+      manufacturerDefaults?.rawLetterbox ??
+      false,
   };
 }
 
@@ -479,6 +514,7 @@ export function resolveLetterboxOptions(
     | "trimSurroundThreshold"
     | "stripSoftNearBlackAlphaMax"
     | "softenEdgeHalos"
+    | "rawLetterbox"
   >
 > & { offsetX: number } {
   const resolved = resolveImageOptions({ slug, manufacturerTag });
@@ -503,6 +539,7 @@ export function resolveLetterboxOptions(
     trimSurroundThreshold: resolved.trimSurroundThreshold,
     stripSoftNearBlackAlphaMax: resolved.stripSoftNearBlackAlphaMax,
     softenEdgeHalos: resolved.softenEdgeHalos,
+    rawLetterbox: resolved.rawLetterbox,
   };
 }
 
@@ -1341,27 +1378,33 @@ export async function letterboxToSquareWebp(
     trimSurroundThreshold?: number;
     stripSoftNearBlackAlphaMax?: number;
     softenEdgeHalos?: boolean;
+    rawLetterbox?: boolean;
   },
 ): Promise<void> {
   const size = options?.size ?? WEBP_SIZE;
   const offsetX = options?.offsetX ?? 0;
   const tileFillRatio = options?.tileFillRatio ?? TILE_FILL_RATIO;
-  const beforeOpaque = await countOpaqueFraction(imageBuffer);
-  let prepared = await stripRemovableBackground(
-    imageBuffer,
-    options?.processingProfile ?? "default",
-    {
-      skipEdgeBlackStrip: options?.skipEdgeBlackStrip,
-      skipEdgeBlackColumnStrip: options?.skipEdgeBlackColumnStrip,
-      skipEdgeBlackBottomRowStrip: options?.skipEdgeBlackBottomRowStrip,
-      skipMatteSurround: options?.skipMatteSurround,
-      skipTrimTransparentMargins: options?.skipTrimTransparentMargins,
-      trimSurroundThreshold: options?.trimSurroundThreshold,
-      stripSoftNearBlackAlphaMax: options?.stripSoftNearBlackAlphaMax,
-    },
-  );
-  if ((await countOpaqueFraction(prepared)) < beforeOpaque * 0.8) {
+  let prepared: Buffer;
+  if (options?.rawLetterbox) {
     prepared = await toAlphaPng(imageBuffer);
+  } else {
+    const beforeOpaque = await countOpaqueFraction(imageBuffer);
+    prepared = await stripRemovableBackground(
+      imageBuffer,
+      options?.processingProfile ?? "default",
+      {
+        skipEdgeBlackStrip: options?.skipEdgeBlackStrip,
+        skipEdgeBlackColumnStrip: options?.skipEdgeBlackColumnStrip,
+        skipEdgeBlackBottomRowStrip: options?.skipEdgeBlackBottomRowStrip,
+        skipMatteSurround: options?.skipMatteSurround,
+        skipTrimTransparentMargins: options?.skipTrimTransparentMargins,
+        trimSurroundThreshold: options?.trimSurroundThreshold,
+        stripSoftNearBlackAlphaMax: options?.stripSoftNearBlackAlphaMax,
+      },
+    );
+    if ((await countOpaqueFraction(prepared)) < beforeOpaque * 0.8) {
+      prepared = await toAlphaPng(imageBuffer);
+    }
   }
   const innerMax = Math.round(size * tileFillRatio);
 
@@ -1376,7 +1419,9 @@ export async function letterboxToSquareWebp(
   const resizedOpaque = await countOpaqueFraction(resized);
 
   let fitted: Buffer;
-  if (options?.softenEdgeHalos) {
+  if (options?.rawLetterbox) {
+    fitted = resized;
+  } else if (options?.softenEdgeHalos) {
     fitted = await softenBundleCollageFringe(resized);
   } else {
     fitted = await cleanAlphaFringe(resized);
@@ -1429,6 +1474,7 @@ export async function processProductImageFromBuffer(
     trimSurroundThreshold: resolved.trimSurroundThreshold,
     stripSoftNearBlackAlphaMax: resolved.stripSoftNearBlackAlphaMax,
     softenEdgeHalos: resolved.softenEdgeHalos,
+    rawLetterbox: resolved.rawLetterbox,
   });
 
   return true;

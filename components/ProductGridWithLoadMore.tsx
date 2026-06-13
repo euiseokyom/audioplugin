@@ -12,6 +12,8 @@ export type ProductGridFetchParams = {
   manufacturer?: string;
   sort?: string;
   filters?: string[];
+  minPrice?: number;
+  maxPrice?: number;
   pageSize?: number;
 };
 
@@ -52,6 +54,12 @@ export default function ProductGridWithLoadMore({
       for (const filter of fetchParams.filters ?? []) {
         params.append("filter", filter);
       }
+      if (fetchParams.minPrice !== undefined) {
+        params.set("minPrice", String(fetchParams.minPrice));
+      }
+      if (fetchParams.maxPrice !== undefined) {
+        params.set("maxPrice", String(fetchParams.maxPrice));
+      }
       const res = await fetch(`/api/products?${params}`);
       if (!res.ok) return;
 
@@ -77,7 +85,7 @@ export default function ProductGridWithLoadMore({
         <div className="flex justify-center">
           <button
             type="button"
-            className="btn btn-sm btn-ghost gap-2 pl-3 pr-2.5 font-normal border border-base-300 text-sm min-w-40"
+            className="btn btn-sm btn-ghost gap-2 pl-3 pr-2.5 font-medium border border-base-300 text-sm min-w-40 bg-base-200 font-base-content shadow-none hover:shadow-none hover:[--btn-shadow:0_0_#0000] hover:bg-base-300 hover:[--btn-bg:var(--color-neutral-content)]"
             onClick={loadMore}
             disabled={loading}
           >

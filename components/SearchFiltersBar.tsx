@@ -8,7 +8,12 @@ import {
   buildBrowseUrl,
   FILTER_OPTIONS,
   getFilterButtonLabel,
+  hasPriceRange,
+  normalizePriceRange,
+  PRICE_RANGE_MAX,
+  priceRangesEqual,
   toggleFilter,
+  type PriceRange,
 } from "@/lib/search-filters";
 
 const SORT_LABELS: Record<ProductSort, string> = {
@@ -29,11 +34,87 @@ const DROPDOWN_MENU_CLASS =
   "absolute top-full mt-2 menu bg-base-200 rounded-xl z-[1] w-52 p-2 shadow-2xl border border-base-300";
 
 const FILTER_DROPDOWN_MENU_CLASS =
-  "absolute top-full mt-2 menu bg-base-200 rounded-xl z-[1] w-52 p-2 border border-base-300";
+  "absolute top-full mt-2 menu bg-base-200 rounded-xl z-[1] w-64 p-2 border border-base-300";
 
 function filtersEqual(a: ProductFilter[], b: ProductFilter[]): boolean {
   if (a.length !== b.length) return false;
   return a.every((f) => b.includes(f));
+}
+
+const PRICE_INPUT_CLASS =
+  "input input-sm w-full pl-6 pr-2.5 [&::-webkit-inner-spin-button]:mr-px [&::-webkit-outer-spin-button]:mr-px";
+
+function parsePriceInput(value: string): number | undefined {
+  const trimmed = value.trim();
+  if (!trimmed) return undefined;
+
+  const parsed = Number(trimmed);
+  if (!Number.isFinite(parsed) || parsed < 0 || parsed > PRICE_RANGE_MAX) {
+    return undefined;
+  }
+
+  return Math.round(parsed * 100) / 100;
+}
+
+function PriceRangeInputs({
+  value,
+  onChange,
+}: {
+  value: PriceRange;
+  onChange: (next: PriceRange) => void;
+}) {
+  return (
+    <div className="border-t border-base-300 pt-2 mt-2">
+      <p className="px-3 py-1 text-xs text-base-content/50">Price range</p>
+      <div className="flex items-center gap-2 px-3 py-2">
+        <label className="flex-1 min-w-0">
+          <span className="sr-only">Minimum price</span>
+          <div className="relative">
+            <span className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-sm text-base-content/50">
+              $
+            </span>
+            <input
+              type="number"
+              inputMode="decimal"
+              min={0}
+              max={PRICE_RANGE_MAX}
+              step="1"
+              value={value.min ?? ""}
+              onChange={(event) =>
+                onChange({ ...value, min: parsePriceInput(event.target.value) })
+              }
+              placeholder="Min"
+              className={PRICE_INPUT_CLASS}
+            />
+          </div>
+        </label>
+        <span className="text-base-content/30" aria-hidden>
+          –
+        </span>
+        <label className="flex-1 min-w-0">
+          <span className="sr-only">Maximum price</span>
+          <div className="relative">
+            <span className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-sm text-base-content/50">
+              $
+            </span>
+            <input
+              type="number"
+              inputMode="decimal"
+              min={0}
+              max={PRICE_RANGE_MAX}
+              step="1"
+              value={value.max ?? ""}
+              onChange={(event) =>
+                onChange({ ...value, max: parsePriceInput(event.target.value) })
+              }
+              placeholder="Max"
+              className={PRICE_INPUT_CLASS}
+            />
+          </div>
+        </label>
+      </div>
+    </div>
+  );
 }
 
 function ChevronDownIcon() {
@@ -94,25 +175,30 @@ function FilterDropdown({
   q,
   sort,
   filters,
+  priceRange,
 }: {
   basePath: string;
   q: string;
   sort: ProductSort;
   filters: ProductFilter[];
+  priceRange: PriceRange;
 }) {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [pendingFilters, setPendingFilters] = useState(filters);
+  const [pendingPriceRange, setPendingPriceRange] = useState(priceRange);
 
   useEffect(() => {
     setPendingFilters(filters);
-  }, [filters]);
+    setPendingPriceRange(priceRange);
+  }, [filters, priceRange]);
 
   useClickOutside(
     containerRef,
     () => {
       setPendingFilters(filters);
+      setPendingPriceRange(priceRange);
       setIsOpen(false);
     },
     isOpen,
@@ -120,18 +206,32 @@ function FilterDropdown({
 
   function closeDropdown() {
     setPendingFilters(filters);
+    setPendingPriceRange(priceRange);
     setIsOpen(false);
   }
 
-  function applyFilters(nextFilters: ProductFilter[]) {
+  function applyFilters(
+    nextFilters: ProductFilter[],
+    nextPriceRange: PriceRange,
+  ) {
     router.replace(
-      buildBrowseUrl({ basePath, q, sort, filters: nextFilters }),
+      buildBrowseUrl({
+        basePath,
+        q,
+        sort,
+        filters: nextFilters,
+        priceRange: normalizePriceRange(nextPriceRange),
+      }),
       { scroll: false },
     );
     setIsOpen(false);
   }
 
-  const hasPendingChanges = !filtersEqual(pendingFilters, filters);
+  const hasPendingChanges =
+    !filtersEqual(pendingFilters, filters) ||
+    !priceRangesEqual(pendingPriceRange, priceRange);
+  const hasActiveFilters =
+    filters.length > 0 || hasPriceRange(priceRange);
 
   return (
     <div ref={containerRef} className="relative">
@@ -143,7 +243,9 @@ function FilterDropdown({
         aria-haspopup="listbox"
       >
         <span className="text-sm text-base-content/50">Filter:</span>
-        <span className="text-sm">{getFilterButtonLabel(filters)}</span>
+        <span className="text-sm">
+          {getFilterButtonLabel(filters, priceRange)}
+        </span>
         <ChevronDownIcon />
       </button>
 
@@ -175,11 +277,16 @@ function FilterDropdown({
             })}
           </ul>
 
+          <PriceRangeInputs
+            value={pendingPriceRange}
+            onChange={setPendingPriceRange}
+          />
+
           <div className="mt-2 flex gap-2 border-t border-base-300 pt-2">
-            {filters.length > 0 && (
+            {hasActiveFilters && (
               <button
                 type="button"
-                onClick={() => applyFilters([])}
+                onClick={() => applyFilters([], {})}
                 className="flex flex-1 items-center justify-center rounded-lg px-3 py-2 text-sm hover:bg-base-300 transition-colors"
               >
                 Clear all
@@ -187,7 +294,9 @@ function FilterDropdown({
             )}
             <button
               type="button"
-              onClick={() => applyFilters(pendingFilters)}
+              onClick={() =>
+                applyFilters(pendingFilters, pendingPriceRange)
+              }
               disabled={!hasPendingChanges}
               className={`flex flex-1 items-center justify-center rounded-lg px-3 py-2 text-sm hover:bg-base-300 transition-colors disabled:opacity-50 disabled:pointer-events-none ${hasPendingChanges ? "font-medium" : ""}`}
             >
@@ -215,11 +324,13 @@ function SortDropdown({
   q,
   sort,
   filters,
+  priceRange,
 }: {
   basePath: string;
   q: string;
   sort: ProductSort;
   filters: ProductFilter[];
+  priceRange: PriceRange;
 }) {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -231,9 +342,10 @@ function SortDropdown({
     SORT_OPTIONS.find((o) => o.value === sort)?.label ?? "Sort";
 
   function selectSort(value: ProductSort) {
-    router.replace(buildBrowseUrl({ basePath, q, sort: value, filters }), {
-      scroll: false,
-    });
+    router.replace(
+      buildBrowseUrl({ basePath, q, sort: value, filters, priceRange }),
+      { scroll: false },
+    );
     setIsOpen(false);
   }
 
@@ -280,11 +392,13 @@ export default function SearchFiltersBar({
   q = "",
   sort,
   filters,
+  priceRange = {},
 }: {
   basePath?: string;
   q?: string;
   sort: ProductSort;
   filters: ProductFilter[];
+  priceRange?: PriceRange;
 }) {
   return (
     <div className="flex items-center justify-between gap-4">
@@ -293,8 +407,15 @@ export default function SearchFiltersBar({
         q={q}
         sort={sort}
         filters={filters}
+        priceRange={priceRange}
       />
-      <SortDropdown basePath={basePath} q={q} sort={sort} filters={filters} />
+      <SortDropdown
+        basePath={basePath}
+        q={q}
+        sort={sort}
+        filters={filters}
+        priceRange={priceRange}
+      />
     </div>
   );
 }

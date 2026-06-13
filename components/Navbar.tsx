@@ -47,8 +47,12 @@ export default function Navbar() {
 
           {session && (
             <div className="dropdown dropdown-end shrink-0">
-              <div tabIndex={0} role="button" className="avatar cursor-pointer">
-                <div className="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1 overflow-hidden bg-base-300 flex items-center justify-center text-xs font-bold">
+              <div
+                tabIndex={0}
+                role="button"
+                className="avatar cursor-pointer rounded-full ring ring-[3px] ring-neutral-content ring-offset-2 ring-offset-[#f7f5f3]"
+              >
+                <div className="size-8 rounded-full overflow-hidden bg-base-300 flex items-center justify-center text-xs font-bold">
                   {session.user?.image ? (
                     <Image
                       src={session.user.image}

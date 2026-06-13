@@ -5,7 +5,7 @@ export const RETAILERS: Retailer[] = [
     slug: "plugin-boutique",
     name: "Plugin Boutique",
     baseUrl: "https://www.pluginboutique.com",
-    logoUrl: "/logos/plugin-boutique.svg",
+    logoUrl: "/logos/plugin-boutique.png",
   },
   {
     slug: "sweetwater",
@@ -29,13 +29,13 @@ export const RETAILERS: Retailer[] = [
     slug: "plugin-fox",
     name: "PluginFox",
     baseUrl: "https://www.pluginfox.com",
-    logoUrl: "/logos/pluginfox.svg",
+    logoUrl: "/logos/pluginfox.png",
   },
   {
     slug: "thomann",
     name: "Thomann",
     baseUrl: "https://www.thomann.de",
-    logoUrl: "/logos/thomann.svg",
+    logoUrl: "/logos/thomann.png",
   },
   {
     slug: "waves",
@@ -55,7 +55,7 @@ export const RETAILERS: Retailer[] = [
     slug: "gear4music",
     name: "Gear4music",
     baseUrl: "https://www.gear4music.com",
-    logoUrl: "/logos/gear4music.svg",
+    logoUrl: "/logos/gear4music.png",
   },
   {
     slug: "zzounds",
@@ -67,13 +67,13 @@ export const RETAILERS: Retailer[] = [
     slug: "audio-deluxe",
     name: "Audio Deluxe",
     baseUrl: "https://www.audiodeluxe.com",
-    logoUrl: "/logos/audio-deluxe.svg",
+    logoUrl: "/logos/audio-deluxe.png",
   },
   {
     slug: "best-service",
     name: "Best Service",
     baseUrl: "https://www.bestservice.com",
-    logoUrl: "/logos/best-service.svg",
+    logoUrl: "/logos/best-service.png",
   },
 ];
 

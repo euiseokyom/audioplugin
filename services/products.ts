@@ -151,6 +151,16 @@ function applyAllTimeLow(
   });
 }
 
+function matchesPriceRange(
+  lowestPrice: number,
+  minPrice?: number,
+  maxPrice?: number,
+): boolean {
+  if (minPrice !== undefined && lowestPrice < minPrice) return false;
+  if (maxPrice !== undefined && lowestPrice > maxPrice) return false;
+  return true;
+}
+
 export async function getProducts({
   category,
   manufacturer,
@@ -158,6 +168,8 @@ export async function getProducts({
   sort = "deals",
   filter: productFilter,
   filters: productFilters,
+  minPrice,
+  maxPrice,
   page = 1,
   pageSize = 20,
 }: {
@@ -167,6 +179,8 @@ export async function getProducts({
   sort?: ProductSort;
   filter?: ProductFilter;
   filters?: ProductFilter[];
+  minPrice?: number;
+  maxPrice?: number;
   page?: number;
   pageSize?: number;
 } = {}) {
@@ -201,12 +215,15 @@ export async function getProducts({
     filter.createdAt = { $gte: cutoff };
   }
 
+  const hasPriceRange = minPrice !== undefined || maxPrice !== undefined;
+
   const needsPostProcess =
     sort === "price-asc" ||
     sort === "price-desc" ||
     sort === "ending-soon" ||
     sort === "deals" ||
-    activeFilters.includes("lowest-ever");
+    activeFilters.includes("lowest-ever") ||
+    hasPriceRange;
 
   if (needsPostProcess) {
     const products = await Product.find(filter).lean();
@@ -218,6 +235,12 @@ export async function getProducts({
 
     if (activeFilters.includes("lowest-ever")) {
       data = data.filter((p) => p.isAllTimeLow);
+    }
+
+    if (hasPriceRange) {
+      data = data.filter((p) =>
+        matchesPriceRange(p.lowestPrice, minPrice, maxPrice),
+      );
     }
 
     const sorted = sortEnrichedProducts(data, sort);

@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { handleRouteError } from "@/lib/api-error";
-import { parseProductFilters, parseBrowseSort } from "@/lib/search-filters";
+import {
+  parseBrowseSort,
+  parsePriceRange,
+  parseProductFilters,
+} from "@/lib/search-filters";
 import { getProducts, type ProductSort } from "@/services/products";
 
 export async function GET(req: NextRequest) {
@@ -18,6 +22,10 @@ export async function GET(req: NextRequest) {
       ? filterParams
       : (searchParams.get("filter") ?? undefined),
   );
+  const { min, max } = parsePriceRange(
+    searchParams.get("minPrice") ?? undefined,
+    searchParams.get("maxPrice") ?? undefined,
+  );
   const page = parseInt(searchParams.get("page") ?? "1");
   const pageSize = parseInt(searchParams.get("pageSize") ?? "20");
 
@@ -28,6 +36,8 @@ export async function GET(req: NextRequest) {
       q,
       sort,
       filters,
+      minPrice: min,
+      maxPrice: max,
       page,
       pageSize,
     });

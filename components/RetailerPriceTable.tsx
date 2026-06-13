@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import type { IPriceEntry } from "@/types";
 import { RETAILER_MAP } from "@/lib/retailers";
 
@@ -8,38 +9,68 @@ interface Props {
   prices: IPriceEntry[];
 }
 
-const AVATAR_COLORS = [
-  "bg-violet-600",
-  "bg-blue-600",
-  "bg-emerald-600",
-  "bg-amber-600",
-  "bg-rose-600",
-  "bg-cyan-600",
-  "bg-indigo-600",
-  "bg-orange-600",
-];
+const LOGO_STYLES: Record<
+  string,
+  {
+    scale?: string;
+    bg?: string;
+    fit?: "cover" | "contain";
+    position?: string;
+  }
+> = {
+  gear4music: {
+    scale: "scale-[0.86] -translate-x-[1%] -translate-y-[3%]",
+    bg: "bg-white",
+    fit: "contain",
+  },
+  "plugin-fox": { scale: "scale-[0.96]", bg: "bg-black", fit: "contain" },
+  "audio-deluxe": { scale: "scale-[1.52]" },
+  thomann: { scale: "scale-[1.06]" },
+  "plugin-boutique": { scale: "scale-[1.06]" },
+  "best-service": {
+    scale: "scale-[0.88] translate-x-[1%]",
+    bg: "bg-white",
+    fit: "contain",
+  },
+};
 
-function getAvatarColor(slug: string) {
-  const index = slug
-    .split("")
-    .reduce((sum, char) => sum + char.charCodeAt(0), 0);
-  return AVATAR_COLORS[index % AVATAR_COLORS.length];
-}
+function RetailerLogo({
+  logoUrl,
+  name,
+  slug,
+}: {
+  logoUrl?: string;
+  name: string;
+  slug: string;
+}) {
+  if (!logoUrl) {
+    return (
+      <div
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-base-300 bg-base-200 text-[10px] font-bold text-base-content/50"
+        aria-hidden
+      >
+        {name.charAt(0)}
+      </div>
+    );
+  }
 
-function RetailerAvatar({ name, slug }: { name: string; slug: string }) {
-  const initials = name
-    .split(" ")
-    .slice(0, 2)
-    .map((word) => word.charAt(0))
-    .join("")
-    .toUpperCase();
+  const styles = LOGO_STYLES[slug];
 
   return (
     <div
-      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white ${getAvatarColor(slug)}`}
-      aria-hidden
+      className={`flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-base-300 ${styles?.bg ?? ""}`}
     >
-      {initials}
+      <Image
+        src={logoUrl}
+        alt={`${name} logo`}
+        width={40}
+        height={40}
+        className={`h-full w-full ${styles?.fit === "contain" ? "object-contain" : "object-cover"} ${styles?.scale ?? ""}`}
+        style={
+          styles?.position ? { objectPosition: styles.position } : undefined
+        }
+        unoptimized
+      />
     </div>
   );
 }
@@ -85,7 +116,11 @@ export default function RetailerPriceTable({ prices }: Props) {
               }`}
               onPointerDown={() => setHighlightedId(entry._id)}
             >
-              <RetailerAvatar name={retailerName} slug={entry.retailerSlug} />
+              <RetailerLogo
+                logoUrl={retailer?.logoUrl}
+                name={retailerName}
+                slug={entry.retailerSlug}
+              />
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">

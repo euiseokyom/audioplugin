@@ -11,7 +11,11 @@ import SectionHeader from "@/components/SectionHeader";
 import EmptyState from "@/components/EmptyState";
 import DealGridSkeleton, { DEAL_GRID_CLASS } from "@/components/DealGridSkeleton";
 import { PAGE_CONTAINER } from "@/lib/layout";
-import { parseBrowseSort, parseProductFilters } from "@/lib/search-filters";
+import {
+  parseBrowseSort,
+  parsePriceRange,
+  parseProductFilters,
+} from "@/lib/search-filters";
 import { absoluteUrl } from "@/lib/site-url";
 import type { Metadata } from "next";
 import type { ProductWithPrices } from "@/types";
@@ -36,6 +40,8 @@ async function getFilteredResults(
   q: string,
   sort: ProductSort,
   productFilters: ProductFilter[],
+  minPrice?: number,
+  maxPrice?: number,
 ): Promise<{ data: ProductWithPrices[]; total: number }> {
   if (isHotFilter) {
     const result = await getHotDeals(40);
@@ -46,6 +52,8 @@ async function getFilteredResults(
     q,
     sort,
     filters: productFilters,
+    minPrice,
+    maxPrice,
     pageSize: 40,
   });
   return { data: result.data, total: result.total };
@@ -68,26 +76,39 @@ async function SearchResults({
   sort,
   isHotFilter,
   productFilters,
+  minPrice,
+  maxPrice,
 }: {
   q: string;
   sort: ProductSort;
   isHotFilter: boolean;
   productFilters: ProductFilter[];
+  minPrice?: number;
+  maxPrice?: number;
 }) {
-  const result = await getFilteredResults(isHotFilter, q, sort, productFilters);
+  const result = await getFilteredResults(
+    isHotFilter,
+    q,
+    sort,
+    productFilters,
+    minPrice,
+    maxPrice,
+  );
+  const hasActiveFilters =
+    productFilters.length > 0 || minPrice !== undefined || maxPrice !== undefined;
 
   if (result.data.length === 0) {
     return (
       <EmptyState
         title={
-          isHotFilter || productFilters.length > 0
+          isHotFilter || hasActiveFilters
             ? "No plugins match this filter"
             : q
               ? `No results for "${q}"`
               : "No plugins found"
         }
         description={
-          isHotFilter || productFilters.length > 0
+          isHotFilter || hasActiveFilters
             ? "Try removing a filter or browse all plugins."
             : "Try a different search term or browse by category."
         }
@@ -113,11 +134,17 @@ export default async function SearchPage({
     q?: string;
     sort?: string;
     filter?: string | string[];
+    minPrice?: string;
+    maxPrice?: string;
   }>;
 }) {
-  const { q = "", sort = "price-asc", filter } = await searchParams;
+  const { q = "", sort = "price-asc", filter, minPrice, maxPrice } =
+    await searchParams;
   const isHotFilter = filter === "hot";
   const productFilters = isHotFilter ? [] : parseProductFilters(filter);
+  const priceRange = isHotFilter
+    ? {}
+    : parsePriceRange(minPrice, maxPrice);
   const validSort = parseBrowseSort(sort);
 
   const pageTitle = getPageTitle(isHotFilter, productFilters, q);
@@ -134,7 +161,12 @@ export default async function SearchPage({
 
         {!isHotFilter && (
           <div className="mt-8">
-            <SearchFiltersBar q={q} sort={validSort} filters={productFilters} />
+            <SearchFiltersBar
+              q={q}
+              sort={validSort}
+              filters={productFilters}
+              priceRange={priceRange}
+            />
           </div>
         )}
 
@@ -145,6 +177,8 @@ export default async function SearchPage({
               sort={validSort}
               isHotFilter={isHotFilter}
               productFilters={productFilters}
+              minPrice={priceRange.min}
+              maxPrice={priceRange.max}
             />
           </Suspense>
         </div>

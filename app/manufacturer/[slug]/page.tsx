@@ -6,7 +6,11 @@ import SearchFiltersBar from "@/components/SearchFiltersBar";
 import EmptyState from "@/components/EmptyState";
 import { PAGE_CONTAINER } from "@/lib/layout";
 import { matchManufacturer, normalizeManufacturerSlug } from "@/lib/manufacturer-slug";
-import { parseBrowseSort, parseProductFilters } from "@/lib/search-filters";
+import {
+  parseBrowseSort,
+  parsePriceRange,
+  parseProductFilters,
+} from "@/lib/search-filters";
 
 export const revalidate = 3600;
 
@@ -31,12 +35,15 @@ export default async function ManufacturerPage({
   searchParams: Promise<{
     sort?: string;
     filter?: string | string[];
+    minPrice?: string;
+    maxPrice?: string;
   }>;
 }) {
   const { slug } = await params;
-  const { sort, filter } = await searchParams;
+  const { sort, filter, minPrice, maxPrice } = await searchParams;
   const manufacturerName = normalizeManufacturerSlug(slug);
   const productFilters = parseProductFilters(filter);
+  const priceRange = parsePriceRange(minPrice, maxPrice);
   const validSort = parseBrowseSort(sort) as ProductSort;
   const basePath = `/manufacturer/${slug}`;
 
@@ -50,12 +57,14 @@ export default async function ManufacturerPage({
     manufacturer: displayName,
     sort: validSort,
     filters: productFilters,
+    minPrice: priceRange.min,
+    maxPrice: priceRange.max,
     pageSize: 40,
   });
 
   if (!matched && result.data.length === 0) notFound();
 
-  const gridKey = `${validSort}-${productFilters.join(",")}`;
+  const gridKey = `${validSort}-${productFilters.join(",")}-${priceRange.min ?? ""}-${priceRange.max ?? ""}`;
 
   return (
     <div className={`${PAGE_CONTAINER} py-10 space-y-8`}>
@@ -77,6 +86,7 @@ export default async function ManufacturerPage({
         basePath={basePath}
         sort={validSort}
         filters={productFilters}
+        priceRange={priceRange}
       />
 
       {result.data.length === 0 ? (
@@ -96,6 +106,8 @@ export default async function ManufacturerPage({
             manufacturer: displayName,
             sort: validSort,
             filters: productFilters,
+            minPrice: priceRange.min,
+            maxPrice: priceRange.max,
           }}
         />
       )}
