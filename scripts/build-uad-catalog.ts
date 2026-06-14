@@ -9,6 +9,7 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 import { categoryToTag, mapUadCategory } from "../lib/catalog/uad-category-map";
+import { filterExcludedSeedProducts } from "../lib/catalog/excluded-catalog-slugs";
 import { DEFAULT_RETAILERS } from "../lib/catalog/manufacturer-retailers";
 import { productImageUrl } from "../lib/catalog/product-image-path";
 import type { SeedProduct } from "../lib/catalog/seed-product";
@@ -147,8 +148,8 @@ async function main() {
     await new Promise((r) => setTimeout(r, 120));
   }
 
-  const products = [...bySlug.values()].sort((a, b) =>
-    a.name.localeCompare(b.name),
+  const products = filterExcludedSeedProducts(
+    [...bySlug.values()].sort((a, b) => a.name.localeCompare(b.name)),
   );
 
   const output = serializeCatalogProducts(products, {

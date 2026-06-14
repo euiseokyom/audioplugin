@@ -13,6 +13,7 @@ import {
 } from "../lib/catalog/mcdsp-category-map";
 import { DEFAULT_RETAILERS } from "../lib/catalog/manufacturer-retailers";
 import { productImageUrl } from "../lib/catalog/product-image-path";
+import { filterExcludedSeedProducts } from "../lib/catalog/excluded-catalog-slugs";
 import type { SeedProduct } from "../lib/catalog/seed-product";
 import {
   fetchAllAudioDeluxeMcDSPProducts,
@@ -150,7 +151,9 @@ async function main() {
   for (const p of products) {
     bySlug.set(p.slug, p);
   }
-  const sorted = [...bySlug.values()].sort((a, b) => a.name.localeCompare(b.name));
+  const sorted = filterExcludedSeedProducts(
+    [...bySlug.values()].sort((a, b) => a.name.localeCompare(b.name)),
+  );
 
   const output = serializeCatalogProducts(sorted, {
     exportName: "MCDSP_PRODUCTS",

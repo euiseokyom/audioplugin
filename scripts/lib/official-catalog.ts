@@ -10,6 +10,7 @@ import {
   isBundleNameOrSlug,
   mapCatalogCategory,
 } from "../../lib/catalog/catalog-category-map";
+import { filterExcludedCatalogItems } from "../../lib/catalog/excluded-catalog-slugs";
 import { productImageUrl } from "../../lib/catalog/product-image-path";
 import { formatProductName } from "../../lib/catalog/product-name";
 import type { SeedProduct } from "../../lib/catalog/seed-product";
@@ -105,11 +106,12 @@ export async function buildCatalogFile(
     processingProfile,
   } = options;
 
+  const catalogItems = filterExcludedCatalogItems(items);
   const bySlug = new Map<string, SeedProduct>();
   let imageSuccess = 0;
 
-  for (let i = 0; i < items.length; i++) {
-    const raw = items[i];
+  for (let i = 0; i < catalogItems.length; i++) {
+    const raw = catalogItems[i];
     const slug = normalizeProductSlug(raw.slug);
     if (!slug) continue;
 
@@ -152,7 +154,7 @@ export async function buildCatalogFile(
     });
 
     if ((i + 1) % 20 === 0) {
-      console.log(`  ${i + 1}/${items.length} processed...`);
+      console.log(`  ${i + 1}/${catalogItems.length} processed...`);
     }
 
     if (delayMs > 0) {

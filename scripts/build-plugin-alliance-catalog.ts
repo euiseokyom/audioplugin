@@ -21,6 +21,7 @@ import {
   resolvePaProductManufacturer,
   shouldExcludeFromPluginAllianceCatalog,
 } from "../lib/catalog/pa-vendor-manufacturers";
+import { filterExcludedSeedProducts } from "../lib/catalog/excluded-catalog-slugs";
 import { productImageUrl } from "../lib/catalog/product-image-path";
 import type { SeedProduct } from "../lib/catalog/seed-product";
 import { processProductImageFromUrls } from "./lib/process-product-image";
@@ -107,8 +108,8 @@ async function main() {
     }
   }
 
-  const products = [...bySlug.values()].sort((a, b) =>
-    a.name.localeCompare(b.name),
+  const products = filterExcludedSeedProducts(
+    [...bySlug.values()].sort((a, b) => a.name.localeCompare(b.name)),
   );
 
   const output = serializeCatalogProducts(products, {

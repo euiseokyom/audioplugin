@@ -114,6 +114,10 @@ export const IMAGE_SLUG_OPTIONS: Record<string, ImageTileOptions> = {
   "phils-cascade": {
     skipEdgeBlackStrip: true,
   },
+  // Dark top title bar — light stripEdgeBlackRows keys it as letterbox and trims the header.
+  "bx_saturator-v2": {
+    skipEdgeBlackStrip: true,
+  },
   "80-series": {
     skipEdgeBlackStrip: true,
   },

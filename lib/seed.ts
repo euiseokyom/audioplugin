@@ -28,6 +28,10 @@ import {
   ensureUniqueSlug,
   warnCatalogSlugCollisions,
 } from "@/lib/catalog/slug-utils";
+import {
+  EXCLUDED_CATALOG_SLUG_SET,
+  filterExcludedSeedProducts,
+} from "@/lib/catalog/excluded-catalog-slugs";
 import { getEndsSoonDealEndDate } from "@/lib/ends-soon";
 
 const MONGODB_URI =
@@ -334,9 +338,36 @@ async function seed() {
 
   const seedManufacturers = parseSeedManufacturers();
   const isPartialSeed = seedManufacturers !== null && seedManufacturers.length > 0;
-  const productsToSeed = isPartialSeed
+  const manufacturerScopedProducts = isPartialSeed
     ? filterProductsByManufacturers(PRODUCTS, seedManufacturers)
     : PRODUCTS;
+  const excludedFromSeed = manufacturerScopedProducts.filter((product) =>
+    EXCLUDED_CATALOG_SLUG_SET.has(product.slug),
+  );
+  const productsToSeed = filterExcludedSeedProducts(manufacturerScopedProducts);
+
+  if (excludedFromSeed.length > 0) {
+    console.warn(
+      `Skipping ${excludedFromSeed.length} excluded product(s): ${excludedFromSeed.map((product) => product.slug).join(", ")}`,
+    );
+  }
+
+  const excludedInMongo = await Product.find({
+    slug: { $in: [...EXCLUDED_CATALOG_SLUG_SET] },
+  })
+    .select("_id slug")
+    .lean();
+  if (excludedInMongo.length > 0) {
+    await PriceEntry.deleteMany({
+      productId: { $in: excludedInMongo.map((product) => product._id) },
+    });
+    const excludedDeleteResult = await Product.deleteMany({
+      slug: { $in: [...EXCLUDED_CATALOG_SLUG_SET] },
+    });
+    console.log(
+      `Removed ${excludedDeleteResult.deletedCount} excluded product(s) from Mongo`,
+    );
+  }
 
   if (isPartialSeed) {
     console.warn(

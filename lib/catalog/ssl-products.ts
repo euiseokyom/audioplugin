@@ -562,16 +562,5 @@ export const SSL_PRODUCTS: SeedProduct[] = [
     registeredPrice: 149,
     tags: ["solid-state-logic", "equalizer"],
     retailers: ["plugin-boutique", "audio-deluxe", "plugin-fox", "thomann", "best-service", "gear4music"],
-  },
-  {
-    name: "X-Orcism II",
-    slug: "x-orcism-ii",
-    canonicalId: "x-orcism-ii-solid-state-logic",
-    image: "/images/products/solid-state-logic/x-orcism-ii.webp",
-    category: "Effects",
-    manufacturer: "Solid State Logic",
-    registeredPrice: 0,
-    tags: ["solid-state-logic", "effects"],
-    retailers: ["plugin-boutique", "audio-deluxe", "plugin-fox", "thomann", "best-service", "gear4music"],
   }
 ];

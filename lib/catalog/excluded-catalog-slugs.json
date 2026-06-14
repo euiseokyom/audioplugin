@@ -1,0 +1,1030 @@
+[
+  {
+    "slug": "610-collection",
+    "reason": "Legacy UAD bundle — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "UA 610 Tube Preamp & EQ Collection",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "ada-flanger",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "A/DA Flanger",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "ada-std-1-stereo-tapped-delay",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "A/DA STD-1 Stereo Tapped Delay",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "akg-bx-20-reverb",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "AKG BX 20 Spring Reverb",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "ampeg-b15n",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Ampeg B-15N Bass Amplifier",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "ampeg-svt-3-pro",
+    "reason": "Legacy UAD amp — PA/Softube native supersedes",
+    "date": "2026-06-14",
+    "name": "Ampeg SVT-3 PRO Bass Amplifier",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "ampeg-svt-vr",
+    "reason": "Legacy UAD amp — PA/Softube native supersedes",
+    "date": "2026-06-14",
+    "name": "Ampeg SVT-VR Bass Amplifier",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "ampex-atr-102",
+    "reason": "Duplicate gap — G4-only; covered on other retailers",
+    "date": "2026-06-14",
+    "name": "Ampex ATR-102 Mastering Tape Recorder",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "ams-dmx-digital-delay-pitch-shifter",
+    "reason": "Legacy UAD SKU — PA/Softube native supersedes",
+    "date": "2026-06-14",
+    "name": "AMS DMX Digital Delay & Pitch Shifter",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "ams-neve-dfc-channel-strip",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "AMS Neve DFC Channel Strip",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "analog-classics-pro-bundle",
+    "reason": "UAD bundle — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Analog Classics Pro Bundle",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "analog-tape-bundle",
+    "reason": "UAD bundle — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Analog Tape Bundle",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "api-500-series-eq-collection",
+    "reason": "UAD bundle — not sold at retailers in scope",
+    "date": "2026-06-14",
+    "name": "API 500 Series EQ Collection",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "api-preamp",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "API Preamp",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "api-summing",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "API Summing",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "api-vision-channel-strip-collection",
+    "reason": "UAD bundle — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "API Vision Channel Strip Collection",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "auto-tune-realtime-x",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Auto-Tune Realtime X",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "bill-putnam-mic-collection",
+    "reason": "UAD bundle — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "The Bill Putnam Mic Collection",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "brainworx-bx-digital3",
+    "reason": "PA/Softube native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Brainworx bx_digital V3 EQ Collection",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "brainworx-bx-masterdesk",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Brainworx bx_masterdesk",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "brainworx-bx-masterdesk-classic",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Brainworx bx_masterdesk Classic",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "brainworx-bx-subsynth",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "bx_subsynth Subharmonic Synth",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "bx_boom",
+    "reason": "Duplicate of bx_boom V3 (merged into bx_boom-v3)",
+    "date": "2026-06-14",
+    "name": "bx_boom!",
+    "manufacturer": "Plugin Alliance"
+  },
+  {
+    "slug": "bx-refinement",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Brainworx bx_refinement",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "bx-saturator-v2",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Brainworx bx_saturator V2",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "c-suite-c-axe-guitar-noise-suppressor",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "C-Suite C-Axe Guitar Noise Suppressor",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "c-suite-c-max-limiter",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "C-Suite C-Max Limiter",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "c-vox-noise-reduction",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "C-Suite C-Vox Noise & Ambience Reduction",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "cambridge-eq",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Cambridge EQ",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "chandler-gav-19t-guitar-amp",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Chandler Limited GAV19T Amplifier",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "chandler-limited-curve-bender",
+    "reason": "PA/Softube native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Chandler Limited Curve Bender Mastering EQ",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "chandler-limited-zener-limiter",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Chandler Limited Zener Limiter",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "cla-echosphere",
+    "reason": "Not individually sold — bundle-only SKU",
+    "date": "2026-06-14",
+    "name": "CLA EchoSphere",
+    "manufacturer": "Waves"
+  },
+  {
+    "slug": "cooper-time-cube",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Cooper Time Cube Mk II Delay",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "dangerous-bax-eq",
+    "reason": "UAD bundle — not sold at retailers in scope",
+    "date": "2026-06-14",
+    "name": "Dangerous BAX EQ Collection",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "diezel-herbert-amplifier",
+    "reason": "PA/Softube native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Diezel Herbert Amplifier",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "diezel-vh4-amplifier",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Diezel VH4 Amplifier",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "distortion-essentials-bundle",
+    "reason": "UAD bundle — not sold at retailers in scope",
+    "date": "2026-06-14",
+    "name": "Distortion Essentials Bundle",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "dreamverb",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "DreamVerb Room Modeler",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "dytronics-cyclosonic-panner",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Dytronics Cyclosonic Panner",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "dytronics-tri-stereo-chorus",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Dytronics Tri-Stereo Chorus",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "eden-wt800-bass-amplifier",
+    "reason": "Legacy UAD amp — PA/Softube native supersedes",
+    "date": "2026-06-14",
+    "name": "Eden WT800 Bass Amplifier",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "elysia-alpha-compressor-v2-universal-audio",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "elysia• alpha compressor v2",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "elysia-mpressor",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "elysia• mpressor",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "emt-140",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "EMT 140 Classic Plate Reverberator",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "emt-250",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "EMT 250 Classic Electronic Reverb",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "engl-e646-vs",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "ENGL E646 VS Limited Edition",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "engl-e765-rt",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "ENGL E765 Retro Tube",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "engl-savage-120-amplifier",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "ENGL Savage 120 Amplifier",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "ep-34",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "EP-34 Tape Echo",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "eventide-h910",
+    "reason": "Eventide native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Eventide H910 Harmonizer",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "fatso",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "FATSO Jr./Sr. Tape Sim. & Compressor",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "fender-55-dlx",
+    "reason": "PA/Softube native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Fender '55 Tweed Deluxe",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "friedman-amplifiers-plug-in-collection",
+    "reason": "UAD bundle — not sold at retailers in scope",
+    "date": "2026-06-14",
+    "name": "Friedman Amplifiers Collection",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "friedman-buxom-betty",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Friedman Buxom Betty Amplifier",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "fuchs-overdrive-amp-plug-in",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Fuchs Overdrive Supreme 50 Amplifier",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "fuchs-train-amp",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Fuchs Train II Amplifier",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "gallien-krueger-800rb-bass-amp",
+    "reason": "Legacy UAD amp — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Gallien-Krueger 800RB Bass Amp",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "gemstones",
+    "reason": "Not individually sold — bundle-only SKU",
+    "date": "2026-06-14",
+    "name": "Gemstones",
+    "manufacturer": "Waves"
+  },
+  {
+    "slug": "harrison-32c",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Harrison 32C / 32C SE Channel EQ",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "k-stereo-ambience-recovery",
+    "reason": "Legacy UAD Precision series — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Precision K-Stereo Ambience Recovery",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "korg-sdd-3000-digital-delay",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Korg SDD-3000 Digital Delay",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "lexicon-480l-digital-reverb-effects",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Lexicon 480L Digital Reverb and Effects",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "lil-tube",
+    "reason": "Not individually sold — bundle-only SKU (Magma Lil Tube)",
+    "date": "2026-06-14",
+    "name": "Magma Lil Tube",
+    "manufacturer": "Waves"
+  },
+  {
+    "slug": "little-labs-ibp",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Little Labs IBP Phase Alignment Tool",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "luna-spitfire-bundle",
+    "reason": "UAD bundle — not sold at retailers in scope",
+    "date": "2026-06-14",
+    "name": "LUNA Spitfire Bundle",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "maag-eq4-ms",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Maag Audio EQ4 MS",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "marshall-bluesbreaker",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Marshall Bluesbreaker 1962",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "marshall-jmp2203",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Marshall JMP 2203",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "marshall-legends-bundle",
+    "reason": "UAD bundle — not sold at retailers in scope",
+    "date": "2026-06-14",
+    "name": "Marshall Legends Bundle",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "marshall-plexi",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Marshall Plexi Super Lead 1959",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "marshall-silver-jubilee",
+    "reason": "PA native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Marshall Silver Jubilee 2555",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "massenburg-mdweq5",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Massenburg MDWEQ5 Parametric EQ",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "millennia-nseq-2",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Millennia NSEQ-2 EQ",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "mixbus-11",
+    "reason": "Harrison Mixbus line — removed from SSL catalog",
+    "date": "2026-06-14",
+    "name": "Mixbus 11",
+    "manufacturer": "Solid State Logic"
+  },
+  {
+    "slug": "mixbus-11-pro",
+    "reason": "Harrison Mixbus line — removed from SSL catalog",
+    "date": "2026-06-14",
+    "name": "Mixbus 11 Pro",
+    "manufacturer": "Solid State Logic"
+  },
+  {
+    "slug": "moog-multimode-filter-xl-collection",
+    "reason": "UAD bundle — not sold at retailers in scope",
+    "date": "2026-06-14",
+    "name": "Moog Multimode Filter Collection",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "mxr-flanger-doubler",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "MXR Flanger/Doubler",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "neve-1073-collection",
+    "reason": "UAD bundle — not sold at retailers in scope",
+    "date": "2026-06-14",
+    "name": "Neve 1073 Preamp & EQ Collection",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "neve-1081",
+    "reason": "Legacy UAD Neve module — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Neve 1081 / 1081SE Classic Console EQ",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "neve-1084-preamp-eq",
+    "reason": "Legacy UAD Neve module — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Neve 1084 Preamp & EQ",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "neve-31102",
+    "reason": "Legacy UAD Neve module — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Neve 31102 / 31102SE Classic Console EQs",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "neve-88rs-collection",
+    "reason": "UAD bundle — not sold at retailers in scope",
+    "date": "2026-06-14",
+    "name": "Neve 88RS Channel Strip Collection",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "neve-complete-bundle",
+    "reason": "UAD bundle — not sold at retailers in scope",
+    "date": "2026-06-14",
+    "name": "Neve Complete Bundle",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "neve-dynamics-collection",
+    "reason": "UAD bundle — not sold at retailers in scope",
+    "date": "2026-06-14",
+    "name": "Neve Dynamics Collection",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "neve-preamp",
+    "reason": "Legacy UAD Neve module — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Neve Preamp",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "neve-summing",
+    "reason": "Legacy UAD Neve module — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Neve Summing",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "ocean-way-microphone-collection",
+    "reason": "UAD bundle — not sold at retailers in scope",
+    "date": "2026-06-14",
+    "name": "Ocean Way Microphone Collection",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "oxford-envolution",
+    "reason": "Sonnox native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Sonnox Oxford Envolution",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "oxford-eq",
+    "reason": "Sonnox native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Sonnox Oxford EQ",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "oxford-inflator",
+    "reason": "Sonnox native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Sonnox Oxford Inflator",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "ozone-eq",
+    "reason": "iZotope free plugin — no paid retailer listing",
+    "date": "2026-06-14",
+    "name": "Ozone EQ",
+    "manufacturer": "iZotope"
+  },
+  {
+    "slug": "ozone-imager",
+    "reason": "iZotope free plugin",
+    "date": "2026-06-14",
+    "name": "Ozone Imager",
+    "manufacturer": "iZotope"
+  },
+  {
+    "slug": "precision-buss-compressor",
+    "reason": "Legacy UAD Precision series — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Precision Buss Compressor",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "precision-de-esser",
+    "reason": "Legacy UAD Precision series — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Precision De-Esser",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "precision-enhancer-hz",
+    "reason": "Legacy UAD Precision series — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Precision Enhancer Hz",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "precision-enhancer-khz",
+    "reason": "Legacy UAD Precision series — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Precision Enhancer kHz",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "precision-eq",
+    "reason": "Legacy UAD Precision series — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Precision EQ",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "precision-limiter",
+    "reason": "Legacy UAD Precision series — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Precision Limiter",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "precision-maximizer",
+    "reason": "Legacy UAD Precision series — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Precision Maximizer",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "precision-multiband",
+    "reason": "Legacy UAD Precision series — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Precision Multiband",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "rmx-16-expanded",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "AMS RMX16 Expanded Digital Reverb",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "shadow-hills-mastering-compressor-class-a",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Shadow Hills Mastering Compressor Class A",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "showtime-64-tube-amp",
+    "reason": "Legacy UAD amp — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "UAD Showtime '64 Tube Amp",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "softube-amp-room-bundle",
+    "reason": "Softube native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Softube Amp Room Bundle",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "softube-vocoder",
+    "reason": "Softube native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Softube Vocoder",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "sonnox-isa-oxford-reverb",
+    "reason": "Not in any retailer catalog (PB confirmed no ISA listing)",
+    "date": "2026-06-14",
+    "name": "Sonnox ISA Oxford Reverb",
+    "manufacturer": "Sonnox"
+  },
+  {
+    "slug": "sonnox-oxford-dynamic-eq",
+    "reason": "Sonnox native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Sonnox Oxford Dynamic EQ",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "sonnox-oxford-limiter-v2",
+    "reason": "Sonnox native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Sonnox Oxford Limiter v2",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "sonnox-oxford-supresser-ds",
+    "reason": "Sonnox native version supersedes UAD port",
+    "date": "2026-06-14",
+    "name": "Sonnox Oxford SuprEsser DS",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "sound-machine-wood-works",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Sound Machine Wood Works",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "sphere-mic-collection",
+    "reason": "UAD bundle — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Sphere Mic Collection",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "spitfire-chamber-strings-luna-edition",
+    "reason": "LUNA-only — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Spitfire Chamber Strings",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "spitfire-symphonic-brass-luna-edition",
+    "reason": "LUNA-only — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Spitfire Symphonic Brass",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "spitfire-symphonic-woodwinds-luna-edition",
+    "reason": "LUNA-only — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Spitfire Symphonic Woodwinds",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "spl-transient-designer",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "SPL Transient Designer",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "spl-twin-tube-processor",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "SPL TwinTube Processor",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "spl-vitalizer-mk3-t",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "SPL Vitalizer MK3-T",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "suhr-pt100-amplifier",
+    "reason": "Legacy UAD amp — PA/Softube native supersedes",
+    "date": "2026-06-14",
+    "name": "Suhr PT100 Amplifier",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "suhr-se100-amplifier",
+    "reason": "Legacy UAD amp — PA/Softube native supersedes",
+    "date": "2026-06-14",
+    "name": "Suhr SE100 Amplifier",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "summit-tla-compressor",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Summit Audio TLA-100A Compressor",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "thermionic-culture-vulture",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Thermionic Culture Vulture",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "tonelux-tilt-eq",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Tonelux Tilt EQ",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "trash-lite",
+    "reason": "iZotope free plugin",
+    "date": "2026-06-14",
+    "name": "Trash Lite",
+    "manufacturer": "iZotope"
+  },
+  {
+    "slug": "trident-a-range",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Trident A-Range Classic Console EQ",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "tube-tech-cl-1b-mkii-compressor",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Tube-Tech CL 1B MkII Compressor",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "tube-tech-eq-collection",
+    "reason": "Legacy UAD bundle — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Tube-Tech EQ Collection",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "uad-carlos-de-la-garza-mix-tape",
+    "reason": "UAD mix tape — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "UAD Carlos De La Garza Mix Tape",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "uad-classic-keys-and-synths-bundle",
+    "reason": "UAD bundle — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "UAD Classic Keys and Synths Bundle",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "uad-complete-4",
+    "reason": "UAD bundle — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "UAD Complete 4",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "uad-guitar-amp-bundle",
+    "reason": "UAD bundle — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "UAD Guitar Amp Bundle",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "uad-guitar-bundle",
+    "reason": "UAD bundle — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "UAD Guitar Bundle",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "uad-mix-tape-3",
+    "reason": "UAD mix tape — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "UAD Summer Mix Tape",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "uad-mix-tape-5",
+    "reason": "UAD mix tape — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "UAD B-Side Mix Tape",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "uad-oto-biscuit-effects-plug-in",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "OTO BISCUIT 8-bit Effects",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "uad-pro-vocal-bundle",
+    "reason": "UAD bundle — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "UAD Pro Vocal Bundle",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "uad-signature-edition-3",
+    "reason": "UAD bundle — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "UAD Signature Edition Version 3",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "uad-ultimate-14",
+    "reason": "UAD bundle — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "UAD Ultimate 14",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "v76-preamplifier",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "V76 Preamplifier",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "valley-people-dyna-mite",
+    "reason": "Legacy UAD SKU — not sold at retailers",
+    "date": "2026-06-14",
+    "name": "Valley People Dyna-mite",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "vinyl",
+    "reason": "iZotope free plugin",
+    "date": "2026-06-14",
+    "name": "Vinyl",
+    "manufacturer": "iZotope"
+  },
+  {
+    "slug": "vocal-doubler",
+    "reason": "iZotope free plugin",
+    "date": "2026-06-14",
+    "name": "Vocal Doubler",
+    "manufacturer": "iZotope"
+  },
+  {
+    "slug": "vocal-intensity-processor",
+    "reason": "Harrison product line — not SSL Native catalog",
+    "date": "2026-06-14",
+    "name": "Vocal Intensity Processor",
+    "manufacturer": "Solid State Logic"
+  },
+  {
+    "slug": "vsc-2-compressor",
+    "reason": "Vertigo VSC-2 — not sold at retailers in scope",
+    "date": "2026-06-14",
+    "name": "Vertigo Sound VSC-2 Compressor",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "vsm-3-mix-satellite",
+    "reason": "Vertigo VSM-3 — not sold at retailers in scope",
+    "date": "2026-06-14",
+    "name": "Vertigo Sound VSM-3 Mix Satellite",
+    "manufacturer": "Universal Audio"
+  },
+  {
+    "slug": "waves-stream",
+    "reason": "Not individually sold — bundle-only SKU",
+    "date": "2026-06-14",
+    "name": "Waves Stream",
+    "manufacturer": "Waves"
+  },
+  {
+    "slug": "x-orcism-ii",
+    "reason": "Free SSL plugin — no paid retailer listing",
+    "date": "2026-06-14",
+    "manufacturer": "Solid State Logic"
+  }
+]

@@ -97,11 +97,11 @@ export default function AlertTargetField({
           setIsEditing(true);
         }
       }}
-      className={`min-w-0 rounded-lg sm:rounded-xl border border-green-600/50 bg-base-100 pl-3.5 pr-2.5 pt-1 pb-1.5 sm:px-3 sm:pt-1.5 sm:pb-2.5 text-left sm:text-right transition-colors ${
+      className={`min-w-0 rounded-lg sm:rounded-xl border border-base-content/30 bg-base-100 pl-4 pr-2.5 pt-1.5 pb-1.5 sm:pl-4 sm:pr-3 sm:pt-1.5 sm:pb-1.5 text-left sm:text-right transition-colors ${
         isEditing ? "bg-base-300 cursor-text" : "hover:bg-base-300 cursor-pointer"
       } ${className}`}
     >
-      <p className="text-[10px] sm:text-xs text-green-600 mb-0.5 sm:mb-1 leading-none text-left">
+      <p className="text-[10px] sm:text-xs text-green-600 mb-0.5 sm:mb-0 leading-none text-left">
         Alert Target
       </p>
 

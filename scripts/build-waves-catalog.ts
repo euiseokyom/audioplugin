@@ -17,6 +17,7 @@ import {
   mapWavesCategory,
 } from "../lib/catalog/waves-category-map";
 import { processProductImageFromUrls } from "./lib/process-product-image";
+import { filterExcludedSeedProducts } from "../lib/catalog/excluded-catalog-slugs";
 import { WAVES_BUNDLE_SLUGS } from "../lib/catalog/waves-bundle-slugs";
 import { WAVES_NOT_INDIVIDUALLY_SOLD } from "../lib/catalog/waves-not-individually-sold";
 import { DEFAULT_RETAILERS } from "../lib/catalog/manufacturer-retailers";
@@ -366,9 +367,11 @@ async function main() {
     bySlug.set(product.slug, product);
   }
 
-  const products = [...bySlug.values()]
-    .filter((p) => !WAVES_NOT_INDIVIDUALLY_SOLD.has(p.slug))
-    .sort((a, b) => a.name.localeCompare(b.name));
+  const products = filterExcludedSeedProducts(
+    [...bySlug.values()]
+      .filter((p) => !WAVES_NOT_INDIVIDUALLY_SOLD.has(p.slug))
+      .sort((a, b) => a.name.localeCompare(b.name)),
+  );
 
   console.log(`Processing images for ${products.length} products...`);
   let imageSuccess = 0;

@@ -76,7 +76,7 @@ export default function AlertProductSection({ alert }: Props) {
 
               <div className="flex flex-col gap-1 sm:items-end w-full">
                 <div>
-                  <p className="text-[10px] sm:text-xs font-medium text-base-content mb-0.5 leading-none">
+                  <p className="text-[10px] sm:text-xs font-medium text-base-content mb-0.5 sm:mb-0 leading-none">
                     List Price
                   </p>
                   <p className="text-base sm:text-xl md:text-2xl font-semibold leading-none tabular-nums">
@@ -84,8 +84,8 @@ export default function AlertProductSection({ alert }: Props) {
                   </p>
                 </div>
 
-                <div>
-                  <p className="text-[10px] sm:text-xs text-red-600 mb-0.5 leading-none">
+                <div className="mt-0.5 sm:mt-0">
+                  <p className="text-[10px] sm:text-xs text-red-600 mb-0.5 sm:mb-0 leading-none">
                     Lowest Price
                   </p>
                   <p className="text-base sm:text-xl md:text-2xl font-bold text-red-600 leading-none tabular-nums">
