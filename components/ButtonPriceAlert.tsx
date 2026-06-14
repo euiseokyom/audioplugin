@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
+import { useProductFavorite } from "@/hooks/useProductFavorite";
+import { useProductAlert } from "@/hooks/useProductAlert";
 
 interface Props {
   productId: string;
@@ -19,37 +21,41 @@ export default function ButtonPriceAlert({
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [targetPrice, setTargetPrice] = useState(
-    Math.round(currentLowestPrice * 0.85 * 100) / 100
+    Math.round(currentLowestPrice * 0.85 * 100) / 100,
   );
-  const [isLoading, setIsLoading] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const [error, setError] = useState("");
-  const [isFavorited, setIsFavorited] = useState(false);
+  const { isFavorited, isLoading: isFavoriteLoading, toggleFavorite } =
+    useProductFavorite(productId);
+  const {
+    alert,
+    hasAlert,
+    isLoading: isAlertLoading,
+    createAlert,
+  } = useProductAlert(productId, targetPrice);
+
+  useEffect(() => {
+    if (alert) setTargetPrice(alert.targetPrice);
+  }, [alert]);
 
   async function handleSetAlert() {
     if (!session) {
       signIn("google");
       return;
     }
-    setIsLoading(true);
+
     setError("");
-    try {
-      const res = await fetch("/api/alerts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId, targetPrice }),
-      });
-      if (!res.ok) throw new Error("Failed");
-      setIsDone(true);
-      setTimeout(() => {
-        setIsOpen(false);
-        setIsDone(false);
-      }, 2000);
-    } catch {
+    const success = await createAlert(targetPrice);
+    if (!success) {
       setError("Could not set alert. Please try again.");
-    } finally {
-      setIsLoading(false);
+      return;
     }
+
+    setIsDone(true);
+    setTimeout(() => {
+      setIsOpen(false);
+      setIsDone(false);
+    }, 2000);
   }
 
   return (
@@ -57,10 +63,15 @@ export default function ButtonPriceAlert({
       <div className="flex items-center justify-end gap-3">
         <button
           onClick={() => (session ? setIsOpen(true) : signIn("google"))}
-          aria-label="Set price alert"
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-base-content/30 bg-base-200 text-base-content hover:bg-base-300 transition-colors"
+          aria-label={hasAlert ? "Edit price alert" : "Set price alert"}
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-base-content/30 bg-base-100 text-base-content hover:bg-base-300 transition-colors"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            className="w-6 h-6"
+            fill={hasAlert ? "currentColor" : "none"}
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -71,9 +82,10 @@ export default function ButtonPriceAlert({
         </button>
 
         <button
-          onClick={() => setIsFavorited((prev) => !prev)}
+          onClick={toggleFavorite}
+          disabled={isFavoriteLoading}
           aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-base-content/30 bg-base-200 text-base-content hover:bg-base-300 transition-colors"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-base-content/30 bg-base-100 text-base-content hover:bg-base-300 transition-colors disabled:opacity-70"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -152,19 +164,25 @@ export default function ButtonPriceAlert({
                     </div>
                     <div className="flex justify-between mt-2 text-xs text-base-content/40">
                       <button
-                        onClick={() => setTargetPrice(Math.round(registeredPrice * 0.5 * 100) / 100)}
+                        onClick={() =>
+                          setTargetPrice(Math.round(registeredPrice * 0.5 * 100) / 100)
+                        }
                         className="hover:text-primary transition-colors"
                       >
                         50% off
                       </button>
                       <button
-                        onClick={() => setTargetPrice(Math.round(registeredPrice * 0.7 * 100) / 100)}
+                        onClick={() =>
+                          setTargetPrice(Math.round(registeredPrice * 0.7 * 100) / 100)
+                        }
                         className="hover:text-primary transition-colors"
                       >
                         30% off
                       </button>
                       <button
-                        onClick={() => setTargetPrice(Math.round(registeredPrice * 0.8 * 100) / 100)}
+                        onClick={() =>
+                          setTargetPrice(Math.round(registeredPrice * 0.8 * 100) / 100)
+                        }
                         className="hover:text-primary transition-colors"
                       >
                         20% off
@@ -176,10 +194,10 @@ export default function ButtonPriceAlert({
 
                   <button
                     onClick={handleSetAlert}
-                    disabled={isLoading || targetPrice <= 0}
+                    disabled={isAlertLoading || targetPrice <= 0}
                     className="btn btn-primary w-full"
                   >
-                    {isLoading ? (
+                    {isAlertLoading ? (
                       <span className="loading loading-spinner loading-sm" />
                     ) : (
                       "Set Alert"

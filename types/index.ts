@@ -46,6 +46,17 @@ export interface IAlert {
   createdAt: string;
 }
 
+export interface AlertWithProduct extends IAlert {
+  product: ProductWithPrices;
+}
+
+export interface IFavorite {
+  _id: string;
+  userId: string;
+  productId: string;
+  createdAt: string;
+}
+
 export interface IScraperLog {
   _id: string;
   retailerSlug: string;

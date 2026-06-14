@@ -8,11 +8,17 @@ import Image from "next/image";
 import SearchBox from "@/components/SearchBox";
 import { PAGE_CONTAINER } from "@/lib/layout";
 
+const menuItemClassName =
+  "flex w-full items-center rounded-lg px-3 py-1.5 text-sm font-normal text-start hover:bg-base-300";
+
 export default function Navbar() {
   const { data: session } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
-  const isHomePage = pathname === "/";
+  const showSearchBar = pathname !== "/";
+  const searchBarClassName = `w-full max-w-xs sm:max-w-sm md:max-w-md${
+    pathname === "/alerts" || pathname === "/favorites" ? " hidden sm:block" : ""
+  }`;
 
   useEffect(() => {
     function handleScroll() {
@@ -41,8 +47,8 @@ export default function Navbar() {
         </Link>
 
         <div className="flex items-center gap-4 ml-auto">
-          {!isHomePage && (
-            <SearchBox className="w-full max-w-xs sm:max-w-sm md:max-w-md" />
+          {showSearchBar && (
+            <SearchBox className={searchBarClassName} />
           )}
 
           {session && (
@@ -70,21 +76,36 @@ export default function Navbar() {
               </div>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu bg-base-200 rounded-xl z-[1] w-52 p-2 shadow-2xl border border-base-300 mt-2"
+                className="dropdown-content overflow-hidden bg-base-200 rounded-xl z-[1] w-52 p-2 shadow-2xl border border-base-300 mt-2 flex flex-col gap-0.5"
               >
-                <li className="menu-title px-2 py-1 text-xs text-base-content/50">
+                <li className="px-3 py-1 text-xs text-base-content/50 truncate">
                   {session.user?.email}
                 </li>
-                <li>
-                  <Link href="/alerts">My Alerts</Link>
+                <li className="w-full">
+                  <Link href="/alerts" className={menuItemClassName}>
+                    My Alerts
+                  </Link>
+                </li>
+                <li className="w-full">
+                  <Link href="/favorites" className={menuItemClassName}>
+                    My Favorites
+                  </Link>
                 </li>
                 {session.user?.isAdmin && (
-                  <li>
-                    <Link href="/admin">Admin</Link>
+                  <li className="w-full">
+                    <Link href="/admin" className={menuItemClassName}>
+                      Admin
+                    </Link>
                   </li>
                 )}
-                <li>
-                  <button onClick={() => signOut()}>Sign Out</button>
+                <li className="w-full">
+                  <button
+                    type="button"
+                    onClick={() => signOut()}
+                    className={menuItemClassName}
+                  >
+                    Sign Out
+                  </button>
                 </li>
               </ul>
             </div>

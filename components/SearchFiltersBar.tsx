@@ -120,7 +120,7 @@ function PriceRangeInputs({
 function ChevronDownIcon() {
   return (
     <svg
-      className="h-3.5 w-3.5 opacity-60"
+      className="h-3 w-3 sm:h-3.5 sm:w-3.5 opacity-60"
       viewBox="0 0 20 20"
       fill="currentColor"
       aria-hidden
@@ -238,12 +238,12 @@ function FilterDropdown({
       <button
         type="button"
         onClick={() => setIsOpen((open) => !open)}
-        className="btn btn-sm btn-ghost gap-2 pl-3 pr-2.5 font-normal border border-base-300 text-sm"
+        className="btn btn-sm btn-ghost gap-1 sm:gap-2 pl-1.5 sm:pl-3 pr-1 sm:pr-2.5 min-h-0 h-8 sm:h-9 font-normal border border-base-300 text-xs sm:text-sm whitespace-nowrap"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
       >
-        <span className="text-sm text-base-content/50">Filter:</span>
-        <span className="text-sm">
+        <span className="text-xs sm:text-sm text-base-content/50">Filter:</span>
+        <span className="text-xs sm:text-sm">
           {getFilterButtonLabel(filters, priceRange)}
         </span>
         <ChevronDownIcon />
@@ -354,12 +354,12 @@ function SortDropdown({
       <button
         type="button"
         onClick={() => setIsOpen((open) => !open)}
-        className="btn btn-sm btn-ghost gap-2 pl-3 pr-2.5 font-normal border border-base-300 text-sm"
+        className="btn btn-sm btn-ghost gap-1 sm:gap-2 pl-1.5 sm:pl-3 pr-1 sm:pr-2.5 min-h-0 h-8 sm:h-9 font-normal border border-base-300 text-xs sm:text-sm whitespace-nowrap"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
       >
-        <span className="text-sm text-base-content/50">Sort:</span>
-        <span className="text-sm">{activeSortLabel}</span>
+        <span className="text-xs sm:text-sm text-base-content/50">Sort:</span>
+        <span className="text-xs sm:text-sm">{activeSortLabel}</span>
         <ChevronDownIcon />
       </button>
 
@@ -401,7 +401,7 @@ export default function SearchFiltersBar({
   priceRange?: PriceRange;
 }) {
   return (
-    <div className="flex items-center justify-between gap-4">
+    <div className="flex items-center justify-between gap-1.5 sm:gap-4">
       <FilterDropdown
         basePath={basePath}
         q={q}

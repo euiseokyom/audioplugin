@@ -1,37 +1,55 @@
 "use client";
 
 import { useState } from "react";
+import { useProductFavorite } from "@/hooks/useProductFavorite";
+import { useProductAlert } from "@/hooks/useProductAlert";
 
-export default function CardProductActions() {
-  const [isAlerted, setIsAlerted] = useState(false);
-  const [isFavorited, setIsFavorited] = useState(false);
+interface Props {
+  productId: string;
+  lowestPrice: number;
+  initialIsFavorited?: boolean;
+}
+
+export default function CardProductActions({
+  productId,
+  lowestPrice,
+  initialIsFavorited = false,
+}: Props) {
+  const defaultTargetPrice = Math.round(lowestPrice * 0.85 * 100) / 100;
+  const { isFavorited, isLoading: isFavoriteLoading, toggleFavorite } =
+    useProductFavorite(productId, initialIsFavorited);
+  const { hasAlert, isLoading: isAlertLoading, toggleAlert } = useProductAlert(
+    productId,
+    defaultTargetPrice,
+  );
   const [bellSwinging, setBellSwinging] = useState(false);
 
-  function handleAlert(e: React.MouseEvent) {
+  async function handleAlert(e: React.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
-    setIsAlerted((prev) => !prev);
     setBellSwinging(true);
     setTimeout(() => setBellSwinging(false), 600);
+    await toggleAlert();
   }
 
-  function handleFavorite(e: React.MouseEvent) {
+  async function handleFavorite(e: React.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
-    setIsFavorited((prev) => !prev);
+    await toggleFavorite();
   }
 
   return (
     <div className="absolute top-2 right-2 flex flex-col gap-1.5">
       <button
         onClick={handleAlert}
-        aria-label={isAlerted ? "Remove price alert" : "Set price alert"}
-        className="w-7 h-7 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center hover:bg-black/70 transition-colors"
+        disabled={isAlertLoading}
+        aria-label={hasAlert ? "Remove price alert" : "Set price alert"}
+        className="w-7 h-7 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center hover:bg-black/70 transition-colors disabled:opacity-70"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          fill={isAlerted ? "white" : "none"}
+          fill={hasAlert ? "white" : "none"}
           stroke="white"
           strokeWidth={2}
           strokeLinecap="round"
@@ -46,8 +64,9 @@ export default function CardProductActions() {
 
       <button
         onClick={handleFavorite}
+        disabled={isFavoriteLoading}
         aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
-        className="w-7 h-7 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center hover:bg-black/70 transition-colors"
+        className="w-7 h-7 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center hover:bg-black/70 transition-colors disabled:opacity-70"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

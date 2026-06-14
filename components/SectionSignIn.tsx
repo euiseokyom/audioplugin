@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
 import { PAGE_CONTAINER } from "@/lib/layout";
 
@@ -15,10 +14,7 @@ export default function SectionSignIn() {
         </h2>
         {session ? (
           <p className="text-sm text-base-content/70">
-            Signed in as {session.user?.email}.{" "}
-            <Link href="/alerts" className="text-base-content hover:underline">
-              Manage your alerts
-            </Link>
+            Signed in as {session.user?.email}.
           </p>
         ) : (
           <button

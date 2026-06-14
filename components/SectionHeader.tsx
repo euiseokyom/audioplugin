@@ -23,7 +23,7 @@ export default function SectionHeader({
         {divider && (
           <hr className="border-t-2 border-base-content/35 mb-10" />
         )}
-        <h2 className="antialiased font-inter text-4xl sm:text-4xl font-bold tracking-normal text-base-content">
+        <h2 className="antialiased font-inter text-2xl sm:text-4xl font-bold tracking-normal text-base-content">
           {title}
         </h2>
         {subtitle && (
@@ -47,7 +47,7 @@ export default function SectionHeader({
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_125%_155%_at_0%_0%,rgba(10,42,58,0.8)_0%,rgba(8,30,45,0.5)_32%,rgba(4,18,28,0.22)_60%,transparent_90%)]"
       />
       <div className="relative">
-        <h2 className="antialiased font-inter text-4xl sm:text-4xl font-bold tracking-normal">
+        <h2 className="antialiased font-inter text-2xl sm:text-4xl font-bold tracking-normal">
           {title}
         </h2>
         {subtitle && (

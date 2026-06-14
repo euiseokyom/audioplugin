@@ -78,7 +78,7 @@ export default async function ManufacturerPage({
           <span>/</span>
           <span className="text-base-content">{displayName}</span>
         </div>
-        <h1 className="text-3xl font-bold">{displayName}</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold">{displayName}</h1>
         <p className="text-base-content/50 mt-1">{result.total} plugins</p>
       </div>
 

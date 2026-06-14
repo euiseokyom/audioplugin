@@ -12,10 +12,10 @@ export default function NotFound() {
         plugin instead.
       </p>
       <div className="flex flex-wrap justify-center gap-3">
-        <Link href="/search" className="btn btn-primary btn-sm">
-          Search plugins
-        </Link>
-        <Link href="/" className="btn btn-ghost btn-sm">
+        <Link
+          href="/"
+          className="btn btn-sm bg-white text-base-content hover:bg-base-200"
+        >
           Go home
         </Link>
       </div>

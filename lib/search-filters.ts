@@ -74,8 +74,8 @@ export function formatPriceRangeLabel(range: PriceRange): string | null {
   const { min, max } = range;
   if (min === undefined && max === undefined) return null;
   if (min !== undefined && max !== undefined) return `$${min} – $${max}`;
-  if (min !== undefined) return `$${min}+`;
-  return `Under $${max}`;
+  if (min !== undefined) return `$${min} -`;
+  return `- $${max}`;
 }
 
 export const BROWSE_SORT_OPTIONS: ProductSort[] = [

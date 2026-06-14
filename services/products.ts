@@ -338,6 +338,22 @@ export async function getProductBySlug(slug: string): Promise<ProductWithPrices 
   });
 }
 
+export async function getProductsByIds(ids: string[]): Promise<ProductWithPrices[]> {
+  if (ids.length === 0) return [];
+
+  await connectDB();
+  const objectIds = ids.map((id) => new mongoose.Types.ObjectId(id));
+  const products = await Product.find({ _id: { $in: objectIds } }).lean();
+  const withPrices = await enrichProductsWithPrices(products);
+  const minPrices = await getHistoricalMinPrices(objectIds);
+  const enriched = applyAllTimeLow(withPrices, minPrices);
+
+  const productMap = new Map(enriched.map((product) => [product._id, product]));
+  return ids
+    .map((id) => productMap.get(id))
+    .filter((product): product is ProductWithPrices => product != null);
+}
+
 const SITEMAP_PRODUCT_LIMIT = 3000;
 
 export async function getProductSlugsForSitemap(): Promise<

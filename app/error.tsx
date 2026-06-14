@@ -28,7 +28,10 @@ export default function Error({
         <button type="button" onClick={reset} className="btn btn-primary btn-sm">
           Try again
         </button>
-        <Link href="/" className="btn btn-ghost btn-sm">
+        <Link
+          href="/"
+          className="btn btn-sm bg-white text-base-content hover:bg-base-200"
+        >
           Go home
         </Link>
       </div>

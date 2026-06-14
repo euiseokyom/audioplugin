@@ -7,7 +7,7 @@ export default function ButtonViewAll({ href }: Props) {
     <div className="flex justify-center pt-4">
       <a
         href={href}
-        className="inline-flex items-center justify-center gap-2 px-24 py-3.5 bg-gray-900 text-base-100 font-bold text-base sm:text-lg tracking-wide  transition-colors duration-150 hover:bg-base-content"
+        className="inline-flex items-center justify-center gap-2 px-12 sm:px-24 py-2.5 sm:py-3.5 bg-gray-900 text-base-100 font-bold text-sm sm:text-lg tracking-wide transition-colors duration-150 hover:bg-base-content"
       >
         VIEW MORE
         <svg

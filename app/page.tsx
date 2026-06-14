@@ -39,12 +39,11 @@ export default async function HomePage() {
     <>
       <div className={`${PAGE_CONTAINER} py-10 space-y-16`}>
         <div className="text-center space-y-4 py-6">
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
-            Save Money on Plugins
-            <br className="hidden sm:block" />
-            Save Time Comparing Prices
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+            <span className="block">Save Money on Plugins</span>
+            <span className="block">Save Time Comparing Prices</span>
           </h1>
-          <p className="text-base-content/60 max-w-xl mx-auto text-2xl font-medium">
+          <p className="text-base-content/60 max-w-xl mx-auto text-lg sm:text-2xl font-medium">
             Best audio plugin deals in one place.
           </p>
         </div>

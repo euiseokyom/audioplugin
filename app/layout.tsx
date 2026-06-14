@@ -15,6 +15,7 @@ const defaultDescription =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  icons: { icon: "/favicon.ico" },
   title: {
     default: defaultTitle,
     template: "%s | PluginBargains",
@@ -58,7 +59,7 @@ export default function RootLayout({
             <Navbar />
             <main className="flex-1 bg-base-100">{children}</main>
             <footer className="bg-base-300 py-10">
-              <div className="max-w-7xl mx-auto px-4 text-center text-base-content/40 text-sm">
+              <div className="max-w-7xl mx-auto px-4 text-center text-base-content/40 text-xs sm:text-sm">
                 <p>PluginBargains — Track prices. Set alerts. Save money.</p>
                 <p className="mt-1">
                   Prices are updated daily. Some links are affiliate links.

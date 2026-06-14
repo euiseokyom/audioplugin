@@ -7,6 +7,8 @@ import { RETAILER_MAP } from "@/lib/retailers";
 
 interface Props {
   prices: IPriceEntry[];
+  surfaceClassName?: string;
+  highlightedRowClassName?: string;
 }
 
 const LOGO_STYLES: Record<
@@ -46,7 +48,7 @@ function RetailerLogo({
   if (!logoUrl) {
     return (
       <div
-        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-base-300 bg-base-200 text-[10px] font-bold text-base-content/50"
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-base-300 bg-base-200 text-[9px] font-bold text-base-content/50"
         aria-hidden
       >
         {name.charAt(0)}
@@ -58,13 +60,13 @@ function RetailerLogo({
 
   return (
     <div
-      className={`flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-base-300 ${styles?.bg ?? ""}`}
+      className={`flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full border border-base-300 ${styles?.bg ?? ""}`}
     >
       <Image
         src={logoUrl}
         alt={`${name} logo`}
-        width={40}
-        height={40}
+        width={32}
+        height={32}
         className={`h-full w-full ${styles?.fit === "contain" ? "object-contain" : "object-cover"} ${styles?.scale ?? ""}`}
         style={
           styles?.position ? { objectPosition: styles.position } : undefined
@@ -75,7 +77,11 @@ function RetailerLogo({
   );
 }
 
-export default function RetailerPriceTable({ prices }: Props) {
+export default function RetailerPriceTable({
+  prices,
+  surfaceClassName = "bg-base-100",
+  highlightedRowClassName = "bg-base-200",
+}: Props) {
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
 
   if (prices.length === 0) {
@@ -87,7 +93,9 @@ export default function RetailerPriceTable({ prices }: Props) {
   }
 
   return (
-    <div className="border border-base-300 rounded-xl overflow-hidden bg-base-100">
+    <div
+      className={`border border-base-300 rounded-xl overflow-hidden ${surfaceClassName}`}
+    >
       <div
         className="divide-y divide-base-300"
         onPointerMove={(e) => {
@@ -111,8 +119,8 @@ export default function RetailerPriceTable({ prices }: Props) {
               href={entry.affiliateUrl}
               target="_blank"
               rel="noopener noreferrer sponsored"
-              className={`flex w-full items-center gap-4 py-3 px-4 transition-colors touch-manipulation ${
-                isHighlighted ? "bg-base-200" : ""
+              className={`flex w-full items-center gap-2.5 py-3 px-4 transition-colors touch-manipulation ${
+                isHighlighted ? highlightedRowClassName : ""
               }`}
               onPointerDown={() => setHighlightedId(entry._id)}
             >
@@ -124,20 +132,20 @@ export default function RetailerPriceTable({ prices }: Props) {
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-sm truncate">
+                  <span className="font-medium text-xs sm:text-sm truncate">
                     {retailerName}
                   </span>
                   {retailer?.isManufacturerDirect && (
-                    <span className="badge badge-xs badge-outline text-xs">
+                    <span className="badge badge-xs badge-outline text-[8px] sm:text-xs px-1.5 sm:px-2">
                       Official
                     </span>
                   )}
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 shrink-0">
+              <div className="flex items-center gap-1.5 shrink-0">
                 {isLowest && (
-                  <span className="rounded bg-red-600 px-2 py-0.5 text-[8px] font-medium text-white whitespace-nowrap">
+                  <span className="rounded bg-red-500 px-1.5 sm:px-2 py-px sm:py-0.5 text-[7px] sm:text-[8px] font-medium text-white whitespace-nowrap">
                     LOWEST PRICE
                   </span>
                 )}

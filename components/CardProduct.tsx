@@ -8,18 +8,20 @@ import CardProductActions from "@/components/CardProductActions";
 const RECENTLY_ADDED_DAYS = 30;
 
 const BADGE_CLASS =
-  "inline-flex w-fit items-center rounded px-2 py-0.5 text-[10px] font-bold uppercase leading-tight";
+  "inline-flex w-fit items-center rounded px-1.5 sm:px-2 py-px sm:py-0.5 text-[8px] sm:text-[10px] font-bold uppercase leading-tight";
 
 interface Props {
   product: ProductWithPrices;
   plain?: boolean;
   compactContent?: boolean;
+  initialIsFavorited?: boolean;
 }
 
 export default function CardProduct({
   product,
   plain = true,
   compactContent = true,
+  initialIsFavorited = false,
 }: Props) {
   const hasDiscount = product.discountPercent > 0;
 
@@ -60,7 +62,11 @@ export default function CardProduct({
         />
 
         {/* Alert + Favorite icons — top right */}
-        <CardProductActions />
+        <CardProductActions
+          productId={product._id}
+          lowestPrice={product.lowestPrice}
+          initialIsFavorited={initialIsFavorited}
+        />
         </figure>
       </Link>
 
@@ -98,13 +104,13 @@ export default function CardProduct({
                     {/* Spacer matches price line height; % sits out of flow so row 1 stays compact */}
                     <div className="col-start-1 row-start-1 relative shrink-0">
                       <span
-                        className="invisible block text-xl font-bold leading-none"
+                        className="invisible block text-lg sm:text-xl font-bold leading-none"
                         aria-hidden
                       >
                         {percentLabel}
                       </span>
                       <span
-                        className={`absolute left-0 bottom-0 text-2xl font-bold leading-none ${hasDiscount ? "text-red-600" : "invisible select-none"}`}
+                        className={`absolute left-0 bottom-0 text-xl sm:text-2xl font-bold leading-none ${hasDiscount ? "text-red-600" : "invisible select-none"}`}
                       >
                         {percentLabel}
                       </span>
@@ -113,7 +119,7 @@ export default function CardProduct({
                       <span className="font-bold text-primary text-xl leading-none text-right transition-colors duration-150 group-hover/price:text-blue-700">
                         ${entry.price.toFixed(2)}
                       </span>
-                      <span className="w-full min-w-0 text-sm text-primary font-normal truncate text-right leading-snug mb-1 transition-colors duration-150 group-hover/price:text-blue-700">
+                      <span className="w-full min-w-0 text-xs sm:text-sm text-primary font-normal truncate text-right leading-snug mb-1 transition-colors duration-150 group-hover/price:text-blue-700">
                         {retailerName}
                       </span>
                     </div>
@@ -128,7 +134,7 @@ export default function CardProduct({
                     </span>
                   )}
                   {product.isAllTimeLow && (
-                    <span className={`${BADGE_CLASS} bg-amber-600 text-base-100`}>
+                    <span className={`${BADGE_CLASS} bg-amber-500 text-base-100`}>
                       Lowest Price
                     </span>
                   )}
