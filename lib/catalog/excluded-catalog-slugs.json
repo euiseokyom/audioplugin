@@ -161,6 +161,13 @@
     "manufacturer": "Plugin Alliance"
   },
   {
+    "slug": "bx_mastering-studio",
+    "reason": "Not sold at any retailer in scope (PB confirmed no listing)",
+    "date": "2026-06-15",
+    "name": "bx_mastering studio",
+    "manufacturer": "Plugin Alliance"
+  },
+  {
     "slug": "bx-refinement",
     "reason": "PA native version supersedes UAD port",
     "date": "2026-06-14",
