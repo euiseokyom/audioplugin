@@ -7,6 +7,10 @@ import CardProductActions from "@/components/CardProductActions";
 
 const RECENTLY_ADDED_DAYS = 30;
 
+const SHOW_RECENTLY_ADDED_BADGE = false;
+const SHOW_LOWEST_PRICE_BADGE = false;
+const SHOW_ENDING_SOON_BADGE = true;
+
 const BADGE_CLASS =
   "inline-flex w-fit items-center rounded px-1.5 sm:px-2 py-px sm:py-0.5 text-[8px] sm:text-[10px] font-bold uppercase leading-tight";
 
@@ -40,7 +44,9 @@ export default function CardProduct({
     RECENTLY_ADDED_DAYS * 24 * 60 * 60 * 1000;
 
   const hasBadges =
-    isRecentlyAdded || isEndingSoon || !!product.isAllTimeLow;
+    (SHOW_RECENTLY_ADDED_BADGE && isRecentlyAdded) ||
+    (SHOW_ENDING_SOON_BADGE && isEndingSoon) ||
+    (SHOW_LOWEST_PRICE_BADGE && !!product.isAllTimeLow);
 
   const productHref = `/products/${product.slug}`;
   const manufacturerHref = `/manufacturer/${manufacturerToSlug(product.manufacturer)}`;
@@ -128,17 +134,17 @@ export default function CardProduct({
               })}
               {hasBadges && (
                 <div className="col-span-2 flex min-w-0 flex-wrap items-center gap-1 mt-0.5">
-                  {isEndingSoon && (
+                  {SHOW_ENDING_SOON_BADGE && isEndingSoon && (
                     <span className={`${BADGE_CLASS} bg-red-600 text-base-100`}>
                       Ends Soon
                     </span>
                   )}
-                  {product.isAllTimeLow && (
+                  {SHOW_LOWEST_PRICE_BADGE && product.isAllTimeLow && (
                     <span className={`${BADGE_CLASS} bg-amber-500 text-base-100`}>
                       Lowest Price
                     </span>
                   )}
-                  {isRecentlyAdded && (
+                  {SHOW_RECENTLY_ADDED_BADGE && isRecentlyAdded && (
                     <span className={`${BADGE_CLASS} bg-green-600 text-base-100`}>
                       Recently Added
                     </span>

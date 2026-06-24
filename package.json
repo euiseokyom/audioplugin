@@ -31,7 +31,6 @@
     "fetch:manufacturer-images": "tsx scripts/fetch-manufacturer-images.ts",
     "fetch:slate-pluginfox-images": "tsx scripts/fetch-slate-pluginfox-images.ts",
     "fetch:xln-pluginfox-images": "tsx scripts/fetch-xln-pluginfox-images.ts",
-    "reprocess:catalog-images": "tsx scripts/reprocess-catalog-images.ts",
     "sync:product-images": "npx tsx --env-file=.env.local scripts/sync-product-image-paths.ts"
   },
   "dependencies": {

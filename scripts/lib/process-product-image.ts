@@ -2,10 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 import sharp from "sharp";
-import {
-  productOriginalDir,
-  productWebpDir,
-} from "../../lib/catalog/product-image-fs";
+import { productWebpDir } from "../../lib/catalog/product-image-fs";
 
 const ROOT = path.resolve(fileURLToPath(new URL(".", import.meta.url)), "../..");
 
@@ -379,16 +376,11 @@ async function toAlphaPng(imageBuffer: Buffer): Promise<Buffer> {
   return sharp(imageBuffer).ensureAlpha().png().toBuffer();
 }
 
-export const DEFAULT_ORIGINAL_DIR = path.join(
-  ROOT,
-  "public/images/products/original",
-);
 export const DEFAULT_WEBP_DIR = path.join(ROOT, "public/images/products");
 
 export type ImageProcessingProfile = "default" | "light";
 
 export type ProcessProductImageOptions = {
-  originalDir?: string;
   webpDir?: string;
   manufacturerTag?: string;
   /** Catalog file slug — picks up IMAGE_SLUG_OPTIONS when set. */
@@ -553,14 +545,6 @@ function resolveWebpDir(options?: ProcessProductImageOptions): string {
     return productWebpDir(ROOT, options.manufacturerTag);
   }
   return DEFAULT_WEBP_DIR;
-}
-
-function resolveOriginalDir(options?: ProcessProductImageOptions): string {
-  if (options?.originalDir) return options.originalDir;
-  if (options?.manufacturerTag) {
-    return productOriginalDir(ROOT, options.manufacturerTag);
-  }
-  return DEFAULT_ORIGINAL_DIR;
 }
 
 export async function downloadImage(url: string): Promise<Buffer | null> {
@@ -1455,16 +1439,12 @@ export async function processProductImageFromBuffer(
   imageBuffer: Buffer,
   options?: ProcessProductImageOptions,
 ): Promise<boolean> {
-  const originalDir = resolveOriginalDir(options);
   const webpDir = resolveWebpDir(options);
 
-  await fs.mkdir(originalDir, { recursive: true });
   await fs.mkdir(webpDir, { recursive: true });
 
-  const originalPath = path.join(originalDir, `${slug}.png`);
   const webpPath = path.join(webpDir, `${slug}.webp`);
 
-  await fs.writeFile(originalPath, imageBuffer);
   const resolved = resolveImageOptions({ ...options, slug });
   await letterboxToSquareWebp(imageBuffer, webpPath, {
     offsetX: IMAGE_PLACEMENT_OFFSETS[slug] ?? 0,

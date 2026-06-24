@@ -161,6 +161,13 @@
     "manufacturer": "Plugin Alliance"
   },
   {
+    "slug": "bx_limiter",
+    "reason": "Not sold at Thomann or other retailers — only bx_limiter True Peak is listed",
+    "date": "2026-06-15",
+    "name": "bx_limiter",
+    "manufacturer": "Plugin Alliance"
+  },
+  {
     "slug": "bx_mastering-studio",
     "reason": "Not sold at any retailer in scope (PB confirmed no listing)",
     "date": "2026-06-15",

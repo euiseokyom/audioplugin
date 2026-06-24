@@ -4,8 +4,3 @@ import path from "path";
 export function productWebpDir(root: string, manufacturerTag: string): string {
   return path.join(root, "public/images/products", manufacturerTag);
 }
-
-/** Filesystem directory for a manufacturer's original source PNGs. Scripts only. */
-export function productOriginalDir(root: string, manufacturerTag: string): string {
-  return path.join(root, "public/images/products/original", manufacturerTag);
-}

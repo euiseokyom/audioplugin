@@ -1,21 +1,16 @@
 /**
- * One-time migration: move flat product images into manufacturer subfolders.
+ * One-time migration: move flat product WebPs into manufacturer subfolders.
  *
  * Run: npx tsx scripts/migrate-product-images.ts
- * Optional: npx tsx scripts/migrate-product-images.ts -- originals
  */
 
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
-import {
-  productOriginalDir,
-  productWebpDir,
-} from "../lib/catalog/product-image-fs";
+import { productWebpDir } from "../lib/catalog/product-image-fs";
 
 const ROOT = path.resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
 const PRODUCTS_DIR = path.join(ROOT, "public/images/products");
-const ORIGINAL_DIR = path.join(PRODUCTS_DIR, "original");
 
 const CATALOG_MANUFACTURERS: Record<string, string> = {
   "lib/catalog/waves-products.ts": "waves",
@@ -90,16 +85,6 @@ async function moveWebp(
   );
 }
 
-async function moveOriginal(
-  slug: string,
-  manufacturerTag: string,
-): Promise<"moved" | "exists" | "missing"> {
-  return moveFile(
-    path.join(ORIGINAL_DIR, `${slug}.png`),
-    path.join(productOriginalDir(ROOT, manufacturerTag), `${slug}.png`),
-  );
-}
-
 async function updateCatalogPaths(
   catalogFile: string,
   manufacturerTag: string,
@@ -137,15 +122,7 @@ async function updateSeedSoundtoys(): Promise<void> {
   }
 }
 
-type MoveFn = (
-  slug: string,
-  manufacturerTag: string,
-) => Promise<"moved" | "exists" | "missing">;
-
-async function migrateManufacturerFiles(
-  move: MoveFn,
-  label: string,
-): Promise<{ moved: number; exists: number; missing: number }> {
+async function migrateManufacturerFiles(): Promise<void> {
   let moved = 0;
   let exists = 0;
   let missing = 0;
@@ -157,51 +134,33 @@ async function migrateManufacturerFiles(
     const slugs = slugsFromCatalog(content);
 
     for (const slug of slugs) {
-      const result = await move(slug, manufacturerTag);
+      const result = await moveWebp(slug, manufacturerTag);
       if (result === "moved") moved++;
       else if (result === "exists") exists++;
       else missing++;
     }
 
-    if (label === "webp") {
-      await updateCatalogPaths(catalogFile, manufacturerTag);
-      console.log(`Updated ${catalogFile} → ${manufacturerTag}/`);
-    }
+    await updateCatalogPaths(catalogFile, manufacturerTag);
+    console.log(`Updated ${catalogFile} → ${manufacturerTag}/`);
   }
 
   for (const slug of SOUNDTOYS_SLUGS) {
-    const result = await move(slug, "soundtoys");
+    const result = await moveWebp(slug, "soundtoys");
     if (result === "moved") moved++;
     else if (result === "exists") exists++;
     else missing++;
   }
 
-  if (label === "webp") {
-    await updateSeedSoundtoys();
-    console.log("Updated lib/seed.ts → soundtoys/");
-  }
+  await updateSeedSoundtoys();
+  console.log("Updated lib/seed.ts → soundtoys/");
 
   console.log(
-    `${label}: ${moved} moved, ${exists} already in place, ${missing} missing`,
+    `webp: ${moved} moved, ${exists} already in place, ${missing} missing`,
   );
-
-  return { moved, exists, missing };
 }
 
 async function main(): Promise<void> {
-  const mode = process.argv.includes("--originals")
-    ? "originals"
-    : process.argv.includes("--webp")
-      ? "webp"
-      : "all";
-
-  if (mode === "all" || mode === "webp") {
-    await migrateManufacturerFiles(moveWebp, "webp");
-  }
-
-  if (mode === "all" || mode === "originals") {
-    await migrateManufacturerFiles(moveOriginal, "originals");
-  }
+  await migrateManufacturerFiles();
 }
 
 main().catch((err) => {
